@@ -1,0 +1,1 @@
+alert("Note: If src is set, script content is ignored")
