@@ -1,0 +1,47 @@
+<html>
+
+<body>
+    <pre>
+        <h1>Type Conversions</h1>
+        - Convert object from one type to another
+
+        <h2>String Conversions</h2>
+        - Convert object of another type to String
+        - alert() converts anything inside of it to String
+        - Explic conversion requires "String()". Ex: String(wordToConvertToString)
+
+
+        <h2>Numeric Conversions</h2>
+        - Convert object to number
+        - Explicit conversion is possible. 
+
+        Ex: 
+        let str = "123"
+        let num = Number(str)
+
+        Numeric Conversion Rules:
+        Value           Becomes
+        undefined           Nan
+        null                0
+        true/false          1/0
+        string           WhiteSpaces are removed. Number is read from String. Error gives Nan
+
+
+        <h2>Boolean Conversions</h2>
+        - Converts to Boolean
+
+        Conversion Rule:
+        - You will get false for: Empty String, 0, null, undefined, NaN
+        - Else you will get True
+
+        Note:
+        - String with "0" or " " (Empty Spaces is String) is true
+
+    </pre>
+
+    <script src="typeConversion.js"></script>
+
+</body>
+
+
+</html>

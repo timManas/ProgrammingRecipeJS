@@ -1,19 +1,26 @@
 <html>
 
 <body>
-
-    <p>Alert Example</p>
+    <p>
+        Alert Example
+        <br>- shows a message.
+    </p>
     <script>
         alert("Alert")
     </script>
 
-    <p>Prompt Example</p>
+    <p>Prompt Example
+        <br>- Shows a message asking user to enter text and click on enter
+    </p>
     <script>
         result = prompt("Hello World", [])
         console.log("User Typed: " + result)
     </script>
 
-    <p>Confirm Example</p>
+    <p>Confirm Example
+        <br>- Shows a message and waits for user to click Ok or Cancel
+        <br>- Returns True for ok, false for cancel
+    </p>
     <script>
         result = confirm("Are you Tim")
         console.log("Is Tim: " + result)
