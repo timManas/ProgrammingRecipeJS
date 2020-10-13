@@ -1,0 +1,86 @@
+<html>
+
+<body>
+
+    <pre>
+        <h1>Functions & Function Expressions</h1>
+
+        - Similar to Javas Functions
+
+        <h2>Function Expressions</h2>
+        
+        - Similiar to anonymous functions in java
+        
+        
+        Ex:
+            let sayHi = function() {
+                alert( "Hello" );
+            };
+        
+        Funciton is created and assigned to a variable specifically like any variable value.
+
+        Ex3: Example where sayHi does not run until we call the func()
+        function sayHi() {   // (1) create
+            alert( "Hello" );
+          }
+          
+          let func = sayHi;    // (2) copy
+          
+          func(); // Hello     // (3) run the copy (it works)!
+
+        <h2> Function Declaration vs Function Expression </h2>
+        
+        1. Function Declaration
+        function sum(a, b) {
+          return a + b;
+        }
+
+        2. Function Expression
+        let sum = function(a, b) {
+            return a + b;
+          };
+        
+
+        Note:
+        - Function Declaration can be called earlier when it is defined ... unlike Function Expressions are run when they are called exactly at the moment
+        Ex:
+        sayHi("John"); // Hello, John
+
+        function sayHi(name) {
+          alert( `Hello, ${name}` );
+        }
+
+        <h2>CallBack Functions</h2>
+        - Ex:
+        function ask(question, yes, no) {
+          if (confirm(question)) yes()
+          else no();
+        }
+        
+        function showOk() {
+          alert( "You agreed." );
+        }
+        
+        function showCancel() {
+          alert( "You canceled the execution." );
+        }
+        
+        // usage: functions showOk, showCancel are passed as arguments to ask
+        ask("Do you agree?", showOk, showCancel);
+
+        
+
+        <h2>Summary</h2>
+        - Functions are values. Can be copied, assigned or declared in any place of code 
+        - 2 Types of functions: Funciton declaration & Function Expressions
+        - Function Declarations are your typical normal functions
+        - Function expressions are kinda like your anonymouse functions which get assigned to a variable
+
+    </pre>
+
+    <script src=functions.js></script>
+
+</body>
+
+
+</html>

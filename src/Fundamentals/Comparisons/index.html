@@ -1,0 +1,69 @@
+<html>
+
+<body>
+
+    <pre>
+        <h1>Comparisons</h1>
+        - Boolean is the result 
+
+
+        <h2>String comparisons</h2>
+        - Comparison is done lexiographically ... ie: Strings are compared letter by letter
+
+        <h2>Comparisons of Different Types</h2>
+        - When comparing values of different types, JS converts values to numbers
+        Ex:
+        alert('2' > 1) // true, string '2' becomes a number 2
+        alert('01' == 1) // true, string '01' becomes a number 1
+
+        <h2>Strict Equality "==="</h2>
+        - Regular equality check "==" cannot differentiate between 0 from false
+        Ex: alert(0 == false) // true
+        alert('' == false) // true
+
+        Why ? Because operands of different types are converted to NUMBERS by the equality operator ==
+
+        How to resolve issue ?
+        - Use a Strict Equality operator "==="
+        
+        <b>Strict Equality operator === will check the equality WITHOUT type conversion</b>
+        - Hence if a and b are of differenty types, a === b will automatically return false
+
+        <h2>Comparisons with null & undefined</h2>
+        - Undefined and null are weird  ...why ?
+        null === undefined    // Will return false
+        null == udefined       // Will return true
+
+        - When using maths to compare undefined or null:
+        > null becomes 0  
+        > undefined becomes NaN
+
+        Note:
+        null == 0 // false
+        null > 0 // false
+        null >= 0 // true
+
+        Why ? 
+        - Because equality check == and comparison  >, >= ...etc work differently
+        - Comparions convert null to a number, treating it as 0
+        - Equality check == for undefined and null  equals each other and dont equal anything else ... Hence null == 0 // false
+
+        - Also undefined should NOT be compared to other values
+
+        <h2>Tips and Tricks</h2>
+        - Treat any comparison with undefined / null  with strict equality comparator === 
+        - Do Not use comparisons >, >= ...etc with any variable which maybe null or undefined. Chek for them seperately
+
+        <h2>Summary</h2>
+        - Comparison operators return a boolean value.
+        - Strings are compared letter-by-letter in the “dictionary” order.
+        - The values null and undefined equal == each other and do not equal any other value.
+        - Be careful when using comparisons like > or < with variables that can occasionally be null/undefined. Checking for null/undefined separately is a good idea.
+
+    </pre>
+
+    <script src="comparisons.js"></script>
+
+</body>
+
+</html>
