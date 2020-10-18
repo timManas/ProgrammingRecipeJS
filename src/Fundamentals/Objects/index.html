@@ -1,0 +1,82 @@
+<html>
+
+
+<body>
+
+<pre>
+    <h1>Objects</h1>
+    
+    What ? 
+    - Used to store collections of data 
+
+    How to create an Object in JS ?
+    Ex:
+    let user = Object();
+    let user = {};      // this is called an Object literal
+
+    let user = {
+        name:"John",        // These are properties
+        age:"33"
+    }
+
+
+    Note:
+    - Objects declared with "const"  can be modified
+    Ex:
+    const user = {
+        name: "John"
+    }
+
+    user.name = "Tim"
+    console.log(user.name) // Returns Tim
+
+    Why does it not through an error ?
+    - const only throws an error if we try to set user to something else (ex. user = ...)
+
+    <h2>Square Brackets</h2>
+    - Used for multiword properties
+    - Rule of thumb: If the properties contain a space, then use the square brackets to access the properties
+    Ex:
+    let user = {}
+    user[Hello World] = true
+
+
+    <h2>Computer Properties</h2>
+    - We can use square brackets in object literal
+    
+    Ex:
+    let fruit = prompt("Which fruid do you want to buy", apple)
+    let bag = {
+        [fruit]:5,
+    }
+
+    alert(bag.apple)
+
+
+    <h2>Property Value Shorthand</h2>
+    Ex:
+    function makeUser(name, age) {
+        return {
+            name: name,
+            age: age,
+        }
+    }
+
+    let user = makeUser("Tim", "33")
+    alert(user.name)
+
+    Note:
+    - We can use normal properties and shorthand in the same Object
+    Ex:
+    let user = {
+        name,       // same as name:name
+        age:30
+    }
+
+
+</pre>
+
+
+</body>
+
+</html>
