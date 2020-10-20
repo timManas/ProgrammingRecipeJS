@@ -8,6 +8,7 @@
     
     What ? 
     - Used to store collections of data 
+    - <b>objects have key/value pairs where the key is a STRING and values can be anything</b>
 
     How to create an Object in JS ?
     Ex:
@@ -17,8 +18,11 @@
     let user = {
         name:"John",        // These are properties
         age:"33"
+        "Hello World": "Tim"    // Multiword properties need to have ""
     }
 
+    Note:
+    - the key in Objects are string ... if the property name is multiword with a space, we need to use double Quotes
 
     Note:
     - Objects declared with "const"  can be modified
@@ -36,13 +40,13 @@
     <h2>Square Brackets</h2>
     - Used for multiword properties
     - Rule of thumb: If the properties contain a space, then use the square brackets to access the properties
-    Ex:
+    Ex: 
     let user = {}
     user[Hello World] = true
 
 
-    <h2>Computer Properties</h2>
-    - We can use square brackets in object literal
+    <h2>Computed Properties</h2>
+    - We can use square brackets <b>"[]"</b>in object literal
     
     Ex:
     let fruit = prompt("Which fruid do you want to buy", apple)
@@ -73,9 +77,47 @@
         age:30
     }
 
+    <h2>Property existence test ... "in" operator</h2>
+    - In JS, its possible to access any property.
+     > If property does NOT exist, there will be no error =(
+     > Reading an undefined property just returns undefined
+
+     Ex:
+     let user = {}
+     console.log(user.noSuchProperty == undefined) // returns true
+
+    - We can also check if a property exists by using the "in" keyword
+
+    Ex:
+    let user = {
+        name: "John",
+        age: 30
+    }
+
+    console.log("age" in user)  // returns true
+    console.llog("helloworld" in user) // returns false
+
+    <h2>Object Properties Order</h2>
+    - Are object properties ordered ? 
+    > Somewhat. Integer properties are ordered, other appear in order of creation
+
+    Ex:
+    let user = {
+        name: "Tim",
+        surname: "Rom",
+    }
+    user.age = 33
+
+    for (let prop in user) {
+        console.log("Property: " + prop);
+    }
+
+
 
 </pre>
 
+
+<script src="objects.js"></script>
 
 </body>
 
