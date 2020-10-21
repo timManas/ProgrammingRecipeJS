@@ -13,6 +13,11 @@ console.log("Users Age: " + user.age)
 console.log("Users Dibberish: " + user["Hello World"])
 console.log("Users thing1: " + user.thing1)
 
+// How to delete a property ?
+console.log("Delete Hello World Property")
+delete user["Hello World"];
+console.log("User['Hello World']: " + user["Hello World"])
+
 
 // Computed properties
 console.log("Computed Properties")
@@ -60,4 +65,4 @@ let user2 = {
 for (let prop in user2) {
     console.log(prop)
 }
-console.log("Remember: Numbers come in first then properties in order they were created)
+console.log("Remember: Numbers come in first then properties in order they were created")

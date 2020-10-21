@@ -1,0 +1,70 @@
+<html>
+
+<body>
+
+<pre>
+    <h1>Object References and Copying</h1>
+
+    <h2>Comparison by Reference</h2>
+    - Two objects are equal ONLY if they are the same object
+    Ex:
+    let a = {}
+    let b = a
+    console.log(a==b) // true
+    console.log(a===b) // true 
+
+    Why ? 
+    - Because a and b both refer to the same object
+
+    <h2>Cloning and Merging</h2>
+    - How to clone an object ? 
+    Ex: 
+    let user = {
+        name: "Tim",
+        age: 33,
+    }
+    let clone = {}
+    
+    # Clone here
+    for (let key in user) {
+        clone[key] = user[key];
+    }
+
+    <h2>Object Assign</h2>
+    - We can also clone object using Object.assign
+
+    Syntax:
+    Object.assign(dest, [src1, src2, ...])
+    - dest is the target object
+    - src1, src2 are source objects which will copy all properties of src1,2 ...etc ONTO dest
+
+    Ex:
+    let user = {
+        name: "Tim",
+        age: 33
+    }
+
+    let src1 = {
+        Address: "1 York St."
+    }
+
+    let src2 = {
+        occupation: "Me"
+    }
+
+    Object.assign(user, src1, src2)     // Places all properties onto user
+    let clone = Object.assign({}, src1, src2)   // Creates new object and puts properties of src1 and src2 into new object
+
+    <h2>Nested Cloninng & DEEP Cloning</h2>
+    - TBD
+
+</pre>
+
+<script src="ObjectRef.js"></script>
+
+
+
+</body>
+
+
+</html>
