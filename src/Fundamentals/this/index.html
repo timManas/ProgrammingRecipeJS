@@ -1,0 +1,63 @@
+<html>
+
+<body>
+
+<pre>
+    <h1>"this"</h1>
+    - Used to access the object itself
+
+    Ex:
+    let user = {
+        name: "Tim",
+        age: 33,
+
+        sayHi() {
+            alert(this.name)      // Will call out Tim
+        }
+    };
+
+    user.sayHi()    // Tim
+    // Also notice we placed a function inside an object 
+
+    Note:
+    - 'this' can be used in any funciton, even if its not a method of an object
+    Ex:
+    function sayHi() {alert(this.name)}        // This is legal
+
+    In this case, the value of 'this' is evaluated at RunTime
+    Ex:
+    let user = {name: "John"}
+    let admin = {name: "Admin"}
+
+    function sayHi() {
+        alert(this.name)
+    }
+
+    // Use the same funciton in two objects
+    user.f = sayHi
+    admin.f = sayHi
+
+    user.f()    // Returns Tim
+    admin.f()   // Returns admin
+    admin['f']  // Returns admin
+
+    Warning: Calling 'this' without an object will return "Undefined"
+    Ex: function sayHi() {alert(this)}
+    sayHi()     // Returns Undefined
+
+    <h2>Arrow Functions have no "this"</h2>
+    - Arrow functions are special and have no "this"
+
+    <h2>Summary</h2>
+    - Functions that are stored in Object properties are called "methods"
+    - Methods can reference an object as "this"
+    - Value of 'this' is evaluated at run time
+    - A function can be copied between objects
+    - Arrow functions have no "this". When this is accessed inside an arrow function, it is taken from the outside
+</pre>
+
+<script src="thisExample.js"></script>
+
+</body>
+
+</html>
