@@ -1,0 +1,96 @@
+<html>
+
+<body>
+
+<pre>
+    <h1>Symbols</h1>
+    - Represent a Unique Identifier
+    - Can be created using 'Symbol()'
+
+    Ex: let id = Symbol()
+    let id2 = Symbol("id")      // the 'id' is the symbol name used for debugging purposes
+
+    - <b>Symbols are guaranteed to be unique. Even if we create symbols with the same name, they are differnt values</b>
+    - Symbols do NOT convert to String
+    Ex:
+    let id1 = Symbol("id")
+    let id2 = Symbol("id")
+    console.log(id1 === id2)        // Returns false
+
+    - We can access the Symbol name descripton by using: user.description
+    ex:
+    let id = Symbol("id")
+    alert(id.description)
+
+    <h2>Hidden Properties</h2>
+    - Symbols allow creation of "Hidden" properties that no other code can accidentally access or overwrite
+
+    ex:
+    let user = {
+        name:"Tim"
+    }
+    let id = Symbol("id")
+    user[id] = 1
+    console.log(user[id])   // We can access the data using Symbol as the key
+
+    Why use Symbol("id") vs "id" ?
+    - User may belong to another code, hence we should NOT add fields to it. (Very unsafe)
+    - Since symbols cannot be accessed accidentaly, hence the third-party code will not be able to see it
+
+
+    <h2>Symbols in Object Literals</h2>
+    - In order to use symbols in object literals, we need to place square brackets around it
+
+    Ex:
+    let id = Symbol("id")
+    let user = {
+        name:"Tim",
+        [id]: 123
+    }
+
+    <h2>Symbols are skipped by for ... in </h2>
+    - Symbolic properties do not get read in for ... in loop
+    Ex:
+    let id = Symbol("id")
+    let user = {
+        name: "Tim",
+        age:33,
+        [id]:123
+    }
+
+    for (let key in user)
+        alert(key)          // Does NOT return the Symbol [id]
+
+    <h2>Global Symbols</h2>
+    - Sometimes we need to access the exact same symbols
+    - Different part of the app needs to access symbol "id" meaning exactly the same property
+
+    How ?
+    - We need to use the Global system regisrty
+    - Create symbols in it and access them later.
+    - This guarantees that repeated access by the same name return exactly the same symbol
+
+    Ex:
+    let id = Symbol.for("id")       // Read from the global registy. If no exist, creates it
+    let id2 = Symbol.for("id")       
+
+    alert(id === id2)       // returns true
+
+    - Symbols inside the registry are called "Global Symbols". Accessible everywhere in the code
+    
+    <h2>Summary</h2>
+    - Symbols is a primitive type of unique Identifier
+    - Created with Symbol() with an optional description (name)
+    - Symbols are always different values, even if they have the same name
+        > We want same-named symbols to be equal, we need to use GLOBAL Registry: Symbol.for(key)
+        > Multiple calls of Symbol.for(key) with the same key returns the same Symbol
+    - Main uses of Symbols is to hide object properties
+    - Do not appear in for..in loops. To avoid accidental override
+
+</pre>
+
+<script src="symbols.js"></script>
+
+</body>
+
+</html>
