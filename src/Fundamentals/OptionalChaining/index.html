@@ -1,0 +1,49 @@
+<html>
+<body>
+
+<pre>
+    <h1>Optional Chaining</h1>
+    What ? 
+    - Safe way to access nested object properties EVEN if the property does not exist
+
+    How ?
+    - The optional chaining '?.' stops the evaluation if the part before the '?.' is undefined or null
+    - Returns 'undefined' if the value is undefined/null 
+
+    Ex:
+    let user = {}
+    alert(user?.address?.street)    // Returns undefined (no error)
+
+    let user = null
+    alert(user?.address?.street)
+
+    <h2>Short Ciruiting </h2>
+    - The ?. immediately stops the evaluation if the left part doesent exist
+    Ex:
+    let user = null
+    let x = 0
+
+    user?.sayHI(x++)        // sayHi is NOT evaluated since user is null
+    alert(x)                // x is still 0, since user was null and not evaluated
+
+
+    <h2>Other Variants</h2>
+    let userAdmin = {
+        admin() {
+            alert("I am admin")
+        }
+    }
+
+    userAdmin.admin?.()         // Returns I am admin because admin method exists and gets evaulated
+    userGuest.admin?.()         // nothing
+
+    <h2>Summary</h2>
+    - obj?.property - Returns obj.property if Obj exists AND property exists. Otherwise undefined
+    - obj?.[property]  - Returns obj.property if Obj exists AND property exists. Otherwise undefined
+    - obj.method?.()   - Returns obj.property if Obj exists AND method exists. Otherwise undefined
+</pre>
+
+<script src="optionalChaining.js"></script>
+</body>
+
+</html>
