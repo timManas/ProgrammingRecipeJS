@@ -1,0 +1,82 @@
+<html>
+
+<body>
+
+<pre>
+    <h1>Strings</h1>
+    - Primitive Type
+    - Even single chars are considered Strings in JS
+
+    <h2>Creation</h2>
+    - Can be enclosed in either single or double Quotes or backticks
+    ex:
+    let single = 'Hello'
+    let double = "World"
+
+    <h2>BackTicks</h2> 
+    - Allow user to embed any expression onto the string by wrapping it in ${}
+    - Allow a string to span multiple lines
+
+    Ex:
+    function sum(a,b) {
+        return a + b;
+    }
+    console.log(`1+2 = ${sum(1,2)}`);
+
+
+    <h2>String Length</h2>
+    - length is a property and NOT a function. Hence we dont add the () 
+    Ex:
+    let user = 'Hello'
+    console.log(user.length)    // returns 5
+
+    <h2>Access individual characters in a String</h2>
+    - To a specific character of a string, use square brackets [] or call the str.charAt(pos) 
+    Ex:
+    let user = `Hello`
+    for (let i=0; i &lt user.length;i++) {
+        console.log(user[i])
+        console.log(user.charAt(i))
+    }
+
+
+    <h2>Search for SubString</h2>
+    - Multiple ways to search for a SubString
+    1. str.indexOf()
+    2. includes()
+    3. startsWith()
+    4. endsWidth()
+
+
+    <h2>Get a SubString</h2>
+    - Three methods in JS to get SubString
+    1. subString()  // Between start and end
+    2. substr()     // Specify the length instead of end Position
+    3. slice()      // Prints from Start to End, allows negative
+
+    Ex:
+    let str = "Hello World"
+    console.log(str.slice(0,5))
+    console.log(str.slice(-5, -1))  // Prints in reverse
+    console.log(str.substr(2,5))    // prints 'llo W'
+
+
+
+
+    <h2>Summary</h2>
+    - 3 types of quotes
+    - Back ticks allows user to embed expressions in html
+    - JS uses UTF-16 encoding
+    - We can use special characters like \n and insert letters unicode using \u...
+    - To get a single character, we use [] or charAt()
+    - To get substring we use slice or substring
+    - To get index of Substring we use indexOf()
+
+</pre>
+
+
+<script src="strings.js"></script>
+
+</body>
+
+</html>
