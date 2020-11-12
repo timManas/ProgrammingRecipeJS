@@ -1,0 +1,51 @@
+<html>
+
+
+<body>
+
+<pre>
+    <h1>Arrays</h1>
+    - This is your typical arrays
+    - Can store elements of any type ..i.e primitives, objects and even functions
+    ex:
+    let arr = ['Apple', {name:"Tim"}, true, function() {console.log("Hello World")}]
+    - Arrays can have trailing commas just like objects
+    - Arrays are special objects
+
+
+    <h2>Creation of Arrays</h2>
+    - 2 Ways of creating an array in JS
+    Ex: let arr = new Array();
+        let arr = [];               // This syntax is used more 
+
+    <h2>Add Elements to Array using pop/push, shift/unshift</h2>
+    - push: appends an element to the end
+    - pop: Removes elements from the end
+    - Shift: Remove  and return an element from the beginning of the array , advancing the queue so that the 2nd element becomes the first
+    - Unshift: Add element to the beginning of the array
+
+    Note:
+    - Faster to Add/Remove from the end of the array
+    
+    <h2>Loops</h2>
+    Three different ways of looping through an array
+    1. for (let i = 0; i &lt arr.length; i++)  // the most since it is old browser compatible
+    2. for (let key of arr) {}                  // Gives access to its values only
+    3. for (let key in arr) {}                  // DO NOT USE .. Why ? iterates over all properties and not only numeric ones
+
+
+    <h2>Summary</h2>
+    - We can use arrays as stacks or queues
+
+    - Different ways of traversing Array
+    for (let i=0; i &lt arr.length; i++)  // Syntax is the fastest
+    for (let item of arr)                   // Modern syntax for items only
+    for (let i in arr)                  // NEVER USE
+
+</pre>
+
+<script src="arrays.js"></script>
+
+</body>
+
+</html>
