@@ -20,6 +20,7 @@ for (let item of arr2) {
     console.log("Arr[i]: " + item )
 }
 
+
 // Push / Pop
 console.log("Push/Pop: Used for add/remove at the END of the array")
 arr2.push("GoodMorning")                                     // Add last Element
@@ -36,5 +37,29 @@ console.log("Unshift new String in the beginning of the array: " + arr2)
 console.log("Shift Elements: " + arr2.shift())
 console.log("Current Arr after Shift: " + arr2)
 
+// Splice - Removes both the VALUE and Index by making it shorter
 
 
+
+// slice
+
+// concatentate two arrays
+
+// For Each
+
+// Search in Array
+// indexOf, lastIndexOf, includes
+// find, findIndex
+// filter
+
+// Transform an array
+// map
+// sort an Array 
+// reverse
+// split and join
+// reduce/reduceRight
+
+// fill 
+// copy
+
+// Map to Array
