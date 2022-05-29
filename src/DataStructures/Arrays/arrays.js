@@ -83,6 +83,18 @@ arr4.slice(1, 3)
 console.log('slice Arr: ' + arr4)
 
 // concatentate two arrays
+// syntax is arr.concat(arg1, arg2, ...)
+// The result is arr will contain values from arg1, arg2 and so on
+console.log('\nConcatenate')
+let arrCat = [1, 2, 3]
+console.log('Concatentated Arr: ' + arrCat.concat([4, 5, 6]))
+console.log(
+  'Concatenate two dimensional array: ' + arrCat.concat([7, 8], [9, 10])
+)
+console.log(
+  'Concatenate arr an array then add single digit values: ' +
+    arrCat.concat([11, 12], 50, 60)
+)
 
 // For Each
 
