@@ -97,6 +97,12 @@ console.log(
 )
 
 // For Each
+// Syntax: arr.forEach(function(item, index, array) {}
+console.log('\nforEach')
+const array1 = ['a', 'b', 'c']
+array1.forEach((item, index, array) =>
+  console.log(`${item} is at index  ${index} in array ${array}`)
+)
 
 // Search in Array
 // indexOf, lastIndexOf, includes
