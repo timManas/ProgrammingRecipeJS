@@ -105,6 +105,15 @@ array1.forEach((item, index, array) =>
 )
 
 // Search in Array
+console.log('\nSearch Array')
+
+console.log('\nindexOf, lastIndexOf, includes')
+let arrIndexOf = [1, 2, 3, 4, 5, 6, 0, false]
+console.log('IndexOf: ' + arrIndexOf.indexOf(1000))
+console.log('IndexOf: ' + arrIndexOf.indexOf(3))
+console.log('lastIndexOf:' + arrIndexOf.lastIndexOf(false)) // Finds actually false and NOT '0'
+console.log('includes: ' + arrIndexOf.includes(4))
+
 // indexOf, lastIndexOf, includes
 // find, findIndex
 // filter
