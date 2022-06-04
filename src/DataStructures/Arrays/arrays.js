@@ -107,6 +107,7 @@ array1.forEach((item, index, array) =>
 // Search in Array
 console.log('\nSearch Array')
 
+// indexOf, lastIndexOf, includes
 console.log('\nindexOf, lastIndexOf, includes')
 let arrIndexOf = [1, 2, 3, 4, 5, 6, 0, false]
 console.log('IndexOf: ' + arrIndexOf.indexOf(1000))
@@ -114,8 +115,23 @@ console.log('IndexOf: ' + arrIndexOf.indexOf(3))
 console.log('lastIndexOf:' + arrIndexOf.lastIndexOf(false)) // Finds actually false and NOT '0'
 console.log('includes: ' + arrIndexOf.includes(4))
 
-// indexOf, lastIndexOf, includes
 // find, findIndex
+// syntax: arr.find()
+// syntax: arr.find(function(item, index, array) {...})
+// If returns true, search is stopped. Item is returned.
+// If returns false, undefined is returned
+console.log('\nfind, findIndex')
+const users = [
+  { id: 1, name: 'tim' },
+  { id: 2, name: 'john' },
+  { id: 3, name: 'm' },
+]
+const user1 = users.find((item) => item.id == 2) // returns a specific Object within users
+console.log(user1.name)
+
+const user2 = users.find((item) => item.name == 'm')
+console.log(user2.name)
+
 // filter
 
 // Transform an array
