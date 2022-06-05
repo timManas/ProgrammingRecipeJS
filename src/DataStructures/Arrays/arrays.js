@@ -122,17 +122,33 @@ console.log('includes: ' + arrIndexOf.includes(4))
 // If returns false, undefined is returned
 console.log('\nfind, findIndex')
 const users = [
-  { id: 1, name: 'tim' },
-  { id: 2, name: 'john' },
-  { id: 3, name: 'm' },
+  { id: 1, name: 'Tim' },
+  { id: 2, name: 'John' },
+  { id: 3, name: 'M' },
 ]
 const user1 = users.find((item) => item.id == 2) // returns a specific Object within users
 console.log(user1.name)
 
 const user2 = users.find((item) => item.name == 'm')
-console.log(user2.name)
+console.log(user2)
 
 // filter
+// syntax: arr.filter(function(item, index, array) {...})
+// Filter will find multiple all elements which match
+console.log('\nFilter')
+let users1 = [
+  { id: 1, name: 'Tim' },
+  { id: 2, name: 'Tim' },
+  { id: 3, name: 'John' },
+  { id: 4, name: 'Tim' },
+  { id: 5, name: 'Romero' },
+]
+
+const filterUser1 = users1.filter((item) => item.name == 'Tim')
+const filterUser2 = users1.filter((item) => item.id < 3)
+
+console.log('Filtered Users: ' + filterUser1.length)
+console.log('Filtered Users: ' + filterUser2.length)
 
 // Transform an array
 // map
