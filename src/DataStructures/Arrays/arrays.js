@@ -151,7 +151,16 @@ console.log('Filtered Users: ' + filterUser1.length)
 console.log('Filtered Users: ' + filterUser2.length)
 
 // Transform an array
+console.log('\n------ Transform an Array -------')
+
 // map
+// syntax: arr.map(function(item,index, array) {...})
+// What ? Calls the function for each element of the array and returns the array of results
+console.log('\nmap.arr()')
+const arrMap = ['Hello', 'Tim', 'How', 'Are', 'You', 'Today']
+const lengths = arrMap.map((item) => item.length)
+console.log('Map Element Length: ' + lengths)
+
 // sort an Array
 // reverse
 // split and join
