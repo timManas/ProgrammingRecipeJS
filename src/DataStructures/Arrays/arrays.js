@@ -195,10 +195,33 @@ console.log(
 )
 
 // reverse
-// split and join
+console.log('\nreverse')
+// syntax: arr.reverse()
+const arrReverse = [1, 2, 3, 4, 5, 6, 7]
+console.log('reverse: ' + arrReverse.reverse())
+
+// split
+console.log('\nsplit')
+// syntax: arr.split(delim)
+const arrSplit = 'Hello Mr Tim . How are you today ?'
+const split = arrSplit.split(' ')
+console.log('split: ' + split)
+// Second argument allows only a specific size
+const arrSplit2 = 'Yo,Mr,Jay,How,Is,It,Going'
+const split2 = arrSplit2.split(',', 2)
+console.log('split with specific length: ' + split2)
+
+// join
+console.log('\njoin')
+const arrJoin = ['Heello', 'World', 'Mr', 'Tim']
+console.log('joined: ' + arrJoin.join(' '))
+console.log('joined: ' + arrJoin.join(','))
+
+const arrJoin1 = [1, 2, 3, 4, 5, 6, 7, 8]
+console.log('joined: ' + arrJoin1.join(''))
+console.log('joined: ' + arrJoin1.join(' '))
+
 // reduce/reduceRight
 
 // fill
 // copy
-
-// Map to Array
