@@ -162,6 +162,38 @@ const lengths = arrMap.map((item) => item.length)
 console.log('Map Element Length: ' + lengths)
 
 // sort an Array
+// syntax: arr.sort()
+console.log('\nsort')
+const arrSort = [3, 2, 1, 4, 6, 5]
+console.log('sorted: ' + arrSort)
+arrSort.sort()
+console.log('sorted: ' + arrSort)
+
+console.log('\nCustom sorting')
+// To use custom sorting, we need to provide a function to sort
+function compareNumeric(a, b) {
+  if (a > b) return 1
+  if (a == b) return 0
+  if (a < b) return -1
+}
+
+let arrCustomSort = [1, 6, 2, 5, 4, 3, 6]
+let arrCustomSort2 = ['Österreich', 'Andorra', 'Vietnam']
+
+console.log('Presorted: ' + arrCustomSort)
+console.log('Custom sorting: ' + arrCustomSort.sort(compareNumeric))
+console.log(
+  'Custom sorting using arrow funciton: ' + arrCustomSort.sort((a, b) => a - b)
+)
+
+const a = 'réservé' // with accents, lowercase
+const b = 'RESERVE' // no accents, uppercase
+
+console.log(
+  'Custom sorting for String usuing localeCompare: ' +
+    arrCustomSort2.sort((a, b) => a.localeCompare(b))
+)
+
 // reverse
 // split and join
 // reduce/reduceRight
