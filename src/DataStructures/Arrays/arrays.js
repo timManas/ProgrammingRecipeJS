@@ -234,35 +234,49 @@ const arrReduce = [1, 2, 3, 4, 5]
 let result = arrReduce.reduce((sum, current) => sum + current, 0)
 console.log('reduce result: ' + result)
 
-/**
- Summary
-To add/remove elements:
+console.log('------ Iterables -------')
 
-push(...items) – adds items to the end,
-pop() – extracts an item from the end,
-shift() – extracts an item from the beginning,
-unshift(...items) – adds items to the beginning.
-splice(pos, deleteCount, ...items) – at index pos deletes deleteCount elements and inserts items.
-slice(start, end) – creates a new array, copies elements from index start till end (not inclusive) into it.
-concat(...items) – returns a new array: copies all members of the current one and adds items to it. If any of items is an array, then its elements are taken.
-To search among elements:
+console.log('\nfor ..of iterables')
+// objects that use "for..of" are called iterable
+// Iterables must implement the method named "Symbol.Iteraor"
+let range = { from: 1, to: 5 }
 
-indexOf/lastIndexOf(item, pos) – look for item starting from position pos, return the index or -1 if not found.
-includes(value) – returns true if the array has value, otherwise false.
-find/filter(func) – filter elements through the function, return first/all values that make it return true.
-findIndex is like find, but returns the index instead of a value.
-To iterate over elements:
+range[Symbol.iterator] = function () {
+  return {
+    current: this.from,
+    last: this.to,
 
-forEach(func) – calls func for every element, does not return anything.
-To transform the array:
+    next() {
+      if (this.current <= this.last) {
+        return { done: false, value: this.current++ }
+      } else {
+        return { done: true }
+      }
+    },
+  }
+}
+for (let num of range) {
+  console.log('num: ' + num)
+}
+/*
+  Note
+  - range iteself does NOT have the next() method
+  - Instead another object is created by call of the Symbol.Iterator() and its next() generates values for the iteration
+*/
 
-map(func) – creates a new array from results of calling func for every element.
-sort(func) – sorts the array in-place, then returns it.
-reverse() – reverses the array in-place, then returns it.
-split/join – convert a string to array and back.
-reduce/reduceRight(func, initial) – calculate a single value over the array by calling func for each element and passing an intermediate result between the calls.
-Additionally:
+console.log('\nString Iterables')
+for (let char of 'test') {
+  console.log('char: ' + char)
+}
 
-Array.isArray(arr) checks arr for being an array.
+// The following example gives us more control of the iteration
+console.log('\nCalling an iterator explicitly')
+const str = 'Hello'
+let iterator = str[Symbol.iterator]()
 
- */
+while (true) {
+  const result = iterator.next()
+  if (result.done) break
+
+  console.log('letter: ' + result.value)
+}
