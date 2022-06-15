@@ -26,8 +26,11 @@ for (const [key, value] of map) {
 // return a value from map
 console.log('\nReturn value from map')
 console.log('first Element: ' + map.get('Hello'))
-console.log('first Element: ' + map.get(1))
-console.log('first Element: ' + map.get(true))
+console.log('second Element: ' + map.get(1))
+console.log('third Element: ' + map.get(true))
+console.log('first element: ' + map['Hello'])
+console.log('second element: ' + map[1])
+console.log('third Element: ' + map[true])
 
 // Check if map has key
 console.log('\nHasKey')
@@ -45,6 +48,12 @@ console.log('Has key num1 ? ' + map.has('num1'))
 
 // Find the size
 console.log('\nSize of map: ' + map.size)
+
+// Traverse Map using forEach
+console.log('\nTraverse Map using forEach')
+map.forEach((value, key, map) => {
+  console.log('value: ' + value + '   key: ' + key)
+})
 
 // Clear the map
 console.log('\nClear map')
