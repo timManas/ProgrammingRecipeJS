@@ -30,9 +30,24 @@ console.log('first Element: ' + map.get(1))
 console.log('first Element: ' + map.get(true))
 
 // Check if map has key
+console.log('\nHasKey')
+console.log('is Key Hello present: ' + map.has('Hello'))
+console.log('is Key Helloooo present: ' + map.has('Helloooo'))
+console.log('is Key True present: ' + map.has(true))
 
 // Delete key/value in map
-
-// Clear the map
+map.set('num1', 'Number1')
+map.set('num2', 'Number2')
+console.log('Delete key / value')
+console.log('Pre Deletion of key num1 ? ' + map.has('num1'))
+map.delete('num1')
+console.log('Has key num1 ? ' + map.has('num1'))
 
 // Find the size
+console.log('\nSize of map: ' + map.size)
+
+// Clear the map
+console.log('\nClear map')
+console.log('map Size: ' + map.size)
+map.clear()
+console.log('map Size: ' + map.size)
