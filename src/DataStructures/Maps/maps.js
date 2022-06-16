@@ -55,6 +55,27 @@ map.forEach((value, key, map) => {
   console.log('value: ' + value + '   key: ' + key)
 })
 
+// Traverse Map using keys, valuesx and entries()
+console.log('\nTraverse map using keys, values and entries')
+for (const key of map.keys()) {
+  console.log('key: ' + key)
+}
+for (const values of map.values()) {
+  console.log('values: ' + values)
+}
+for (const entries of map.entries()) {
+  console.log('entry: ' + entries)
+}
+
+// Pass an array with key, value pair for initalization
+console.log('\nPass array with key,value for initliazation')
+const map2 = new Map([
+  ['Hi', 'value1'],
+  [50, true],
+  [NaN, 'HelloWorld'],
+])
+console.log('map2 Size: ' + map2.size)
+
 // Clear the map
 console.log('\nClear map')
 console.log('map Size: ' + map.size)
