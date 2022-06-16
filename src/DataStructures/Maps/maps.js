@@ -76,6 +76,13 @@ const map2 = new Map([
 ])
 console.log('map2 Size: ' + map2.size)
 
+// Create an object from a map using Object.Entries
+console.log('\nCreate an object from map')
+const objectNew = Object.fromEntries(map2.entries())
+console.log('New object: ' + objectNew.Hi)
+// console.log('New object: ' + objectNew.50) // This does not work ... can only be a string
+console.log('New object: ' + objectNew.Nan)
+
 // Clear the map
 console.log('\nClear map')
 console.log('map Size: ' + map.size)
