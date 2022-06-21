@@ -21,6 +21,12 @@ set.forEach((value, value1, set) => {
   console.log('value: ' + value + '   value1: ' + value1 + '   set: ' + set)
 })
 
+// Print out values of set2
+console.log('\nPrint values of Set2')
+for (const entry in set.entries) {
+  console.log('Entry: ' + entry)
+}
+
 // Delete values in set
 console.log('\nDelete value in set')
 set.add('HelloMrTim')

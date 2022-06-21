@@ -88,3 +88,15 @@ console.log('\nClear map')
 console.log('map Size: ' + map.size)
 map.clear()
 console.log('map Size: ' + map.size)
+
+// Create a new map
+// WeakMap  are map but MUST have keys that are ob jects and NOT primitive values
+console.log('----- Weak Map -----')
+let obj = { Hello: 'World' }
+const weakMap = new WeakMap()
+weakMap.set(obj, 'ok')
+console.log('weakMap: ' + weakMap.get('Hello'))
+//weakMap.set('test', 'Whoops') // This WILL FAIL since key is not an object
+
+obj = null
+console.log('weakMap: ' + weakMap.get('Hello'))
