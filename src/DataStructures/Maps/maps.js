@@ -91,12 +91,15 @@ console.log('map Size: ' + map.size)
 
 // Create a new map
 // WeakMap  are map but MUST have keys that are ob jects and NOT primitive values
+// WeakMap do NOT support iteration and methods keys(), values(), entrie()
+// Why do we use WeakMap ? Additional data storage like caching
+// Scenario#1 - Work with data which belongs to another API, and would like to attach additional data to it. Should only exists when data is alive
 console.log('----- Weak Map -----')
 let obj = { Hello: 'World' }
 const weakMap = new WeakMap()
 weakMap.set(obj, 'ok')
-console.log('weakMap: ' + weakMap.get('Hello'))
+console.log('weakMap: ' + weakMap.get(obj))
 //weakMap.set('test', 'Whoops') // This WILL FAIL since key is not an object
 
 obj = null
-console.log('weakMap: ' + weakMap.get('Hello'))
+console.log('weakMap: ' + weakMap.get(obj))
