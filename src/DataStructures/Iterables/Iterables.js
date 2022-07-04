@@ -6,11 +6,11 @@ console.log('Iterables')
 // To make range object iterable, we add method to the object name symbol.iterator
 console.log('----- Symbol Iterator -----')
 
-let range = { from: 1, to: 5 }
+let range1 = { from: 1, to: 5 }
 
 // Example
 // 1. call to for..of initially calls this
-range[Symbol.iterator] = function () {
+range1[Symbol.iterator] = function () {
   // ...it returns the iterator object:
   // 2. Onward, for..of works only with the iterator object below, asking it for next values
   return {
@@ -29,7 +29,7 @@ range[Symbol.iterator] = function () {
   }
 }
 
-for (let num of range) {
+for (let num of range1) {
   console.log('num: ' + num)
 }
 
@@ -47,7 +47,7 @@ Notes
 */
 
 // Essentially we can merge and use range itself as the iterator like this
-let range = {
+let range2 = {
   from: 1,
   to: 5,
 
@@ -65,6 +65,49 @@ let range = {
   },
 }
 
-for (let num of range) {
-  alert(num) // 1, then 2, 3, 4, 5
+for (let num of range2) {
+  console.log(num) // 1, then 2, 3, 4, 5
 }
+
+// String is widely used iterable
+console.log('\nString is Iterable')
+console.log('Ex:1  Iterate over String')
+for (let char of 'HelloWorld') {
+  console.log(char)
+}
+
+// Call an iterator explicitly
+console.log('\nCall Iterator explicitly')
+
+let str = 'HelloWord'
+let iterator = str[Symbol.iterator]()
+
+while (true) {
+  let result = iterator.next()
+  if (result.done) break
+
+  console.log('result: ' + result.value)
+}
+
+/*
+Notes
+- Iterables are objects that implement  the Symbol.Iterator method
+- ArrayLikes are objects that have indexes and length ...so they look like array
+*/
+
+// Array Like
+console.log('\nExample of an object which is array like but not ITERABLE')
+let arrayLike = { 0: 'Hello', 1: 'World', length: 2 }
+// Will get an array if you uncomment this out
+// for (let item of arrayLike) {
+//   console.log(item)
+// }
+
+// Array.from - How to convert iterable or array-like value makes them a "REAL" array
+// Synyax: Array.from(obj[,mapFn, thisArg])
+console.log('\nArray.from')
+let arr = Array.from(arrayLike)
+console.log('Pop last element: ' + arr.pop())
+
+let arr2 = Array.from(range2, (num) => num * num)
+console.log('Arr2: ' + arr2)
