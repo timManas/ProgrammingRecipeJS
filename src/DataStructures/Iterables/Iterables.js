@@ -105,6 +105,8 @@ let arrayLike = { 0: 'Hello', 1: 'World', length: 2 }
 
 // Array.from - How to convert iterable or array-like value makes them a "REAL" array
 // Synyax: Array.from(obj[,mapFn, thisArg])
+// mapFn can be a function that will applied to each eklement before adding it to the array
+// thisArg allows us to set this
 console.log('\nArray.from')
 let arr = Array.from(arrayLike)
 console.log('Pop last element: ' + arr.pop())
