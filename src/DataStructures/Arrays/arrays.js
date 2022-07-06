@@ -280,3 +280,57 @@ while (true) {
 
   console.log('letter: ' + result.value)
 }
+
+// Array Destructuring
+// Note: Array Destructuring does NOT modify the array
+console.log('\nArray Destructuring')
+let arr5 = ['John', 'Smith']
+let [firstName, lastName] = arr5
+console.log('FirstName: ' + firstName + '   LastName: ' + lastName)
+
+// Ex#2
+const word = 'Hello World'
+let [firstName1, lastName1] = word.split(' ')
+console.log('FirstName: ' + firstName1 + '   LastName: ' + lastName1)
+
+// Ex#3 - Throw away unwanted element
+let arr6 = ['John', 'Smith', 'Tim', 'Sarah']
+let [firstName2, , , lastName2] = arr6
+console.log(
+  'FirstName: ' +
+    firstName2 +
+    '   LastName: ' +
+    lastName2 +
+    '  Note: only John and Sarah are used. The empty , are skipping the values'
+)
+
+// Ex#4:  Create object
+let user = {}
+;[user.name, user.lastName] = 'Joe Star'.split(' ')
+console.log('FirstName: ' + user.name + '   LastName: ' + user.lastName)
+
+// Ex:5 Loop with Entries
+console.log('\nLoop with Entries using Destructuring')
+for (let [key, value] of Object.entries(user)) {
+  console.log(`${key}: ${value}`)
+}
+
+// Ex:6 Using ...rest of the entires
+let [name1, name2, ...titles] = [
+  'Julius',
+  'Caesar',
+  'Consul',
+  'of the Roman Republic',
+]
+console.log(
+  'Use ... to represent remainder of array    - name1: ' +
+    name1 +
+    '   name2: ' +
+    name2 +
+    '    titles: ' +
+    titles
+)
+
+// Ex:7 - Set Default values when destructuring
+let [name = 'Guest', last = 'GuesLastName'] = []
+console.log('Default FirstName: ' + name + '   Default LastName: ' + last)
