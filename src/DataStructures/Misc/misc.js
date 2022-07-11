@@ -1,5 +1,7 @@
 console.log('----- Misc Items -----')
 
+// Full syntax: let json = JSON.stringify(value[, replacer, space])
+
 // Convert object to JSON
 // Works on almost all types
 
@@ -35,3 +37,47 @@ let student1 = {
   },
 }
 console.log('Converted JSON object to JSON: ' + JSON.stringify(student1))
+
+console.log('\nReplace R')
+// Full syntax: let json = JSON.stringify(value[, replacer, space])
+//Excluding and transforming: replacer
+// value is value to encode
+//replacer: is an array of properties to encode or a mapping function
+// Use replacer when we need to fine-tune the replacement process ex: Filtrer out circular references
+
+// Ex:1 Has a circular reference
+let room = { number: 23 }
+let meetup = {
+  title: 'Conference',
+  participants: [{ name: 'John' }, { name: 'Alice' }],
+  place: room,
+}
+
+room.occupiedBy = meetup // This is a circular reference
+console.log('Meetup: ' + JSON.stringify(meetup, ['title', 'participants']))
+console.log(
+  'Exclude all property except occupiedBy : ' +
+    JSON.stringify(meetup, ['title', 'participants', 'place', 'name', 'number'])
+)
+
+// This will fail since occupiedBy creates a circular reference
+// console.log(
+//   'All property : ' +
+//     JSON.stringify(meetup, [
+//       'title',
+//       'participants',
+//       'place',
+//       'name',
+//       'number',
+//       'occupiedBy',
+//     ])
+// )
+
+console.log('\nUse replacer to avoid the circular reference')
+console.log(
+  'Use replaceR to avoid circular reference: ' +
+    JSON.stringify(meetup, function replacer(key, value) {
+      console.log(`${key}: ${value}`)
+      return key == 'occupiedBy' ? undefined : value
+    })
+)
