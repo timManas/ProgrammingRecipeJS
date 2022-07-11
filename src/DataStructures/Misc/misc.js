@@ -101,3 +101,14 @@ console.log(
     '   Notice: Date is now in stirng format'
 )
 console.log('JSON Stringify: ' + JSON.stringify(room1))
+
+// JSON.parse
+// What ? Decode a JSON-string
+//syntax: let value = JSON.parse(str, [reviver]);
+// str NEEDS to be in JSON-STRING ....not object or any other format
+console.log('\nJSON.parse')
+
+let userData = '{ name: "Hello", age: 64, color: "Blue", friends: [3, 4, 5] }'
+let user2 = JSON.parse(userData)
+
+console.log('user parsed: ' + user2)
