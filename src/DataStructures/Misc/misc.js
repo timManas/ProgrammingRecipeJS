@@ -81,3 +81,23 @@ console.log(
       return key == 'occupiedBy' ? undefined : value
     })
 )
+
+// Custom toJSON()
+console.log('\nCustom to JSON')
+let room1 = {
+  number: 23,
+  toJSON() {
+    return this.number
+  },
+}
+
+let meetup1 = {
+  title: 'Conference',
+  date: new Date(Date.UTC(2017, 0, 1), room1),
+}
+console.log(
+  'JSON Stringify: ' +
+    JSON.stringify(meetup1) +
+    '   Notice: Date is now in stirng format'
+)
+console.log('JSON Stringify: ' + JSON.stringify(room1))
