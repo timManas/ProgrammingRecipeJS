@@ -108,7 +108,33 @@ console.log('JSON Stringify: ' + JSON.stringify(room1))
 // str NEEDS to be in JSON-STRING ....not object or any other format
 console.log('\nJSON.parse')
 
-let userData = '{ name: "Hello", age: 64, color: "Blue", friends: [3, 4, 5] }'
-let user2 = JSON.parse(userData)
+let userData1 =
+  '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }'
+let user2 = JSON.parse(userData1)
 
-console.log('user parsed: ' + user2)
+console.log('user parsed: ' + user2.friends[0])
+
+// reviver
+// Deserialize JSON String to object, then back to JSON
+console.log('\nreviver')
+let str1 = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}'
+let meetup2 = JSON.parse(str1, (key, value) => {
+  if (key == 'date') return new Date(value)
+
+  return value
+})
+console.log('meetup date: ' + meetup2.date.getDate())
+
+// reviver works for nested objects too
+let schedule = `{
+  "meetups": [
+    {"title":"Conference","date":"2017-11-30T12:00:00.000Z"},
+    {"title":"Birthday","date":"2017-04-18T12:00:00.000Z"}
+  ]
+}`
+schedule = JSON.parse(schedule, (key, value) => {
+  if (key == 'date') return new Date(value)
+
+  return value
+})
+console.log('find second date: ' + schedule.meetups[1].date.getDate())
