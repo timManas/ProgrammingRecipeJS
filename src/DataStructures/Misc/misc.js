@@ -138,3 +138,25 @@ schedule = JSON.parse(schedule, (key, value) => {
   return value
 })
 console.log('find second date: ' + schedule.meetups[1].date.getDate())
+
+// Using '...args'
+// Allows us to enter any random number of arguments
+// Note: ...args must be at the END of the argument ...Not in the beginning or end (ex:  function sum(...args, firstname, lastname) OR function sum(firstname, ....args, lastname))
+console.log('\nUsing ...args')
+function sum(...args) {
+  let sum = 0
+  for (let arg of args) {
+    sum += arg
+  }
+  return sum
+}
+console.log('sum using ...args: ' + sum(1, 2, 3))
+console.log('sum using ...args: ' + sum(1, 2, 3, 4))
+
+console.log('\nUse ...args to set the remainder')
+function showName(firstName, secondName, ...titles) {
+  console.log('firstName: ' + firstName)
+  console.log('secondName: ' + secondName)
+  console.log('titles: ' + titles)
+}
+showName('Tim', 'John', 'Dr', 'Prof', 'MC', 'GOAT') // Notice only firstname and lastname are displayed seperatly. The rest are displayed in titles
