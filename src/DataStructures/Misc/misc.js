@@ -160,3 +160,35 @@ function showName(firstName, secondName, ...titles) {
   console.log('titles: ' + titles)
 }
 showName('Tim', 'John', 'Dr', 'Prof', 'MC', 'GOAT') // Notice only firstname and lastname are displayed seperatly. The rest are displayed in titles
+
+console.log('\narguments variable')
+// Special Array-like object name arguments that contains all arguments by their index
+// Applies to NON arrow funcitons only
+// It is internal and does not need to be defined in the function argument
+function showName1() {
+  console.log('argument length: ' + arguments.length)
+  console.log('firstName: ' + arguments[0])
+  console.log('secondName: ' + arguments[1])
+  console.log('thirdName: ' + arguments[2])
+  console.log('thirdName: ' + arguments[3])
+}
+
+showName1('Tim', 'John', 'Dr', 'Prof', 'MC', 'GOAT') // Notice only firstname and lastname are displayed seperatly. The rest are displayed in titles
+
+console.log('\nSpread syntax')
+// Allows us to pass a list of elements from an array
+// Only works with iterables ...not Array-likes
+
+// The following Example will NOT work
+let arr = [3, 5, 1]
+console.log('max: ' + Math.max(arr)) // you will get NaN since Math.max is expecting a value
+
+// You could manually enter each one by one but its tedious
+// Or you can try the spread syntacx
+console.log('max: ' + Math.max(...arr))
+
+// We can even do multiple spreads
+
+let arr1 = [1, 4, 2, 5]
+let arr2 = [2, 7, 1, 6]
+console.log('Max: ' + Math.max(...arr, 2, ...arr1, 3, ...arr2))
