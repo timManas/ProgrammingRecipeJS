@@ -188,7 +188,15 @@ console.log('max: ' + Math.max(arr)) // you will get NaN since Math.max is expec
 console.log('max: ' + Math.max(...arr))
 
 // We can even do multiple spreads
-
 let arr1 = [1, 4, 2, 5]
 let arr2 = [2, 7, 1, 6]
 console.log('Max: ' + Math.max(...arr, 2, ...arr1, 3, ...arr2))
+
+// Copy an object using spread syntax
+let obj = { a: 1, b: 4, c: 23 }
+let objCopy = { ...obj }
+console.log(
+  'Do objects have same contents ? ' + JSON.stringify(obj) ===
+    JSON.stringify(objCopy)
+)
+console.log('Are objects equal: ' + obj === objCopy)
