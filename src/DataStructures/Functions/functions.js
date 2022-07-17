@@ -36,3 +36,31 @@ function ask(question, ...handlers) {
 }
 ask('Hello', 'Yes')
 ask('Hello', 'Yes', 'No', 'why')
+
+console.log('\nCustomer property of functions')
+// We can also add custom properties of functions
+
+// Ex:1 Adding custom counter to function
+function customFun() {
+  customFun.counter++
+}
+customFun.counter = 0
+
+customFun()
+customFun()
+console.log('Counter: ' + customFun.counter)
+
+// Ex2: Using custom counter to return variable
+function customFunction() {
+  function counter() {
+    return counter.count++
+  }
+
+  counter.count = 0
+  return counter // counter returns the reference to the function counter
+}
+
+let custom = customFunction()
+console.log(custom())
+console.log(custom())
+console.log(custom())
