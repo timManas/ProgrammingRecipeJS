@@ -61,6 +61,25 @@ function customFunction() {
 }
 
 let custom = customFunction()
-console.log(custom())
-console.log(custom())
-console.log(custom())
+console.log('Counter: ' + custom())
+console.log('Counter: ' + custom())
+console.log('Counter: ' + custom())
+
+// Override the function
+custom.count = 10
+console.log('Counter: ' + custom())
+
+// NFE - Named Function expression
+console.log('\nNFE - Named Function Expression')
+// Allows function to reference itself interally. Not visible outside of the function
+// This is similar from recursively calling itself again but different since the external code can change
+
+// Ex:1 Reference calling itself twice
+let sayHi3 = function func(who) {
+  if (who) {
+    console.log(`Hello: ` + who)
+  } else {
+    func('Guest')
+  }
+}
+sayHi3() // Notice there is no argument
