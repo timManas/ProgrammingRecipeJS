@@ -83,3 +83,13 @@ let sayHi3 = function func(who) {
   }
 }
 sayHi3() // Notice there is no argument
+
+console.log("\n'new' function syntax ")
+// Rarely used but used to create a function
+// Allows us to turn any string to a function
+// Syntax: let func = new Function([arg1, arg2, ...argN], functionBody)
+// Function is created literally from a string that is passed during run time
+
+// Ex:1
+let sum = new Function('a', 'b', 'return a + b')
+console.log('Sum using new function: ' + sum)
