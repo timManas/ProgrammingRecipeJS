@@ -93,3 +93,5 @@ console.log("\n'new' function syntax ")
 // Ex:1
 let sum = new Function('a', 'b', 'return a + b')
 console.log('Sum using new function: ' + sum)
+
+console.log("\n'closure' syntax")
