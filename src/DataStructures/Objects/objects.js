@@ -59,4 +59,23 @@ console.log(JSON.stringify(descriptor, null, 2)) // you will see the properties 
 let user3 = {}
 Object.defineProperty(user3, 'name', { value: 'John' })
 let descriptor3 = Object.getOwnPropertyDescriptors(user3, 'name')
-console.log(JSON.stringify(descriptor3, null, 2))
+console.log(JSON.stringify(descriptor3, null, 2)) // Since flags are not provided, it is assumed false for all of them
+
+// Non-Writable
+console.log('\nNon writable')
+let user4 = { name: 'John' }
+Object.defineProperty(user4, 'name', { writable: false })
+console.log('user4 name: ' + user4.name)
+user4.name = 'Tim' // Name is Not changed
+console.log('user4 name: ' + user4.name) // Errors only appear in strict mode. In non strict mode, no errors occur when writing to non-writable properties
+
+// Ex:1 Property is created from scratch
+let user5 = {}
+Object.defineProperty(user5, 'name', {
+  value: 'John',
+  enumerable: true,
+  configurable: true,
+})
+console.log('user5 name: ' + user5.name)
+user5.name = 'Tim'
+console.log('user5 name: ' + user5.name)
