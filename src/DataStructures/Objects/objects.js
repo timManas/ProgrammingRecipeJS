@@ -79,3 +79,21 @@ Object.defineProperty(user5, 'name', {
 console.log('user5 name: ' + user5.name)
 user5.name = 'Tim'
 console.log('user5 name: ' + user5.name)
+
+// Non- Enumerable
+// Nob enumerable properties are excluded from for loops and Object.keys
+console.log('\nNon Enumerable')
+// Ex:1
+let userNonEnumerable = {
+  name: 'John',
+  toString() {
+    return this.name
+  },
+}
+for (let key in userNonEnumerable) console.log('key:' + key) // We will get name, toString
+
+// We can hide toString by setting enumerable:false
+// Ex2: Hide toString() by modifying object property to enumerable:false
+console.log('Hiding the toString method by setting the enumerable to false')
+Object.defineProperty(userNonEnumerable, 'toString', { enumerable: false })
+for (let key in userNonEnumerable) console.log('key:' + key) // We will get name, toString
