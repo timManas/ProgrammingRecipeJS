@@ -97,3 +97,37 @@ for (let key in userNonEnumerable) console.log('key:' + key) // We will get name
 console.log('Hiding the toString method by setting the enumerable to false')
 Object.defineProperty(userNonEnumerable, 'toString', { enumerable: false })
 for (let key in userNonEnumerable) console.log('key:' + key) // We will get name, toString
+
+// Non-Configurable
+// These are properties which cant be modified or deleted
+// Note: configurable: false prevents changes to property flags and its deleteion while STILL allowing to change its value
+console.log('\nNon Configurable')
+
+// Ex:1
+let user6 = {
+  name: 'John',
+}
+
+Object.defineProperty(user6, 'name', {
+  configurable: false,
+})
+
+user6.name = 'Pete' // works fine
+delete user6.name // Error
+console.log('name: ' + user6.name) // Notice we are unable to delete
+
+// Ex2: Change object property to be non writable too
+console.log('\nChange object property to be non writable')
+let userT = {
+  name: 'John',
+}
+Object.defineProperty(userT, 'name', {
+  writable: false,
+  configurable: false,
+})
+
+// won't be able to change user.name or its flags
+// all this won't work:
+// userT.name = 'Pete'
+// delete userT.name
+// Object.defineProperty(userT, 'name', { value: 'Pete' })
