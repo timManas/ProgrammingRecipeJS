@@ -131,3 +131,26 @@ Object.defineProperty(userT, 'name', {
 // userT.name = 'Pete'
 // delete userT.name
 // Object.defineProperty(userT, 'name', { value: 'Pete' })
+
+// Object.defineProperties
+console.log('\nObject.defineProperties')
+/** Allows us to define many properties at once
+syntax is: 
+Object.defineProperties(obj, {
+  prop1: descriptor1,
+  prop2: descriptor2
+  // ...
+});
+*/
+// Ex1: For instance
+let userObjDefineProperties = {}
+Object.defineProperties(userObjDefineProperties, {
+  name: { value: 'John', writable: false, configurable: false },
+  surname: { value: 'Doe', writable: false },
+})
+console.log('name: ' + userObjDefineProperties.name)
+console.log('surname: ' + userObjDefineProperties.surname)
+
+// Try to modify the firstname
+userObjDefineProperties.name = 'Peter'
+console.log('name: ' + userObjDefineProperties.name) // Notice name is still John and not peter
