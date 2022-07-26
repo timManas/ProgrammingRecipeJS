@@ -145,7 +145,7 @@ Object.defineProperties(obj, {
 // Ex1: For instance
 let userObjDefineProperties = {}
 Object.defineProperties(userObjDefineProperties, {
-  name: { value: 'John', writable: false, configurable: false },
+  name: { value: 'John', writable: false },
   surname: { value: 'Doe', writable: false },
 })
 console.log('name: ' + userObjDefineProperties.name)
