@@ -23,3 +23,20 @@ console.log('prop name: ' + obj.propName)
 // Setter
 obj.propName = 'Jazzy J'
 console.log('prop name: ' + obj.propName)
+
+// Accessor Descriptors
+// Acceptor descriptors may have get,set, enumerable and configurable
+// Note: Property can either be acceor or data property butr NOT both
+console.log('\nAccessor Descriptors')
+
+// Ex1
+let user = { name: 'John', surname: 'Doe' }
+Object.defineProperty(user, 'fullName', {
+  get() {
+    return `${this.name}  ${this.surname}`
+  },
+  set(value) {
+    ;[this.name, this.surname] = value.split(' ')
+  },
+})
+console.log('user fullName: ' + user.fullName)
