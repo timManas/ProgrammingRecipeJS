@@ -40,3 +40,23 @@ Object.defineProperty(user, 'fullName', {
   },
 })
 console.log('user fullName: ' + user.fullName)
+
+// Smarter getters and Setters
+// Use a getter to set specific values in the object property
+console.log('\nSmart getters and Setters')
+
+function User(name, birthday) {
+  this.name = name
+  this.birthday = birthday
+
+  Object.defineProperty(this, 'age', {
+    get() {
+      let todayYear = new Date().getFullYear()
+      return todayYear - this.birthday.getFullYear() // Notice we use birthday.getFullYear ... this is due to new Date()
+    },
+  })
+}
+
+let john = new User('John', new Date(1978, 2, 3))
+console.log('Birthday: ' + john.birthday)
+console.log('Age: ' + john.age)
