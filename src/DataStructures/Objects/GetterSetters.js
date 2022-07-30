@@ -59,4 +59,4 @@ function User(name, birthday) {
 
 let john = new User('John', new Date(1978, 2, 3))
 console.log('Birthday: ' + john.birthday)
-console.log('Age: ' + john.age)
+console.log('Age: ' + john.age) // Use the getter
