@@ -29,10 +29,38 @@ let animal2 = {
     console.log('Animal walk')
   },
 }
-
 let rabbit2 = {
   jumps: true,
   __proto__: animal2, //
 }
-
 rabbit2.walk()
+
+// Note: Prototype is ONLY used for reading properties.
+// Write/Delete operations works directly with the object
+
+//Ex3:
+let animal3 = { eats: true, walk() {} }
+let rabbit3 = { __proto__: animal3 }
+rabbit3.walk = function () {
+  console.log('Rabbit walks')
+}
+rabbit3.walk() // Rabbit walks find the method immediately in the object and executes it, without using prototype
+
+// Ex4
+let user = {
+  name: 'John',
+  lastname: 'Smith',
+  set fullName(value) {
+    ;[this.name, this.lastname] = value.split(' ')
+  },
+  get fullName() {
+    return `${this.name} ${this.lastname}`
+  },
+}
+
+let admin = { __proto__: user, isAdmin: true }
+
+console.log(admin.fullName)
+admin.fullName = 'Alice Cooper'
+console.log(admin.fullName) // Alice Cooper
+console.log(user.fullName) // John Smith, state of the user is protected
