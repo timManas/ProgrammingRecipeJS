@@ -71,6 +71,18 @@ let animal4 = { eats: true }
 let rabbit = { jumps: true, __proto__: animal4 }
 for (let prop in rabbit) console.log('Property: ' + prop)
 
+// Object Prototypes
+// Let us create objects by using Object.prototype as the [[Prototype]]
+console.log('----- Native Prototypes -----')
+console.log('\nObject Prototypes')
+// Ex1
+let obj = {} // This is the same as let obj = new Object()
+console.log(obj.__proto__ === Object.prototype) // true
+console.log(obj.toString === obj.__proto__.toString) //true
+console.log(obj.toString === Object.prototype.toString) //true
+
+// Ex
+
 /**
  
 Summary
