@@ -81,7 +81,16 @@ console.log(obj.__proto__ === Object.prototype) // true
 console.log(obj.toString === obj.__proto__.toString) //true
 console.log(obj.toString === Object.prototype.toString) //true
 
-// Ex
+console.log('\nCreate Protype using Object.setPrototype ')
+// Ex1
+let animal5 = { eats: true }
+let rabbit5 = {}
+Object.setPrototypeOf(rabbit5, animal5)
+console.log('rabbit5 eats ? ' + rabbit5.eats)
+console.log(
+  'rabbit5 prototype is animal5 :  ' +
+    (Object.getPrototypeOf(rabbit5) === animal5)
+)
 
 /**
  
@@ -95,4 +104,7 @@ Summary
  - The for..in loop iterates over both its own and its inherited properties. All other key/value-getting methods only operate on the object itself.
 
 
+  To create an object with the given prototype, use:
+    > literal syntax: { __proto__: ... }, allows to specify multiple properties
+    > or Object.create(proto, [descriptors]), allows to specify property descriptors.
  */
