@@ -92,6 +92,13 @@ console.log(
     (Object.getPrototypeOf(rabbit5) === animal5)
 )
 
+console.log('\nCreate Prototypse using Object.create')
+// Ex1
+let animal6 = { eats: true }
+let rabbit6 = Object.create(animal6, { jumps: { value: true } })
+console.log(rabbit6.jumps)
+console.log(rabbit.eats)
+
 /**
  
 Summary
