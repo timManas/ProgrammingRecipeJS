@@ -93,11 +93,13 @@ console.log(
 )
 
 console.log('\nCreate Prototypse using Object.create')
+// You cam create Prototype using Object.create
+// Second argument in Object.create are optional descriptors
 // Ex1
 let animal6 = { eats: true }
 let rabbit6 = Object.create(animal6, { jumps: { value: true } })
-console.log(rabbit6.jumps)
-console.log(rabbit.eats)
+console.log('jumps: ' + rabbit6.jumps)
+console.log('eats: ' + rabbit.eats)
 
 /**
  
@@ -113,5 +115,5 @@ Summary
 
   To create an object with the given prototype, use:
     > literal syntax: { __proto__: ... }, allows to specify multiple properties
-    > or Object.create(proto, [descriptors]), allows to specify property descriptors.
+    > or Object.create(proto, [descriptors]), allows to specify property descriptors. ARISE
  */
