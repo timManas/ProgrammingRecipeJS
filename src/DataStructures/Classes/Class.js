@@ -83,3 +83,20 @@ console.log('User4 name: ' + user4.name) // Should still see "Johns"
 
 user4 = new User4('A')
 console.log('User4 name: ' + user4.name) // Should now see undefined
+
+// Class Fields
+// Syntax to add any properties
+// They are set on individual objects ..not User.prototypes
+console.log('\nClass Fields')
+
+// Ex1
+class User5 {
+  name = 'John'
+
+  sayHi() {
+    console.log('Saying Hello')
+  }
+}
+let user6 = new User()
+user6.sayHi()
+console.log('Prototype : ' + User5.prototype.sayHi()) // undefined
