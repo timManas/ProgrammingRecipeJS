@@ -100,3 +100,52 @@ class User5 {
 let user6 = new User()
 user6.sayHi()
 console.log('Prototype : ' + User5.prototype.sayHi()) // undefined
+
+// Class Inheritance
+console.log('\nClass Inheritance')
+
+// Extends keyword
+class Animal {
+  constructor(name) {
+    this.speed = 0
+    this.name = name
+  }
+
+  run(speed) {
+    this.speed = speed
+    console.log('Runs with speed:' + this.speed)
+  }
+
+  stop() {
+    this.speed = 0
+    console.log('Stopped')
+  }
+}
+
+// Rabbit extends Animal
+class Rabbit extends Animal {
+  hide() {
+    console.log('Hiding')
+  }
+}
+
+let rabbit = new Rabbit('Bob')
+rabbit.run(50)
+rabbit.stop()
+rabbit.hide()
+
+let animal = new Animal('Animal')
+// animal.hide()   // This will cause an error
+
+// Ex2 - Any expression  is allowed after extends
+function f(phrase) {
+  return class {
+    sayHi() {
+      console.log(phrase)
+    }
+  }
+}
+
+class User7 extends f('Hello') {}
+
+new User7().sayHi() // Hello
