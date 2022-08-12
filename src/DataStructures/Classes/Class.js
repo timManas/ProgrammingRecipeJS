@@ -147,5 +147,43 @@ function f(phrase) {
 }
 
 class User7 extends f('Hello') {}
-
 new User7().sayHi() // Hello
+
+// Overriding a Method
+// Use super.methodName(...) to call parent method
+// use super() to call the parent constructor
+// Note: Arrow functions do NOT have a super. If accessed, it is taken from the outer function ....
+console.log('\nOverriding a Method')
+
+// Ex1
+class Animal1 {
+  constructor(name) {
+    this.speed = 0
+    this.name = name
+  }
+
+  run(speed) {
+    this.speed = speed
+    console.log(this.name + 'runs at speed: ' + this.speed)
+  }
+
+  stop() {
+    this.speed = 0
+    console.log(`${this.name} has stopped`)
+  }
+}
+
+class Rabbit1 extends Animal1 {
+  hide() {
+    console.log(`${this.name} hides`)
+  }
+
+  stop() {
+    super.stop()
+    this.hide()
+  }
+}
+
+let rabbit1 = new Rabbit1('Wabbit')
+rabbit1.run(50)
+rabbit1.stop()
