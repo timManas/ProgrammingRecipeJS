@@ -211,3 +211,30 @@ let rabbit2 = new Rabbit2('Wabitz', 'Blue')
 console.log('name: ' + rabbit2.name)
 console.log('_name: ' + rabbit2._name)
 console.log('color: ' + rabbit2.color)
+
+// Static Methods
+// Can define methods which can be accessed anywhere by using keyword static
+// Statuc methods are use to implement functions that belong to the class as whole but NOT individual objects
+// Note: We CANNOT  set static for individual objects
+console.log('\nStatic Properties')
+
+// Ex1
+class UserStatic {
+  static staticMethod() {
+    console.log('Static method called')
+  }
+}
+UserStatic.staticMethod()
+
+// Note: Ex1 is actually the same as
+class UserStatic1 {}
+UserStatic1.staticMethod = function () {
+  console.log('This is static Method')
+}
+UserStatic1.staticMethod()
+
+// Ex2: We CANNOT set static for individual objects
+let user8 = new UserStatic()
+// user8.staticMethod() // This will produce an error
+//However we can use the entire Class
+UserStatic.staticMethod()
