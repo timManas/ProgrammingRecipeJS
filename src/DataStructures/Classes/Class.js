@@ -187,3 +187,27 @@ class Rabbit1 extends Animal1 {
 let rabbit1 = new Rabbit1('Wabbit')
 rabbit1.run(50)
 rabbit1.stop()
+
+// Overriding constructor
+// Note: Need to have super() before declaring this.
+console.log('\nOverride Constructor')
+
+// Ex1
+class Animal2 {
+  constructor(name) {
+    this.speed = 0
+    this.name = name
+  }
+}
+
+class Rabbit2 extends Animal2 {
+  constructor(name, color) {
+    super(name)
+    this.color = color
+  }
+}
+
+let rabbit2 = new Rabbit2('Wabitz', 'Blue')
+console.log('name: ' + rabbit2.name)
+console.log('_name: ' + rabbit2._name)
+console.log('color: ' + rabbit2.color)
