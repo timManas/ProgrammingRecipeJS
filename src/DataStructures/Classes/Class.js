@@ -238,3 +238,13 @@ let user8 = new UserStatic()
 // user8.staticMethod() // This will produce an error
 //However we can use the entire Class
 UserStatic.staticMethod()
+
+// Static Properties
+// Property has static before declaration
+console.log('\nStatic Properties')
+
+// Ex1
+class Article1 {
+  static publisher = 'Hello World'
+}
+console.log('Publisher: ' + Article1.publisher)
