@@ -282,3 +282,36 @@ wabbits.sort(Rabbit3.compare) // The compare method is NOT method of Animal but 
 wabbits[0].run(10)
 
 console.log('planet: ' + Rabbit3.planet)
+
+// Private properties
+// What ? Properties which are not accessible to outside external interfaces. Only available to internal ones
+// Denoted by using _xyzPropertyName
+console.log('\nPrivate Properties')
+
+// Ex1
+class CoffeeMachine {
+  _waterAmount = 0
+
+  constructor(power) {
+    this._power = power
+  }
+
+  set setWaterAmount(value) {
+    if (value < 0) {
+      this._waterAmount = 0
+    } else {
+      this._waterAmount = value
+    }
+  }
+
+  get getWaterAmount() {
+    return this._waterAmount
+  }
+}
+
+let coffeeMachine = new CoffeeMachine(50)
+coffeeMachine.setWaterAmount = 100
+console.log('water amount: ' + coffeeMachine.getWaterAmount)
+
+coffeeMachine.setWaterAmount = -10
+console.log('water amount: ' + coffeeMachine.getWaterAmount)
