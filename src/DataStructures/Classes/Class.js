@@ -248,3 +248,37 @@ class Article1 {
   static publisher = 'Hello World'
 }
 console.log('Publisher: ' + Article1.publisher)
+
+// Static Methods can be inherited
+class Animal3 {
+  static planet = 'Earth3'
+
+  constructor(name, speed) {
+    this.name = name
+    this.speed = speed
+  }
+
+  run(speed = 0) {
+    this.speed += speed
+    console.log('animal: ' + this.name + 'speed is ' + this.speed)
+  }
+
+  static compare(animalA, animalB) {
+    // static methods we dont put the ()
+    return animalA.speed - animalB.speed
+  }
+}
+
+class Rabbit3 extends Animal3 {
+  hide() {
+    this.speed = 0
+    console.log(`${this.name} speed is 0`)
+  }
+}
+
+let wabbits = [new Rabbit3('White', 1), new Rabbit3('Black', 5)]
+wabbits.sort(Rabbit3.compare) // The compare method is NOT method of Animal but rather of the whole class. Hence we dont put ()
+
+wabbits[0].run(10)
+
+console.log('planet: ' + Rabbit3.planet)
