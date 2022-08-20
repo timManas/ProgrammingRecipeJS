@@ -307,6 +307,10 @@ class CoffeeMachine {
   get getWaterAmount() {
     return this._waterAmount
   }
+
+  get getPowerValue() {
+    return this._power
+  }
 }
 
 let coffeeMachine = new CoffeeMachine(50)
@@ -315,3 +319,49 @@ console.log('water amount: ' + coffeeMachine.getWaterAmount)
 
 coffeeMachine.setWaterAmount = -10
 console.log('water amount: ' + coffeeMachine.getWaterAmount)
+
+coffeeMachine.power = 25 // Notice power value did NOT change since there is NO setter for power
+console.log('power amount: ' + coffeeMachine.getPowerValue) // power is still 50.
+
+// In JS we can use get/set  or use a function which gets a specific value
+console.log('\nGet/Set vs Getters/Setters function')
+
+// Ex: Get/Set
+class CoffeeGetSet {
+  constructor(power) {
+    this._power = power
+  }
+
+  get powerValue() {
+    return this._power
+  }
+
+  set powerValue(power) {
+    this._power = power
+  }
+}
+
+let coffeeMakerGetSet = new CoffeeGetSet(25)
+console.log('Coffee Power: ' + coffeeMakerGetSet.powerValue) // 25
+coffeeMakerGetSet.powerValue = 30
+console.log('Coffee Power: ' + coffeeMakerGetSet.powerValue) // 30
+
+// Ex2: Getters/ Setters function
+class CoffeeGetSetFunction {
+  constructor(power) {
+    this._power = power
+  }
+
+  getPowerValue() {
+    return this._power
+  }
+
+  setPowerValue(power) {
+    this._power = power
+  }
+}
+
+let coffeeMakerGetSetFunction = new CoffeeGetSetFunction(100)
+console.log('Coffee Power: ' + coffeeMakerGetSetFunction.getPowerValue()) // 100
+coffeeMakerGetSetFunction.setPowerValue(67)
+console.log('Coffee Power: ' + coffeeMakerGetSetFunction.getPowerValue()) // 67
