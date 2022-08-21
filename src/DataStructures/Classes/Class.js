@@ -365,3 +365,23 @@ let coffeeMakerGetSetFunction = new CoffeeGetSetFunction(100)
 console.log('Coffee Power: ' + coffeeMakerGetSetFunction.getPowerValue()) // 100
 coffeeMakerGetSetFunction.setPowerValue(67)
 console.log('Coffee Power: ' + coffeeMakerGetSetFunction.getPowerValue()) // 67
+
+// In JS we can extend classes but we can also extends things like Arrays
+console.log('\nExtend built in class')
+
+// Ex1: Extending an array
+class PowerArray extends Array {
+  constructor(...values) {
+    console.log('values:' + values)
+    super(values) // commenting this out will cause error
+  }
+
+  // Create new method
+  isEmpty() {
+    return this.length === 0
+  }
+}
+
+let powerArray = new PowerArray(1, 2, 3, 4, 5, 6, 7) // Note the super() is called since we are extending Array
+console.log('Array: ' + powerArray)
+console.log('isEmpty: ' + powerArray.isEmpty())
