@@ -385,3 +385,20 @@ class PowerArray extends Array {
 let powerArray = new PowerArray(1, 2, 3, 4, 5, 6, 7) // Note the super() is called since we are extending Array
 console.log('Array: ' + powerArray)
 console.log('isEmpty: ' + powerArray.isEmpty())
+
+console.log('\nInstanceOf operator')
+// Allows us to check whether an object belongs to a class or its inheritance
+
+// Ex1
+class Animal4 {
+  constructor() {}
+}
+class Rabbit4 extends Animal4 {
+  constructor() {
+    super()
+  }
+}
+let animal4 = new Animal4()
+let rabbit4 = new Rabbit4()
+console.log('animal instance of animal ? ' + (animal4 instanceof Animal4))
+console.log('rabbit instance of animal ? ' + (rabbit4 instanceof Rabbit4))
