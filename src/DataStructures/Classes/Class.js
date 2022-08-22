@@ -390,6 +390,7 @@ console.log('\nInstanceOf operator')
 // Allows us to check whether an object belongs to a class or its inheritance
 
 // Ex1
+class Something {}
 class Animal4 {
   constructor() {}
 }
@@ -400,5 +401,7 @@ class Rabbit4 extends Animal4 {
 }
 let animal4 = new Animal4()
 let rabbit4 = new Rabbit4()
+let something = new Something()
 console.log('animal instance of animal ? ' + (animal4 instanceof Animal4))
 console.log('rabbit instance of animal ? ' + (rabbit4 instanceof Rabbit4))
+console.log('something instance of animal ? ' + (something instanceof Rabbit4))
