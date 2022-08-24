@@ -2,6 +2,10 @@ console.log('\nMixin')
 //What ?
 // Classes which contains method used by other classes without the need to inherit it
 // A mixin provides methods that implement a certain behaviour to add behaviour to another class
+// Syntax: using Object.assign(target, object to inherit from)
+
+// Why ?
+// JS does not support multiple inhertiance but mixin can be implemented by copying methods into prototypes
 
 // Ex1
 let sayHiMixin = {
