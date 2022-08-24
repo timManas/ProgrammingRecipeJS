@@ -405,3 +405,59 @@ let something = new Something()
 console.log('animal instance of animal ? ' + (animal4 instanceof Animal4))
 console.log('rabbit instance of animal ? ' + (rabbit4 instanceof Rabbit4))
 console.log('something instance of animal ? ' + (something instanceof Rabbit4))
+
+console.log('\nEvent Mixin')
+// Regular Mixin for real life
+// Ex1: Mixin will provide method to generate an event when something import happens
+
+let eventMixin = {
+  on(eventName, handler) {
+    if (!this._eventHandlers) this._eventHandlers = {}
+    if (!this._eventHandlers[eventName]) {
+      this._eventHandlers[eventName] = []
+    }
+    this._eventHandlers[eventName].push(handler)
+  },
+
+  /**
+   * Cancel the subscription, usage:
+   *  menu.off('select', handler)
+   */
+  off(eventName, handler) {
+    let handlers = this._eventHandlers?.[eventName]
+    if (!handlers) return
+    for (let i = 0; i < handlers.length; i++) {
+      if (handlers[i] === handler) {
+        handlers.splice(i--, 1)
+      }
+    }
+  },
+
+  /**
+   * Generate an event with the given name and data
+   *  this.trigger('select', data1, data2);
+   */
+  trigger(eventName, ...args) {
+    if (!this._eventHandlers?.[eventName]) {
+      return // no handlers for that event name
+    }
+
+    // call the handlers
+    this._eventHandlers[eventName].forEach((handler) =>
+      handler.apply(this, args)
+    )
+  },
+}
+
+// Usage of mixin
+class Menu {
+  choose(value) {
+    this.trigger('select', value)
+  }
+}
+
+Object.assign(Menu.prototype, eventMixin)
+let menu = new Menu()
+
+menu.on('select', (value) => console.log('value selected: ' + value))
+menu.choose('123')
