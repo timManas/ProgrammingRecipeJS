@@ -54,15 +54,59 @@ promise2.then(
 let promise4 = new Promise((resolve) => {
   setTimeout(() => resolve('Doneeeee'), 1000)
 })
-
 promise4.then(console.log('Hello'))
 
 // catch
 // Will only catch errors
 console.log('\nPromise - catch')
 
-// Ex1
-let promiseCatch = new Promise((resolve, reject) => {
-  setTimeout(() => reject(new Error('Whoops!')), 1000)
+// // Ex1 - Need to comment this out since it create a error
+// let promiseCatch = new Promise((resolve, reject) => {
+//   setTimeout(() => reject(new Error('Whoops!')), 1000)
+// })
+// promiseCatch.catch() // This will throw an error
+
+// Promises Chaining
+// Chaining works since every call to .then returns a new promise hence we can chain promises together
+console.log('\nPromises Chaining')
+
+// Ex1: Chaining
+let promiseChaining = new Promise(function (resolve, reject) {
+  setTimeout(() => resolve(1), 1000)
 })
-promiseCatch.catch() // This will throw an error
+  .then(function (result) {
+    // result is the result of the Promise
+    console.log('current Result: ' + result)
+    return result * 2
+  })
+  .then(function (result) {
+    console.log('current Result: ' + result)
+    return result * 2
+  })
+  .then(function (result) {
+    console.log('current Result: ' + result)
+    return result * 2
+  })
+
+// Ex2: This is NOT Chaining
+// The handler creates seperate handlers to one promise. They dont pass the value to each other and process it independently
+console.log('This is NOT chaining')
+let promiseChaining1 = new Promise(function (resolve, reject) {
+  setTimeout(() => resolve(1), 1000)
+})
+
+promiseChaining1.then(function (result) {
+  // result is the result of the Promise
+  console.log('current Result: ' + result)
+  return result * 2
+})
+promiseChaining1.then(function (result) {
+  // result is the result of the Promise
+  console.log('current Result: ' + result)
+  return result * 2
+})
+promiseChaining1.then(function (result) {
+  // result is the result of the Promise
+  console.log('current Result: ' + result)
+  return result * 2
+})
