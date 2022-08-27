@@ -26,7 +26,7 @@ let promise = new Promise(function (resolve, reject) {
 // syntax is: promise.then(function(result) {}, function(error) P{} )
 // 1st argument of .then is run when the promise is resolved and receives the result
 // 2nd argument of .then is a function when the promise is rejected and receives an error
-console.log('\nthen')
+console.log('\nPromise - then')
 
 // Ex1: Resolve
 let promise2 = new Promise(function (resolve, reject) {
@@ -40,15 +40,15 @@ promise2.then(
 )
 
 // Ex2: Rejected. Comment this out. Will throw error
-// let promise3 = new Promise(function (resolve, reject) {
-//   setTimeout(() => reject('error!'), 1000)
-// })
+let promise3 = new Promise(function (resolve, reject) {
+  setTimeout(() => reject('error!'), 1000)
+})
 
-// // resolve runs the first function in .then
-// promise2.then(
-//   (result) => console.log(result), // shows "done!" after 1 second
-//   (error) => console(error) // shows error
-// )
+// resolve runs the first function in .then
+promise2.then(
+  (result) => console.log(result), // shows "done!" after 1 second
+  (error) => console(error) // shows error
+)
 
 // Ex3: More streamlined solution
 let promise4 = new Promise((resolve) => {
@@ -56,3 +56,13 @@ let promise4 = new Promise((resolve) => {
 })
 
 promise4.then(console.log('Hello'))
+
+// catch
+// Will only catch errors
+console.log('\nPromise - catch')
+
+// Ex1
+let promiseCatch = new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error('Whoops!')), 1000)
+})
+promiseCatch.catch() // This will throw an error
