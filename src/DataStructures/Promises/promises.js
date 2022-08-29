@@ -110,3 +110,24 @@ promiseChaining1.then(function (result) {
   console.log('current Result: ' + result)
   return result * 2
 })
+
+// Ex3: Handlers will wait for previous handlers to finish before proceeding
+// Returning promises allows us to build chains of asynchronous action
+let promiseChaining2 = new Promise(function (resolve, reject) {
+  setTimeout(() => resolve(1), 1000)
+})
+  .then(function (result) {
+    console.log('result: ' + result) // returns 1
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(result * 2), 1000)
+    })
+  })
+  .then(function (result) {
+    console.log('result: ' + result) // returns 2
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(result * 2), 1000)
+    })
+  })
+  .then(function (result) {
+    console.log('result: ' + result) // returns 4
+  })
