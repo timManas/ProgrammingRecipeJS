@@ -1,3 +1,8 @@
+// import fetch from 'node-fetch'
+// import * as fetch from 'node-fetch'
+
+const fetch = require('node-fetch')
+
 console.log('\nPromise')
 // What ?
 // A Promise is technically a promise. Its a promise to do something when a task finishes
@@ -131,3 +136,12 @@ let promiseChaining2 = new Promise(function (resolve, reject) {
   .then(function (result) {
     console.log('result: ' + result) // returns 4
   })
+
+// Error Handling with promises
+// When we reject a promise, we can attach a .catch() at the end of the .then() to catch the error message
+console.log('\nError Handling with Promises')
+
+// Ex1
+fetch('https://helloWorld.blalala') // This will reject
+  .then((response) => response.json())
+  .catch((error) => console.log(error))
