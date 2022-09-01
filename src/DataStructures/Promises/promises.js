@@ -11,7 +11,7 @@ console.log('\nPromise')
 // Promises contains state which initially is "pending" then moves to either resolved or reject
 // Promises return another promise ...those can also resolve or reject. Hence promises can be chained together
 
-// Note: The return on the promise is NOW the result in the .then.
+// Note: The return on the promise is NOW the 'result' in the .then.
 // Likewise: If the return on the promise is an error. Then "error" in the catch is the result
 
 // Ex1: Resolved
@@ -156,3 +156,26 @@ let promiseChaining3 = new Promise(function (resolve, reject) {
     // This will get triggered instead of the other two .then handlers
     console.log(error)
   })
+
+// Promise API
+// There are 6 static methods in the Promise class
+console.log('\nPromise API')
+
+// Promise.All
+// Iterates through a list of promise and execute them in parallel and wait until all of them are ready
+// Syntax: Promise.all()
+// Note: If the iterable contains a non-Promise value, it will be ignored but still counted in the promise
+// Ex1
+Promise.all([
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(2), 2000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 1000)),
+]).then((values) => {
+  console.log(values) // Allows us to get the values from the Promises
+})
+
+// Promise.allSettled
+// Promise.race
+// Promise.any
+// Promise.resolve
+// Promise.reject
