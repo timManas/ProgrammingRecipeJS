@@ -1,8 +1,3 @@
-// import fetch from 'node-fetch'
-// import * as fetch from 'node-fetch'
-
-const fetch = require('node-fetch')
-
 console.log('\nPromise')
 // What ?
 // A Promise is technically a promise. Its a promise to do something when a task finishes
@@ -15,6 +10,9 @@ console.log('\nPromise')
 // Promises object return new Promise constructor has these internal properties
 // Promises contains state which initially is "pending" then moves to either resolved or reject
 // Promises return another promise ...those can also resolve or reject. Hence promises can be chained together
+
+// Note: The return on the promise is NOW the result in the .then.
+// Likewise: If the return on the promise is an error. Then "error" in the catch is the result
 
 // Ex1: Resolved
 let promise = new Promise(function (resolve, reject) {
@@ -141,7 +139,20 @@ let promiseChaining2 = new Promise(function (resolve, reject) {
 // When we reject a promise, we can attach a .catch() at the end of the .then() to catch the error message
 console.log('\nError Handling with Promises')
 
-// Ex1
-fetch('https://helloWorld.blalala') // This will reject
-  .then((response) => response.json())
-  .catch((error) => console.log(error))
+// Ex1: Catch the error
+let promiseChaining3 = new Promise(function (resolve, reject) {
+  reject('Error whoops')
+})
+  .then(function (result) {
+    // result is the result of the Promise
+    console.log('current Result: ' + result)
+    return result * 2
+  })
+  .then(function (result) {
+    console.log('current Result: ' + result)
+    return result * 2
+  })
+  .catch(function (error) {
+    // This will get triggered instead of the other two .then handlers
+    console.log(error)
+  })
