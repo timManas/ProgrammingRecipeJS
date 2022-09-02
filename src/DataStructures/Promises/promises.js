@@ -165,6 +165,7 @@ console.log('\nPromise API')
 // Iterates through a list of promise and execute them in parallel and wait until all of them are ready
 // Syntax: Promise.all()
 // Note: If the iterable contains a non-Promise value, it will be ignored but still counted in the promise
+// Promise.All rejects as a whole if any promise rejects. It implements AON
 // Ex1
 Promise.all([
   new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
@@ -175,6 +176,21 @@ Promise.all([
 })
 
 // Promise.allSettled
+// Note - We use allSettled when one of the promises in the iterable can be rejected, we still keep moving forward
+// In comparison .All(), it used AON. Either all of them pass or none of them do (reject)
+
+console.log('\nPromise.allSettled')
+
+// Ex
+const promiseAllSettled1 = Promise.resolve(3)
+const promiseAllSettled2 = new Promise((resolve, reject) => {
+  setTimeout(reject, 100, 'foo')
+})
+const promiseAllSettledIterable = [promiseAllSettled1, promiseAllSettled2]
+Promise.allSettled(promiseAllSettledIterable).then((results) => {
+  results.forEach((result) => console.log(result.status)) // Should see FullFilled, Rejected
+})
+
 // Promise.race
 // Promise.any
 // Promise.resolve
