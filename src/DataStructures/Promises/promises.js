@@ -201,20 +201,61 @@ Promise.allSettled(promiseAllSettledIterable).then((results) => {
 })
 
 // Promise.race
-// Similar to Promise.All but waits for only ONE of the promises in iterable to finish.
+// Similar to Promise.All but waits for first SETTLED promises in iterable to finish.
 // Which ever one comes first will get returned.
+// If Errors comes first, then that is returned
 // Once the first promise is returned, all others are ignored
 console.log('\nPromise.race')
 
 // Ex1
 Promise.race([
-  new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)), // This finishees first. Everything else is ignored
   new Promise((resolve, reject) =>
     setTimeout(() => reject(new Error('Error found')), 2000)
   ),
   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000)),
 ]).then((value) => console.log('result: ' + value))
 
+// Ex2
+Promise.race([
+  new Promise(
+    (resolve, reject) =>
+      setTimeout(() => reject(new Error('Error found')), 1000) // This finishees first. Everything else is ignored
+  ),
+  new Promise((resolve, reject) => setTimeout(() => resolve(10), 1000)),
+  new Promise((resolve, reject) => setTimeout(() => resolve(30), 3000)),
+]).then((value) => console.log('result: ' + value))
+
 // Promise.any
+// Similar to Promise.all but returns the first RESOLVED promise result ...Not the first Settled Promise
+console.log('\nPromise.any')
+
+// Ex1
+Promise.any([
+  new Promise(
+    (resolve, reject) =>
+      setTimeout(() => reject(new Error('Error found')), 1000) // Ignored since this is a reject
+  ),
+  new Promise(
+    (resolve, reject) =>
+      setTimeout(() => reject(new Error('Error found')), 2000) // Ignored since this is a reject
+  ),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000)), // This is returned
+]).then((value) => console.log('result: ' + value))
+
+// Ex2: All promise rejected. Should see Aggregate Error
+Promise.any([
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject(new Error('Ouch!')), 1000)
+  ),
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject(new Error('Error!')), 2000)
+  ),
+]).catch((error) => {
+  console.log(error.constructor.name) // AggregateError
+  console.log(error.errors[0]) // Error: Ouch!
+  console.log(error.errors[1]) // Error: Error!
+})
+
 // Promise.resolve
 // Promise.reject
