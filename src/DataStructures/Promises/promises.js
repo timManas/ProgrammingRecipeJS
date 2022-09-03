@@ -176,13 +176,13 @@ Promise.all([
 })
 
 // Ex2: Note this will throw a reject. Comment this out
-// Promise.all([
-//   new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
-//   new Promise((resolve, reject) => setTimeout(() => reject(2), 2000)), // This should Faill All of the promises
-//   new Promise((resolve, reject) => setTimeout(() => resolve(3), 1000)),
-// ]).then((values) => {
-//   console.log(values) // Allows us to get the values from the Promises
-// })
+Promise.all([
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
+  new Promise((resolve, reject) => setTimeout(() => reject(2), 2000)), // This should Faill All of the promises
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 1000)),
+]).then((values) => {
+  console.log(values) // Allows us to get the values from the Promises
+})
 
 // Promise.allSettled
 // Note - We use allSettled when one of the promises in the iterable can be rejected, we still keep moving forward
@@ -201,6 +201,20 @@ Promise.allSettled(promiseAllSettledIterable).then((results) => {
 })
 
 // Promise.race
+// Similar to Promise.All but waits for only ONE of the promises in iterable to finish.
+// Which ever one comes first will get returned.
+// Once the first promise is returned, all others are ignored
+console.log('\nPromise.race')
+
+// Ex1
+Promise.race([
+  new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
+  new Promise((resolve, reject) =>
+    setTimeout(() => reject(new Error('Error found')), 2000)
+  ),
+  new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000)),
+]).then((value) => console.log('result: ' + value))
+
 // Promise.any
 // Promise.resolve
 // Promise.reject
