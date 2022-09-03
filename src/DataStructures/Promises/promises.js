@@ -43,15 +43,15 @@ promise2.then(
 )
 
 // Ex2: Rejected. Comment this out. Will throw error
-let promise3 = new Promise(function (resolve, reject) {
-  setTimeout(() => reject('error!'), 1000)
-})
+// let promise3 = new Promise(function (resolve, reject) {
+//   setTimeout(() => reject('error!'), 1000)
+// })
 
-// resolve runs the first function in .then
-promise2.then(
-  (result) => console.log(result), // shows "done!" after 1 second
-  (error) => console(error) // shows error
-)
+// // resolve runs the first function in .then
+// promise2.then(
+//   (result) => console.log(result), // shows "done!" after 1 second
+//   (error) => console(error) // shows error
+// )
 
 // Ex3: More streamlined solution
 let promise4 = new Promise((resolve) => {
@@ -140,22 +140,22 @@ let promiseChaining2 = new Promise(function (resolve, reject) {
 console.log('\nError Handling with Promises')
 
 // Ex1: Catch the error
-let promiseChaining3 = new Promise(function (resolve, reject) {
-  reject('Error whoops')
-})
-  .then(function (result) {
-    // result is the result of the Promise
-    console.log('current Result: ' + result)
-    return result * 2
-  })
-  .then(function (result) {
-    console.log('current Result: ' + result)
-    return result * 2
-  })
-  .catch(function (error) {
-    // This will get triggered instead of the other two .then handlers
-    console.log(error)
-  })
+// let promiseChaining3 = new Promise(function (resolve, reject) {
+//   reject('Error whoops')
+// })
+//   .then(function (result) {
+//     // result is the result of the Promise
+//     console.log('current Result: ' + result)
+//     return result * 2
+//   })
+//   .then(function (result) {
+//     console.log('current Result: ' + result)
+//     return result * 2
+//   })
+//   .catch(function (error) {
+//     // This will get triggered instead of the other two .then handlers
+//     console.log(error)
+//   })
 
 // Promise API
 // There are 6 static methods in the Promise class
@@ -176,13 +176,13 @@ Promise.all([
 })
 
 // Ex2: Note this will throw a reject. Comment this out
-Promise.all([
-  new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
-  new Promise((resolve, reject) => setTimeout(() => reject(2), 2000)), // This should Faill All of the promises
-  new Promise((resolve, reject) => setTimeout(() => resolve(3), 1000)),
-]).then((values) => {
-  console.log(values) // Allows us to get the values from the Promises
-})
+// Promise.all([
+//   new Promise((resolve, reject) => setTimeout(() => resolve(1), 3000)),
+//   new Promise((resolve, reject) => setTimeout(() => reject(2), 2000)), // This should Faill All of the promises
+//   new Promise((resolve, reject) => setTimeout(() => resolve(3), 1000)),
+// ]).then((values) => {
+//   console.log(values) // Allows us to get the values from the Promises
+// })
 
 // Promise.allSettled
 // Note - We use allSettled when one of the promises in the iterable can be rejected, we still keep moving forward
@@ -217,14 +217,14 @@ Promise.race([
 ]).then((value) => console.log('result: ' + value))
 
 // Ex2
-Promise.race([
-  new Promise(
-    (resolve, reject) =>
-      setTimeout(() => reject(new Error('Error found')), 1000) // This finishees first. Everything else is ignored
-  ),
-  new Promise((resolve, reject) => setTimeout(() => resolve(10), 1000)),
-  new Promise((resolve, reject) => setTimeout(() => resolve(30), 3000)),
-]).then((value) => console.log('result: ' + value))
+// Promise.race([
+//   new Promise(
+//     (resolve, reject) =>
+//       setTimeout(() => reject(new Error('Error found')), 1000) // This finishees first. Everything else is ignored
+//   ),
+//   new Promise((resolve, reject) => setTimeout(() => resolve(10), 1000)),
+//   new Promise((resolve, reject) => setTimeout(() => resolve(30), 3000)),
+// ]).then((value) => console.log('result: ' + value))
 
 // Promise.any
 // Similar to Promise.all but returns the first RESOLVED promise result ...Not the first Settled Promise
@@ -244,18 +244,34 @@ Promise.any([
 ]).then((value) => console.log('result: ' + value))
 
 // Ex2: All promise rejected. Should see Aggregate Error
-Promise.any([
-  new Promise((resolve, reject) =>
-    setTimeout(() => reject(new Error('Ouch!')), 1000)
-  ),
-  new Promise((resolve, reject) =>
-    setTimeout(() => reject(new Error('Error!')), 2000)
-  ),
-]).catch((error) => {
-  console.log(error.constructor.name) // AggregateError
-  console.log(error.errors[0]) // Error: Ouch!
-  console.log(error.errors[1]) // Error: Error!
-})
+// Promise.any([
+//   new Promise((resolve, reject) =>
+//     setTimeout(() => reject(new Error('Ouch!')), 1000)
+//   ),
+//   new Promise((resolve, reject) =>
+//     setTimeout(() => reject(new Error('Error!')), 2000)
+//   ),
+// ]).catch((error) => {
+//   console.log(error.constructor.name) // AggregateError
+//   console.log(error.errors[0]) // Error: Ouch!
+//   console.log(error.errors[1]) // Error: Error!
+// })
 
 // Promise.resolve
+// Resolves a given Promise
+// Works exactly the same way as .resolve()
+console.log('\nPromise.resolve & Promise.reject')
+
+// Ex1
+const promiseResolve1 = Promise.resolve(1)
+promiseResolve1.then((value) => {
+  console.log('Value: ' + value)
+})
+
+// Ex2"
+// const promiseResolve2 = Promise.reject(new Error('Error Found here'))
+// promiseResolve2.then((value) => {
+//   console.log('Error: ' + value)
+// })
+
 // Promise.reject
