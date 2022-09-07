@@ -1,0 +1,47 @@
+JS has three "stacks":
+
+1. standard stack for all synchronous calls (one function calls another, etc)
+2. microtask queue (or job queue or microtask stack) for all async operations with higher priority (process.nextTick, Promises, Object.observe, MutationObserver)
+3. macrotask queue (or event queue, task queue, macrotask queue) for all async operations with lower priority (setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI rendering)
+
+|=======|
+| macro |
+| [...] |
+|       |
+|=======|
+| micro |
+| [...] |
+|       |
+|=======|
+| stack |
+| [...] |
+|       |
+|=======|
+And event loop works this way:
+
+1. execute everything from bottom to top from the stack, and ONLY when the stack is empty, check what is going on in queues above
+2. check micro stack and execute everything there (if required) with help of stack, one micro-task after another until the microtask queue is empty or don't require any execution and ONLY then check the macro stack
+3. check macro stack and execute everything there (if required) with help of the stack
+
+Note
+- Micro stack won't be touched if the stack isn't empty. 
+- The macro stack won't be touched if the micro stack isn't empty OR does not require any execution.
+
+To sum up: microtask queue is almost the same as macrotask queue but those tasks (process.nextTick, Promises, Object.observe, MutationObserver) have higher priority than macrotasks.
+
+Micro is like macro but with higher priority.
+
+
+So in this example:
+async function awaitFuncton() {
+  let promise = Promise.resolve('Resolved')
+
+  let result = await promise
+  console.log('Waiting for result: ' + result) // Notice this waited for the Promise to get settled ...
+  console.log('Finished running Function')
+}
+
+awaitFuncton()
+console.log('Outside Done')         // Notice this will get printed first before the awaitFunction contents. It is due to the current stack finishing first then the Promise Stack ...
+
+The text 'Outside Done' will get printed first before the Promise results ... This is due to the Main Stack needing to finish first before the Micro/Macro Stack
