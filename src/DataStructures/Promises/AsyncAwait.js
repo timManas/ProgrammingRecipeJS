@@ -31,3 +31,23 @@ async function awaitFuncton() {
 
 awaitFuncton()
 console.log('Ex2 Done') // Notice this will get printed first before the awaitFunction contents. It is due to the current stack finishing first then the Promise Stack ...
+
+// Error Handling
+// We can use a try/Catch or we can use use the '.catch()' on the Promise
+console.log('\nError Handling in Async Await functions')
+
+// // Ex1: Commenting this out since it will cause and Error
+// async function errorHandlingFunction() {
+//   try {
+//     let x = something
+//   } catch (error) {
+//     Promise.reject(new Error('Rejecteddddd'))
+//   }
+// }
+// errorHandlingFunction()
+
+// // Ex2: Same Example but using a catch
+// async function errorHandlingFunction1() {
+//   let x = something
+// }
+// errorHandlingFunction1().catch((error) => console.log(error))
