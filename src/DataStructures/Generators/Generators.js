@@ -65,3 +65,18 @@ console.log(generator4.next('HelloWorld').value) // Step2 - Pass 'HelloWorld' in
 console.log(generator4.next(9).done) // Step6 - Program passes next value into PLACEHOLDER #6
 
 console.log('\n' + generator4.next('X').value) // Step7 - Will see undefined since there are no more yields
+
+// Throw Errors back to generators using yield
+console.log('\nThrow Errors back to generators using yirld')
+function* gen1() {
+  try {
+    let ask1 = yield 'PLACEHOLDER #1'
+    console.log(ask1)
+  } catch (error) {
+    console.log('Erorr Message: ' + error) // Step3 - Error messages gets printed and does not continue in the try loop anymore
+  }
+}
+
+let generator5 = gen1()
+console.log(generator5.next().value) // Step1 - Stop at PLACEHOLDER #1
+generator5.throw(new Error('ERROR ERROR ERROR')) // Step2 - Send Error message
