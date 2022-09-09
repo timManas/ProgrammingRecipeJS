@@ -80,3 +80,33 @@ function* gen1() {
 let generator5 = gen1()
 console.log(generator5.next().value) // Step1 - Stop at PLACEHOLDER #1
 generator5.throw(new Error('ERROR ERROR ERROR')) // Step2 - Send Error message
+
+// Stoping a generator using generator.return
+// What ? Finishes the generator and returns the given value
+console.log('\nGenerator.return() - Stopping a generator')
+
+// Ex1
+function* gen2() {
+  yield 1
+  yield 2
+  yield 3
+}
+
+let generator6 = gen2()
+console.log(generator6.next())
+console.log(generator6.return('Hello World')) // Notice generator stopped here with Hello World & also returns done:true
+console.log(generator6.next()) // This doesent return 3...instead returns undefined and done:true
+
+// Ex2:
+console.log()
+function* gen() {
+  let ask1 = yield 'PLACEHOLDER #1'
+  console.log(ask1)
+  let ask2 = yield 'PLACEHOLDER #2'
+  console.log(ask2)
+}
+
+let generator7 = gen()
+console.log(generator7.next().value) // Stops at PLACEHOLDER #1
+console.log(generator7.return('HelloWorld').value) // Generator stops here and just returns Hello World
+console.log(generator7.next(9).value)
