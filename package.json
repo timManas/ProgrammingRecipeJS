@@ -1,0 +1,24 @@
+{
+  "name": "programmingrecipejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timManas/ProgrammingRecipeJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timManas/ProgrammingRecipeJS/issues"
+  },
+  "homepage": "https://github.com/timManas/ProgrammingRecipeJS#readme"
+}
