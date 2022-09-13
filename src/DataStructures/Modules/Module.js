@@ -15,7 +15,7 @@ sayHello('HELLLLOOO')
 
 // Ex3: Import a Array
 import { months } from './multiExport.js'
-console.log('Months: ' + months)
+console.log('Months: ' + months)s
 
 // Ex4: Import a constant
 import { CONSTANT } from './multiExport.js'
@@ -24,6 +24,10 @@ console.log('CONSTANT: ' + CONSTANT)
 // Ex5: Import a Class
 import { User } from './multiExport.js'
 let user1 = new User('Tim')
+ÍS
+
+import { object1 as person } from './multiExport.js'
+console.log("Person Name: " + person.name + "  age: " + person.age)
 
 /**
 Summary

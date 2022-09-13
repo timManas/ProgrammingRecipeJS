@@ -31,3 +31,9 @@ export class User {
     console.log('User Class value: ' + value)
   }
 }
+
+// Export an Object
+export const object1 = {
+  name: 'John',
+  age: 32,
+}
