@@ -13,6 +13,18 @@ import { sayWow, sayHello } from './multiExport.js'
 sayWow('WOOOW')
 sayHello('HELLLLOOO')
 
+// Ex3: Import a Array
+import { months } from './multiExport.js'
+console.log('Months: ' + months)
+
+// Ex4: Import a constant
+import { CONSTANT } from './multiExport.js'
+console.log('CONSTANT: ' + CONSTANT)
+
+// Ex5: Import a Class
+import { User } from './multiExport.js'
+let user1 = new User('Tim')
+
 /**
 Summary
 
