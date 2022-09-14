@@ -1,6 +1,8 @@
 // Module
 // What ? Its just a file
-// Modules can load each other and use special directives 'export' and 'import' to interchange functionality
+// Modules can load each other and use special directives 'export' and 'import' to interchange functionality.
+// A module has either named exports {...} or the default one (single value ones ex: default Export)
+
 console.log('Modules')
 
 //Ex: Single Export -  Export files in sayHi.js...then import the file using the import function
@@ -15,7 +17,7 @@ sayHello('HELLLLOOO')
 
 // Ex3: Import a Array
 import { months } from './multiExport.js'
-console.log('Months: ' + months)s
+console.log('Months: ' + months)
 
 // Ex4: Import a constant
 import { CONSTANT } from './multiExport.js'
@@ -24,10 +26,17 @@ console.log('CONSTANT: ' + CONSTANT)
 // Ex5: Import a Class
 import { User } from './multiExport.js'
 let user1 = new User('Tim')
-ÍS
 
+// Ex6: Import an Object using 'as'
 import { object1 as person } from './multiExport.js'
-console.log("Person Name: " + person.name + "  age: " + person.age)
+console.log('Person Name: ' + person.name + '  age: ' + person.age)
+
+// Ex7: Import a single Default Object
+import Person from './defaultExport.js'
+let personDefault = new Person('Tim', 35)
+console.log(
+  'Default Person Name: ' + personDefault.name + '  age: ' + personDefault.age
+)
 
 /**
 Summary
