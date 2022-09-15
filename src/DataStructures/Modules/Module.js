@@ -38,6 +38,21 @@ console.log(
   'Default Person Name: ' + personDefault.name + '  age: ' + personDefault.age
 )
 
+// Ex8: Import a single default value will allow you to give it ANY name
+import SOMERANDOMTHING from './defaultExport.js'
+let someRandomAssThing = new SOMERANDOMTHING('RANDOM', 100)
+console.log(
+  'Random Name: ' + someRandomAssThing.name + '  age: ' + someRandomAssThing.age
+)
+
+// Ex9: Re-Export
+import {
+  months as ReExportMonths,
+  CONSTANT as ReExportCONSTANT,
+} from './Rexport.js'
+console.log('months: ' + ReExportMonths)
+console.log('CONSTANTS: ' + ReExportCONSTANT)
+
 /**
 Summary
 
