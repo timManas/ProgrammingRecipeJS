@@ -53,6 +53,11 @@ import {
 console.log('months: ' + ReExportMonths)
 console.log('CONSTANTS: ' + ReExportCONSTANT)
 
+// Ex10: Dynamic Export
+// Import expression loads a module and returns a promise. These promise can then be used to perform .then or .catch task
+let { CONSTANT } = await import('./Rexport.js')
+console.log('Constants using Dynamic imports: ' + CONSTANT)
+
 /**
 Summary
 
