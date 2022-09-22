@@ -113,5 +113,56 @@ numbers2.push(1)
 console.log('Add a new value')
 numbers2.push(2)
 console.log('numbers length: ' + numbers2.length)
-
 // numbers.push('Hello World') // This is cause an error. Commenting this out
+
+// Own keys Trap
+// Object.keys. for loop iterate an object proerties use "OwnPropertykeys" internal method to get a list of properties
+// Ownkeys must return  an array of keys. Otherwise error
+// If key exists, it will return it ... If key does not exist then Proxy will not return the object
+console.log("\n'OwnKeys' & getOwnPropertyDescriptor")
+
+// Ex1: Use the OwnKeys Trap
+let user = {
+  name: 'John',
+  age: 40,
+  _password: 'secret',
+}
+
+user = new Proxy(user, {
+  ownKeys(target) {
+    return Object.keys(target).filter((key) => !key.startsWith('_')) // Filters out objects which start with '_'
+  },
+})
+
+// Own keys filters out the password
+for (let key in user) {
+  console.log('key:' + key)
+}
+
+// Ex2: Proxy will not return a key present
+user = {}
+user = new Proxy(user, {
+  ownKeys(target) {
+    return ['a'] // 'a' does not exist as a key in user
+  },
+})
+console.log('Object keys:  ' + Object.keys(user))
+
+// In order for Object.keys to return a property, we need to use getOwnPropertyDescriptor trap and return enuerable: true
+console.log('\ngetOwnPropertyDescriptor')
+
+// Ex1
+user = {}
+user = new Proxy(user, {
+  ownKeys(target) {
+    return ['a', 'b', 'c'] // These keys dont exists in user but we will make return this property
+  },
+  getOwnPropertyDescriptor(target, property) {
+    return {
+      enumerable: true,
+      configurable: true,
+    }
+  },
+})
+
+console.log('Object keys:  ' + Object.keys(user))
