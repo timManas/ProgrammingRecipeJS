@@ -45,7 +45,6 @@ let dictionary = {
   firstName: 'Joe',
   age: '35',
 }
-
 dictionary = new Proxy(dictionary, {
   get(target, phrase) {
     // intercept reading a property from dictionary
@@ -58,6 +57,61 @@ dictionary = new Proxy(dictionary, {
     }
   },
 })
-
 console.log('dictionary[firstName]: ' + dictionary['firstName'])
 console.log('dictionary[lastName]: ' + dictionary['lastName'])
+
+// 'set' Trap
+// Syntax: set(target, property, value, receiver):
+// target – is the target object, the one passed as the first argument to new Proxy,
+// property – property name,
+// value – property value,
+// receiver – similar to get trap, matters only for setter properties.
+// Note: Set traps NEED to return true if the trap is successful in setting a value
+console.log("\n'Set' Trap")
+
+// Ex1:
+// numbers = []
+
+// numbers = new Proxy(numbers, {
+//   set(target, property, value, receiver) {
+//     console.log(
+//       'target: ' +
+//         target +
+//         '   property: ' +
+//         property +
+//         '    value: ' +
+//         value +
+//         '    receiver: ' +
+//         receiver
+//     )
+//     if (typeof value == 'number') {
+//       target[property] = value
+//       return true
+//     } else {
+//       console.log('Value not a number: ' + value)
+//       return false
+//     }
+//   },
+// })
+
+let numbers2 = []
+
+numbers2 = new Proxy(numbers2, {
+  // (*)
+  set(target, prop, val) {
+    console.log('target: ' + target + '   prop: ' + prop + '    val: ' + val)
+    if (typeof val == 'number') {
+      target[prop] = val
+      return true
+    } else {
+      return false
+    }
+  },
+})
+
+numbers2.push(1)
+console.log('Add a new value')
+numbers2.push(2)
+console.log('numbers length: ' + numbers2.length)
+
+// numbers.push('Hello World') // This is cause an error. Commenting this out
