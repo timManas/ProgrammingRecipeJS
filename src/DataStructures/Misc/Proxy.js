@@ -166,3 +166,23 @@ user = new Proxy(user, {
 })
 
 console.log('Object keys:  ' + Object.keys(user))
+
+// "has" Trap
+// What ? Checks if value is within range
+// Syntax: has (target, range)
+console.log("\n'has' Range")
+
+// Ex1
+let range = {
+  start: 1,
+  end: 10,
+}
+
+range = new Proxy(range, {
+  has(target, prop) {
+    return target.start <= prop && prop <= target.end // Checks value if within range
+  },
+})
+
+console.log('Is 5 in range: ' + (5 in range))
+console.log('Is 500 in range: ' + (500 in range))
