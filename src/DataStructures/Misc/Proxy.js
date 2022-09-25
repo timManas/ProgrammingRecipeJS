@@ -186,3 +186,30 @@ range = new Proxy(range, {
 
 console.log('Is 5 in range: ' + (5 in range))
 console.log('Is 500 in range: ' + (500 in range))
+
+// Function Proxy
+// What ? We are able to set proxys for functions too.
+// Syntax: apply(target, thisArg, args)
+// target - The function to be proxied
+// thisArg - value of this
+// args - arguments
+console.log('\nProxy for functions')
+
+// Ex1:
+function funcProxy(target) {
+  return new Proxy(target, {
+    apply(target, thisArg, args) {
+      console.log(
+        'target: ' + target + '   this: ' + thisArg + '    args: ' + args
+      )
+      target.apply(thisArg, args) // This triggers the sayHi Function
+    },
+  })
+}
+
+function sayHi(user) {
+  console.log('User says Hi: ' + user)
+}
+
+sayHi = funcProxy(sayHi)
+sayHi('John')
