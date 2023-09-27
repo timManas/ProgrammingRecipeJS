@@ -25,7 +25,10 @@ var composeA = function (x) {
 }
 
 let funcA = composeA(3)
-funcA(10)
+funcA(10) // returns x: 3    y: 10
+composeA(3)(10) // returns x: 3    y: 10
+// funcA.innerFunction(10)     // Error: funcA.innerFunction is not a function
+// composeA(3).innerFunction(10)  // Error: composeA(...).innerFunction is not a function
 
 // Ex3 - Return a function within a function
 console.log('\nEx3')
@@ -46,7 +49,9 @@ var composeB = function (x) {
 let topFunc = composeB(5)
 let midFunc = topFunc(4)
 let innFunc = midFunc(3)
-console.log('innFunc: ' + innFunc)
+console.log('innFunc: ' + innFunc + '\n')
+console.log('print using one line')
+composeB(1)(2)(3)
 
 //Ex4
 console.log('\nEx4')
