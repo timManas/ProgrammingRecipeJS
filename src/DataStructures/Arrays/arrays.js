@@ -333,4 +333,18 @@ console.log(
 
 // Ex:7 - Set Default values when destructuring
 let [name = 'Guest', last = 'GuesLastName'] = []
-console.log('Default FirstName: ' + name + '   Default LastName: ' + last)
+console.log(
+  'Default FirstName: ' + name + '   Default LastName: ' + last + '\n'
+)
+
+// Ex8: Interacting with Array prototypes
+// You can get the elements of the arrays
+console.log("Get Elements from within Prototypes using keyword 'this'")
+Array.prototype.upperBound = function (target) {
+  for (let i = 0; i < this.length; i++) {
+    let current = this[i] // Notice this line
+    console.log('current: ' + current)
+  }
+}
+
+console.log([3, 4, 6, 6, 6, 6, 7].upperBound(6)) // 5
