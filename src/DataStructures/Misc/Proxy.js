@@ -213,3 +213,20 @@ function sayHi(user) {
 
 sayHi = funcProxy(sayHi)
 sayHi('John')
+
+// Proxy does not have to declare the target value
+console.log('\nProxy Handler target do not need to be defined')
+var proxyObject = function (args) {
+  let object = {} // This is made up
+  let handler = {
+    get: (target, property) => {
+      return () => property
+    },
+  }
+
+  let proxy = new Proxy(object, handler)
+  return proxy
+}
+
+const obj = proxyObject()
+console.log('name: ' + obj['abc123']()) // "abc123"
