@@ -1,5 +1,11 @@
 console.log('\nClasses')
 
+/**
+ 
+  Notes
+  1. You CANNOT declare "func", or 'let,var,const' inside a class
+ */
+
 // Syntax:
 class myClass {
   constructor() {}
@@ -75,7 +81,7 @@ class User4 {
   }
 }
 
-user4 = new User4('Johns')
+let user4 = new User4('Johns')
 console.log('User4 name: ' + user4.name)
 
 user4.name = 'Tim'
@@ -461,3 +467,21 @@ let menu = new Menu()
 
 menu.on('select', (value) => console.log('value selected: ' + value))
 menu.choose('123')
+
+console.log('\nDeclaring a function/variables inside a class ...not allowed')
+// This is not allowed
+// class ProductPage {
+
+//   function visit2() {
+//   }
+
+//   let visit = () => {
+//   }
+// }
+
+// But this is allowed
+class ProductPage {
+  visit = () => {}
+
+  visit2() {}
+}
