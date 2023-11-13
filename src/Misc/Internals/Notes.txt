@@ -10,6 +10,31 @@ Best Practices
 
 Questions
 
+Q2. How do we create npm packages ?
+
+Q29. Where do i find the proper command & name ?
+- Check the npm website 
+- Search for package
+- It will give you the install command (Ex: npm i axios)
+
+Q28. How to install a package ?
+- Use npm
+EX: npm i axios
+
+Q27. Why do need to initialize npm to install a package ? 
+- Because we need package.json which exists only for node packages
+
+
+Q26. What is the difference between module vs package ? 
+- Module:  Basically a file, which exports code 
+- Package: Collection of modules that have been packaged together
+
+
+Q25. What is npm ?
+- Stands for "Node Packages Manager"
+- Contains packages which are usuable code shared by other people
+- Packages can be found on npmjs.com website
+
 Q24. What is index.js ? 
 - Special file in a folder
 - Allows you to treat a folder as a module
