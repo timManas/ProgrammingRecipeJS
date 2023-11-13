@@ -1,0 +1,117 @@
+Programming Recipes NodeJS
+
+Notes
+
+Best Practices
+
+
+
+Questions
+
+Q21. What are the possible states of promises ?
+1. Fullfilled
+2. Rejected
+3. Pending
+
+Q20. What is a Promise ?
+- A promise is an object that may produce a value some time in the future
+- Has two outcomes:
+> Resolved 
+> UnResolved
+
+Q19. How does the callback occur ?
+- For example: setTimeout()
+1. When we receieve a setTimeout, the call stack will send this to the webApi to be executed.
+2. Once it finishes, it will put it in the callback stack.
+3. Once the event loop starts again & the call stack is empty again,
+    then we execute the callback 
+
+Q18. What is hidden classes ? Why is it bad ?
+Q17. What is inline caching ? Why is it bad ? 
+
+
+Q16. How to write optimized code ?
+- Minimize using the following:
+    eval()
+    arguments
+    for in 
+    with
+    delete
+
+Q15. What is inside the JS Engine ?
+JS -> [ Parser -> AST -> Interpreter -> ByteCode -> Machine language Code 010101010
+                           |-> Profile -> Compiler -> Optimized Code] -> Machine language Code 010101010
+                Abstract Syntax Tree
+
+Q14. What is the "events" module in node ? 
+- Objects (called emitters) emit named events that cause Function objects (listeners) to be called
+- Class "EventEmitters"
+
+Q13. What is the Observer Design Pattern ?
+- Involves using:
+    Subject --|--> Observers
+              |--> Observers
+- Observers subsrcibe to the subject (target)
+- Anything which happens to the subject, will notify all the Observers
+- Each Observer can do different actions independently
+- Used by Node event loop 
+- The way Node uses observer pattern is by call back functions
+- Ex: process.on('beforeExit, () => {console.log("Hello World")})
+
+
+Q12. What is Node best at ?
+- Serving asynchronous I/O calls in large quantity (This is due to the event loop utilizing the OS Kernel)
+- For DB connections and calls
+
+Q11. What are the different types of Timer Event Loop Phases?
+1. setTimeout - Timeouts out a process
+2. setInterval - Sets a funciton to be executed multiple times in an interval (compared to setTimeout which executes for a duration)
+3. setImmediate - Timer executes immediately (but not really)
+
+Q10. What are the Event Loop Phases ?
+- Timers
+- I/O callbacks
+- setImmediate
+- Close callbacks
+
+Q9. What happens when the timer finishes (ex: setTimeout()?)
+- Gets sent to the callback queue (aka event loop)
+- This queue will then execute callbacks in a FIFO 
+
+Q8. What is the event loop ?
+- Part of the node run time
+- Responsible for handling the callback functions asynchronously
+- Remember that JS is a single thread language but can execute asynchronous calls with the help of Node
+- lives in libUV
+
+Q7. What is libUV ?
+- Library which allows for asynchronous I/O
+
+Q6. What is the NodeJS Internals ?
+- Inside NodeJS, we have:
+V8 JS Engine  ->  NodeJS API (ex: fs, http, path) -> NodeJS Bindings -> LibUV
+
+Q5. How does JS run without browser ?
+- Bascially the flow is:
+
+JS File -> NodeJS (Chrome V8 Engine + libuv) -> Execution in computer
+
+Q4. How to pass values in argument in node ?
+- Type in:
+    node hello.js arg1
+Then you can access the argument by using
+const argument = process.argv[2]        // why 2 ? Because 0 (node) and 1 (script name) are taken 
+
+Q3. What is Node.JS REPL ?
+- Stands for Read, Evaluate, Print & Loop
+- Essentially, it reads the JS code and executes it. 
+    Then prints the output to the user (if any) and loops again to the next line until end of file
+- Also Known as the console ... just good for testing
+
+Q2. What is Runtime ?
+- Basically it is JS Environment
+
+Q1. Why create Node ?
+- So we can execute JS without the browser in our computers
+
+
