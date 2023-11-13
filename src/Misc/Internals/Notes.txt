@@ -7,10 +7,22 @@ Best Practices
 - When dealing with CommonJS, you need to set extension to '.cjs' ex: Name.cjs
 - DO NOT use index.js to import several functions:
     Use direct approach instead (i.e import the direct path)
+- If you have deleted node_modules or corrupted it ?
+> Just use npm install to get it back again. Good tip
+
 
 Questions
 
 Q2. How do we create npm packages ?
+
+Q30. What is the node_modules folder ? 
+- List of files stored for node to use
+- Whenever you use npm install, you download that package and save it to the node_modules package folder
+- Anything you place in the package manager, should be saved in the node_modules
+- Each folder (ex: axios constains the full source code of that package)
+- Each folder in the node_modules, ALSO has their own package.json and that has a dependency which also gets downloaded in order to work
+Ex: axios folder package.json contains dependency "follow-redirects"
+    Notice you now also have a "follow_redirects" folder in your node_modules folder
 
 Q29. Where do i find the proper command & name ?
 - Check the npm website 
