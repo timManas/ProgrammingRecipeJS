@@ -8,6 +8,17 @@ Best Practices
 
 Questions
 
+Q23. Why do we want to use modules ?
+1. Reuse existing code
+2. Organize our code
+3. Expose only funcitonality what will be used
+
+
+Q22. What are node modules ?
+- Break down code to smaller chunks 
+- Make code easily reuseable 
+- Ex: require("http") or require ("test@playwright")
+
 Q21. What are the possible states of promises ?
 1. Fullfilled
 2. Rejected
