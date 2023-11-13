@@ -1,12 +1,22 @@
 Programming Recipes NodeJS
 
 Notes
+- In Node, each file is treated as a seperate module
 
 Best Practices
-
+- When dealing with CommonJS, you need to set extension to '.cjs' ex: Name.cjs
+- When you need to import alot of functions from several modules inside a folder:
+    use an index.js file -> And have this point to the the other files
 
 
 Questions
+
+Q24. What is index.js ? 
+- Special file in a folder
+- Allows you to treat a folder as a module
+- Allows you to export funcitons from many different modules that live in a folder 
+    which can be referenced on a single point
+
 
 Q23. Why do we want to use modules ?
 1. Reuse existing code
