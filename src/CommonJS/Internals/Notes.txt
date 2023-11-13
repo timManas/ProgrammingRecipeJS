@@ -5,9 +5,8 @@ Notes
 
 Best Practices
 - When dealing with CommonJS, you need to set extension to '.cjs' ex: Name.cjs
-- When you need to import alot of functions from several modules inside a folder:
-    use an index.js file -> And have this point to the the other files
-
+- DO NOT use index.js to import several functions:
+    Use direct approach instead (i.e import the direct path)
 
 Questions
 
