@@ -8,30 +8,30 @@
 import http from 'http'
 const PORT = 3000
 
-const server = http.createServer((req, res) => {
-  let id = 0
-  let name = ''
+const dataArr = [
+  { id: 1234, name: 'homepage' },
+  { id: 3434, name: 'endpoint1' },
+]
 
-  if (req.url === '/') {
-    id = 1234
-    name = 'homepage'
-  } else if (req.url === '/endpoint1') {
-    id = 3434
-    name = 'endpoint1'
+const server = http.createServer((req, res) => {
+  res.setHeader('Content-type', 'application/json')
+  const items = req.url.split('/')
+
+  if (req.method === 'GET' && req.url === '/') {
+    res.statusCode = 200
+    res.end(JSON.stringify(dataArr))
+  } else if (req.method === 'GET' && items[1] === 'endpoint1') {
+    res.statusCode = 200
+    if (items.length === 3) {
+      const data = Number(items[2])
+      res.end(JSON.stringify(dataArr[data]))
+    } else {
+      res.end(JSON.stringify(dataArr))
+    }
   } else {
     res.statusCode = 404
     res.end()
-    return
   }
-
-  res.statusCode = 200
-  res.setHeader('Content-type', 'application/json')
-  res.end(
-    JSON.stringify({
-      id,
-      name,
-    })
-  )
 })
 
 // Activate server

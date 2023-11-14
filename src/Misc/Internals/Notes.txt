@@ -17,6 +17,26 @@ Best Practices
 
 Questions
 
+Q36. What is CORS ?
+- Stands for Cross Origin Resource Sharing
+
+
+Q35. What is an origin ?
+- Consist of three things: https:wwww.google.com/maps
+1. Protocol - https
+2. Host - www.google.com
+3. port - 443
+Once one of these three things are changed, we are no longer in same origin
+
+Q34. What is Same Origin Policy ? 
+- Prevents malicious users from stealing information
+- Security feature by browsers that restricts what your browser will do
+
+
+Q33. What is parameterized endpoint / route ? 
+- Basically it is an endpoint which has a value
+Ex: localhost:3000/friend/69 
+Where 69 is the numberId which is parameterized (i.e the id of the friend we are looking for)
 
 Q32. Whats the difference between package.json vs package-lock.json ?
 package.json
