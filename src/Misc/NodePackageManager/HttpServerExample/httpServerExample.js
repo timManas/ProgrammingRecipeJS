@@ -9,15 +9,27 @@ import http from 'http'
 const PORT = 3000
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-  })
+  let id = 0
+  let name = ''
 
-  // Send response back to the browser
+  if (req.url === '/') {
+    id = 1234
+    name = 'homepage'
+  } else if (req.url === '/endpoint1') {
+    id = 3434
+    name = 'endpoint1'
+  } else {
+    res.statusCode = 404
+    res.end()
+    return
+  }
+
+  res.statusCode = 200
+  res.setHeader('Content-type', 'application/json')
   res.end(
     JSON.stringify({
-      id: 1234,
-      name: 'Hello World',
+      id,
+      name,
     })
   )
 })
