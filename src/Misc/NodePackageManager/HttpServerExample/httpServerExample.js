@@ -28,6 +28,12 @@ const server = http.createServer((req, res) => {
     } else {
       res.end(JSON.stringify(dataArr))
     }
+  } else if (req.method === 'POST' && items[1] == 'endpoint1') {
+    req.on('data', (data) => {
+      const dataToString = data.toString()
+      dataArr.push(JSON.parse(dataToString))
+      console.log('dataArr: ' + JSON.stringify(dataArr))
+    })
   } else {
     res.statusCode = 404
     res.end()
