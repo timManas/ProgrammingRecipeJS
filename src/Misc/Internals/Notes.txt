@@ -17,6 +17,27 @@ Best Practices
 
 Questions
 
+Q38. Create a simple Express Web Server ?
+> This is all you need
+
+import express from 'express'
+
+const app = express()
+const PORT = 5000
+
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
+
+app.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`)
+})
+
+
+
+Q37. How to start a simple Express server ?
+> npm start
+
 Q36. What is CORS ?
 - Stands for Cross Origin Resource Sharing
 
