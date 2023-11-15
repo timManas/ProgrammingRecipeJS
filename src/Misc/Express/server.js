@@ -1,10 +1,16 @@
 import express from 'express'
 
 const app = express()
-const PORT = 5000
+const PORT = 5001
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
+// This is a next() example
+app.get('/', (req, res, next) => {
+  res.send('Hello World !')
+  next()
+})
+
+app.get('/', (req, res, next) => {
+  res.send('Ayo !')
 })
 
 app.listen(PORT, () => {
