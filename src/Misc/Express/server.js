@@ -1,49 +1,44 @@
 import express from 'express'
+import { getMessages } from './controllers/messagecontroller.js'
+import {
+  getFriends,
+  getFriend,
+  postFriend,
+} from './controllers/friendscontroller.js'
 
 const app = express()
 const PORT = 5000
 
-let enableNext = false
+let enableNext = true // Setting this to false, we not get anything back
 
-const friends = [
-  {
-    id: 0,
-    name: 'Tim',
-  },
-  {
-    id: 1,
-    name: 'John',
-  },
-]
+// Example of middleware
+app.use((req, res, next) => {
+  const start = Date.now()
+  console.log(`${req.method} ${req.url}`)
 
-app.get('/friends', (req, res, next) => {
-  res.json(friends)
-})
-
-// Parameterized Route
-app.get('/friends/:friendId', (req, res, next) => {
-  const friendId = Number(req.params.friendId)
-  const friend = friends[friendId]
-  if (friend) {
-    res.status(200).json(friend)
-  } else {
-    res.status(404).json({
-      error: `friend does not exists: ${friendId}`,
-    })
-  }
-})
-
-app.get('/', (req, res, next) => {
+  // Notice, if you commend this out. Request times out
+  // This will go to the next route which is (/)
   if (enableNext) {
     next()
   }
 
+  const delta = Date.now() - start
+  console.log('Delta: ' + delta + 'ms')
+})
+
+// Sets req body to be in json format
+app.use(express.json())
+
+// Basic Routes
+app.get('/', (req, res, next) => {
   res.send('Hello World !')
 })
 
-app.get('/', (req, res, next) => {
-  res.send('Ayo !')
-})
+app.get('/friends', getFriends)
+app.get('/friends/:friendId', getFriend) // Parameterized Route
+app.post('/friends', postFriend)
+
+app.get('/messages', getMessages)
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`)
