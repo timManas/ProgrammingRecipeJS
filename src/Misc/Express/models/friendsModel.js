@@ -1,3 +1,5 @@
+const list = []
+
 const friends = [
   {
     id: 0,
@@ -9,4 +11,6 @@ const friends = [
   },
 ]
 
-export default friends
+const ZONE = 'FRIENDZONE'
+
+export { list, friends, ZONE }

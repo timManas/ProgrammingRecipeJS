@@ -1,10 +1,12 @@
 import express from 'express'
-import { getMessages } from './controllers/messagecontroller.js'
+// import { getMessages } from './controllers/messagecontroller.js'
 import {
   getFriends,
   getFriend,
   postFriend,
 } from './controllers/friendscontroller.js'
+
+import * as msgController from './controllers/messagecontroller.js'
 
 const app = express()
 const PORT = 5000
@@ -29,7 +31,6 @@ app.use((req, res, next) => {
 // Sets req body to be in json format
 app.use(express.json())
 
-// Basic Routes
 app.get('/', (req, res, next) => {
   res.send('Hello World !')
 })
@@ -38,7 +39,7 @@ app.get('/friends', getFriends)
 app.get('/friends/:friendId', getFriend) // Parameterized Route
 app.post('/friends', postFriend)
 
-app.get('/messages', getMessages)
+app.get('/messages', msgController.getMessages)
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`)

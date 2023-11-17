@@ -10,4 +10,4 @@ function sendBadMessage(req, res, next) {
   })
 }
 
-export { sendBadMessage as default, getMessages }
+export { getMessages, sendBadMessage as default }

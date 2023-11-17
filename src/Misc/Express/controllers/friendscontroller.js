@@ -1,4 +1,5 @@
-import friends from '../models/friendsModel.js'
+import { friends } from '../models/friendsModel.js'
+console.log('friends: ' + friends.friends)
 
 function postFriend(req, res) {
   const friendName = req.body.name
