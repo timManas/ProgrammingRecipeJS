@@ -2,6 +2,8 @@ import express from 'express'
 
 import { friendsRouter } from './routes/friendsrouter.js'
 import { messagesRouter } from './routes/messagesrouter.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 const app = express()
 const PORT = 5000
@@ -22,6 +24,12 @@ app.use((req, res, next) => {
   const delta = Date.now() - start
   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`)
 })
+
+// Express static files from the server
+// This is where you can send html files for websites
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+app.use('/site', express.static(path.join(__dirname, 'public')))
 
 // Sets req body to be in json format
 app.use(express.json())

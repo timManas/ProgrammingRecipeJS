@@ -13,7 +13,13 @@ function getMotivation(req, res, next) {
   const __dirname = path.dirname(__filename)
 
   // path.join() will join all the names under a single path
-  const fullPath = path.join(__dirname, '..', 'public', 'Yesterday.png')
+  const fullPath = path.join(
+    __dirname,
+    '..',
+    'public',
+    'images',
+    'Yesterday.png'
+  )
   console.log('fullPath: ' + fullPath)
   res.sendFile(fullPath)
 }
