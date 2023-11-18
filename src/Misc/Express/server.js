@@ -5,12 +5,22 @@ import { messagesRouter } from './routes/messagesrouter.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-const app = express()
-const PORT = 5000
-
 let enableNext = true // Setting this to false, we not get anything back
 
-// Example of middleware
+const PORT = 5000
+const app = express()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+// Sets req body to be in json format
+app.use(express.json())
+
+// Templating Engine Setup
+app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'))
+
+// Middleware to calculate response time
 app.use((req, res, next) => {
   const start = Date.now()
 
@@ -27,15 +37,15 @@ app.use((req, res, next) => {
 
 // Express static files from the server
 // This is where you can send html files for websites
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-app.use('/site', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
 
-// Sets req body to be in json format
-app.use(express.json())
-
+// Template Engine Example
 app.get('/', (req, res, next) => {
-  res.send('Hello World !')
+  // res.send('Hello World !')
+  res.render('index', {
+    title: 'Hello wolrd',
+    caption: 'Quote for the Day',
+  })
 })
 
 // Routers
