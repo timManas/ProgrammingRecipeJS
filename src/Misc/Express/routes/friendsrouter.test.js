@@ -19,8 +19,13 @@ describe('Test GET /friends', () => {
 })
 
 describe('Test POST /friends', () => {
-  test('Should response with 200 success', () => {
-    const response = 200
-    expect(response).toBe(200)
+  test('Should response with 200 success', async () => {
+    const response = await request(app)
+      .post('/friends')
+      .send({
+        name: 'TEST',
+      })
+      .expect(200)
+    console.log('response: ' + JSON.stringify(response))
   })
 })
