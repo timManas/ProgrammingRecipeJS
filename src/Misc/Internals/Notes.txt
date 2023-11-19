@@ -1,21 +1,222 @@
 Programming Recipes NodeJS
 
 Notes
-- In Node, each file is treated as a seperate module
+1. In Node, each file is treated as a seperate module
+2. Once we send a RESPONSE back to the user, the request-response cycle ends
+    > Remember: Client sends a request -> Server sends a response ... thats it 
+3. When we send next(), it continues down the route stack for a response. Once it finds it, 
+it returns to the next() which started it all. Take a look at example in middleware start and end time
+3. When you DESTRUCTURE an import, you can use the object directly
+Ex: 
+import { getFriends } from './controllers/friendscontroller.js'
+Used in: 
+app.get('/friends', getFriends)
+
 
 Best Practices
-- When dealing with CommonJS, you need to set extension to '.cjs' ex: Name.cjs
-- DO NOT use index.js to import several functions:
+1. When dealing with CommonJS, you need to set extension to '.cjs' ex: Name.cjs
+2. DO NOT use index.js to import several functions:
     Use direct approach instead (i.e import the direct path)
-- If you have deleted node_modules or corrupted it ?
+2. If you have deleted node_modules or corrupted it ?
 > Just use npm install to get it back again. Good tip
-- Dont include node_modules in git. Add to gitignore
-- Important to commit the package-lock.json to prevent issues with diff devs installing different versions
+3. Dont include node_modules in git. Add to gitignore
+4. Important to commit the package-lock.json to prevent issues with diff devs installing different versions
+5. Try to Destructure when importing instead of using * to avoid exposing other functions
+Ex: Good Example
+import {
+  getFriends,
+  getFriend,
+  postFriend,
+} from './controllers/friendscontroller.js'
+Ex: Bad Example
+import * as msgController from './controllers/messagecontroller.js'
+
+6. Write jest test alongside any modules being tested
+7. Use "jest --watch" to get instant feedback if your testcases are failing (similar to nodemon)
+-> Holy shit ...INCREDILY USEFUL for TDD
 
 
 
 
 Questions
+
+Q63. What is supertest ?
+- Node package which adds assertions in addition to jest
+
+Q62. How does jest know where to run the test files ?
+- It searches the application for any .spec.js  or .test.js files  then execute them
+
+Q61a. What is "npm test-watch" ?
+- Allows us to continous TEST API ....similar to nodemon
+- Incredibly useful for TDD
+
+Q61. How to setup jest tests ?
+1. Create a test file either:
+ABC.spec.js 
+Or
+ABC.test.js
+2. Execute "npm jest" or "npm test-watch"
+Ex: friendsRouter.test.js 
+
+
+Q60. How to execute jest ?
+- run: npm test
+
+Q59. What is jest ?
+- npm package
+- Works on both FE and BE
+
+
+Q58. What can we use to test API in node ?
+-Involves different tools:
+1. Test runner - Finds all the tests in project, runs through them and outputs result
+2. Test fixtures - How test are organized by module and individual tests
+3. Assertions - Verify expected result equals to output result
+4. Mocking - Mocks Data without actually affecting production (ex: Mocking a DB)
+Note: Use JEST to test Node 
+
+Q57. How does express know how to look for index.js INSIDE the view folder ?
+Basically this line:
+- app.set('views', path.join(__dirname, 'views')) ß 
+Sets the views of the application where it takes the applications views
+
+Q56. What is the 'view engine' configuration ?
+- This is the default engine extension 
+Ex: app.set('view engine', 'hbs')
+
+
+Q55. What is the 'view' configuration ?
+- A directory or an array of directories for the application's views
+Ex: app.set('views', path.join(__dirname, 'views'))
+
+
+Q54. How do set a template engine on express?
+1. node install template engine like hbs 
+2. Use app.set() to set the application setting for the engine
+Ex: 
+app.set('view engine', 'hbs')
+app.set('views', path.join(__dirname, 'views'))
+3. Ensure you have html file converted to hbs templating engine (i.e should have .hbs extension)
+4. Add the template render in hbs file
+Ex: 
+app.get('/', (req, res, next) => {
+  // res.send('Hello World !')
+  res.render('index', {
+    title: 'Hello wolrd',
+    caption: 'Quote for the Day',
+  })
+})
+
+
+Q53. What does a template engine do ? 
+- Templating engine replaces special keywords like {{title}} with actual values
+on html documents sent by the server to be rendered by the browser
+- This allows a more dynamic website
+Ex: 
+    <body>
+        {{title}}
+        <h1>Welcome</h1>
+        <img src="images/Yesterday.png" alt="Yesterday">
+    </img>
+
+
+***Q52. How to send a static website using Express ?
+- Use the express static file middleware.
+Ex: 
+app.use(express.static('public'))
+
+
+Q51. What is RESTful API's ?
+- Stands for "REpresentation State Transfer" 
+- Standardization & Best Practices of how API's are created
+- Endpoints (aka URL) are collections of data  ...to be modified or read
+- Useful for Client & Server architecture
+- Request are Stateless and cacheable
+- Contains the following properties:
+1. Collections (ex: /friends  or  /messages)
+2. Use HTTP Methods (GET, POST, PUT, DELETE) to communication instruction
+3. Use existing standards (HTTP, JSON, URL)
+
+
+Q50. How to create a Router ? 
+- Create a route using express.Router()
+Ex: 
+1. Create router
+    const friendsRouter = express.Router()
+2. Then we can do this:
+    friendsRouter.get('/', getFriends)
+3. Set app to use the Router    **** MAKE SURE YOU DECLARE THIS ROUTER ...otherwise it wont work
+    app.use('/friends', friendsRouter)
+
+Q. How does this work ?
+If we get http:localhost:5000/friends GET request,
+then we go to "getFriends" callback in #2. 
+Why ? Because app.use('/friends') is a short form of app.get('/friends', getFriends)
+
+
+
+Q49. Why do we use a Router ? 
+- Break down app to be more modular
+
+
+Q48. What is a Router ? 
+- Router is like mini application, just like our express app
+- Contains its own set of middleware and routes
+
+
+Q47. What is the model view controller ? 
+ 1. Model - The controller updates the model to update elements
+ Ex: Data Stored (DB), Functions we use to access the DB, Data how it used by the application
+
+ 2. View - Model modify the elements. These are the elements on the website, seen by the user
+ Ex: Data presented back to the user. HTML Elements. API, JSON data sent back to the user
+
+ 3. Controller - User sends commands via request using Controller
+ Ex: Code/Functions that react to the incoming request and sets the response accordingly
+
+Q46. How to set up a middleware ? 
+1. Create app.use((req,res,next) => {...})
+Note - Middleware tend to use app.use
+
+Q45. What is middleware ?
+- A request handler with access to the application's request-response cycle
+
+Q44. How to setup nodemon ?
+1. Add a script to package.json to start nodemon
+Ex:    "watch": "nodemon server.js",
+2. Execute: npm run watch
+
+
+Q43. What is devDependencies ?
+- These dependencies are ONLY needed during development. NOT Production 
+
+Q43. What is nodemon ?
+- Stands for node monitor
+- It monitors your project directory and automatically restarts your node application when it detects any changes. 
+
+Q42. Do call backs contain arguments
+- Yes, they can. Ex: app.get('/', (req,res) => {...})
+Note - express callbacks can have 3 or 4 arguments
+3 args - (req, res, next)
+4 args - (err, req, res, next)
+
+Q41. Why is callback used ?
+- Allows us to write async calls 
+- There is no need for us to block other chunks of code in order to print result
+
+
+Q40. What is a callback function ?
+- Syntax "function function_name(argument, callback)"
+- Callback function Executes AFTER the function "function_name" finishes ...
+1. function_name finishes 
+then
+2. Execute call back
+
+*Q39. What is next() in (req, res, next) ?
+- Basically passes control to the next middleware (i.e get/post/etc) stack
+- Once we send a RESPONSE back to the user, the request-response cycle ends
+    > Remember: Client sends a request -> Server sends a response ... thats it
+
 
 Q38. Create a simple Express Web Server ?
 > This is all you need
@@ -234,4 +435,22 @@ Q2. What is Runtime ?
 Q1. Why create Node ?
 - So we can execute JS without the browser in our computers
 
+
+
+
+
+Errors
+
+1. Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+- Common error when trying to do something when you already sent the response on a request
+
+
+
+Issues
+
+
+Q1. Jest isnt running with ECMA6 ? What to do ?
+1. Install : npm install --save-dev babel-jest
+2. Add the following to your package.json under scripts:
+    "test": "NODE_OPTIONS='--experimental-vm-modules --experimental-specifier-resolution=node' jest",
 
