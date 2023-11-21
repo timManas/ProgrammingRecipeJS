@@ -11,6 +11,8 @@ Ex:
 import { getFriends } from './controllers/friendscontroller.js'
 Used in: 
 app.get('/friends', getFriends)
+4. Using clustering is NOT sa silver bullet for performance handling
+- > We are limite by the # of process our machine can execute in parallel
 
 
 Best Practices
@@ -34,11 +36,253 @@ import * as msgController from './controllers/messagecontroller.js'
 6. Write jest test alongside any modules being tested
 7. Use "jest --watch" to get instant feedback if your testcases are failing (similar to nodemon)
 -> Holy shit ...INCREDILY USEFUL for TDD
+8. Use Clustering to avoid performance bottlenecks
+9. Use pm2 reload server to update servers once they are already in Production
+    -> Literally ZERO-DOWNTIME
+10. Use clustering in PRODUCTION compared to WORKER_THREADs 
 
 
+TODO:
+1. Create example using MongoDB, Mongoose  with CRUD 
 
 
 Questions
+
+Q103. What is social sign on ?
+
+
+Q102. What is Authorization ?
+- Checks if user has permission has acceess resources ONCE they have been authenticated
+
+Q101. What is Authentication ?
+- Validates users are ..who they claim to be (ex: login/password)
+
+Q100. Where do we add the helmet middleware ? 
+- Generally for security we add it to the top BEFORE any of our routes
+
+Q99. What is Helmet.js ? 
+- npm package
+- Helps secure Express apps by setting various HTTP headers
+- Not a silver bullet but can help
+
+
+Q98. Why am i gettting a "Your Connection is not private" ?
+- Because the Certification authority is invalid
+- Remember this is a self signed cert ....
+
+
+Q97. What is rsa ? 
+
+Q96. How to get a self signed certificate ?
+1. Go to command line and type:
+openssl req -x509 - newKey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 365 
+-x509 means it is a self signed certificate
+-key.pem is the private key
+-cert.pem is the ceritificate 
+Note: When you execute this file, you need to ensure that the Common Nmae is the same name as your domain (ex: www.google.com)
+
+
+Q95. Why do we need a self signed certificate ? 
+Q94. What is OpenSSL ?
+
+Q93. Why would you want to use http.createServer() ?
+- https.createServer() has some benefits to using this function:
+1. Pass in SSL Certificate in the createServer({}) using https (NOT http)
+  -> This encrpyts the data through and from the server
+
+
+Q92. What are the two ways to start up a node server ?
+1. app.listen(PORT, () => {...})
+2. http.createServer().listen(PORT, ()=> {...})
+
+
+Q91. How does SSL/TLS secure HTTP connection?
+- SSL/TLS takes the http and wraps it around an encrption 
+Diageam
+
+  SSL/TLS____   == https
+  |___http___|
+   
+Q90. What is SSL Ceritificate and why is it used ?
+- SSL Certificates are what enable websites to use https
+- SSL Certificate is data file hosted in website origin server
+- Ceritificates make SSL/TLS Encryption possible and contain the webites public key with other information
+
+
+
+Q89. What is SSL ?
+- Stands for Secure Sockets Layer
+- We use SSL to encrpt the data between client & server
+
+Q88. What is flow of events for mongoose and mongoDB ?
+NodeJS --------> Model --------> Schema --------> Collection --------> Document
+        Queries           uses           MapsTo 
+Q87. Give me an example
+const puppySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  age: Number
+});
+
+const PuppyModel = mongoose.model('Puppy', puppySchema);
+
+Q86. What is a model ?
+- Modles take a schema and create an instance of a doucment equivalent to records in DB
+
+
+Q85. What is Schema ?
+- MongoDB is Schemaless
+- A mongoose schema is a document data structure that is enforced via application layer
+
+Q84. What are fields ?
+- Also known as properties or attributes similar to columns in SQL
+
+Q83. What are Documents ?
+- Documents are equivalent to records or rows of Data in SQL
+
+
+Q82. What is mongoose ?
+- Mongoose is Object Data Modeling (ODM) library for MongoDB and NodeJS
+- Manages the relationship between data, provides schema validation
+
+Node JS  ----->   Mongoosse
+   |                  |
+   |                  |
+MongoDB  <-----   MongoDriver
+
+
+
+
+Q81. How to access a worker thread ?
+const worker = require('worker_thread')
+
+Q80. What is Worker Threads ? 
+- It is a module which enables use of thread that execute JS in parallel
+- Useful for CPU intentsive JS Operations 
+- NodeJS build in async IO are more efficient than Workers can be
+
+Q79. How to set ZERO-DOWNTIME using pm2 ? 
+- Once cluster has been started: Do the following ->
+1. Make changes to your code
+2. Execute:
+ pm2 reload server
+
+
+
+Q78. How to bring a monitor view of pm2 ?
+- pm2 monit
+
+Q77. How to specify the log file name ?
+- use the -l flag and name:
+pm2 start server.js -l log.txt -i max
+-> Notice logs.txt is now created in your root express folder
+
+Q76. How to get the pm2 logs ?
+- pm2 logs
+- Displays logs continously
+
+Q75. How to start a cluster in pm2 ?
+pm2 start server.js -i max
+- You should see something like this: 
+
+┌────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ server    │ default     │ 1.0.0   │ cluster │ 3412     │ 0s     │ 0    │ online    │ 0%       │ 37.9mb   │ timmanas │ disabled │
+│ 1  │ server    │ default     │ 1.0.0   │ cluster │ 3413     │ 0s     │ 0    │ online    │ 0%       │ 35.3mb   │ timmanas │ disabled │
+│ 2  │ server    │ default     │ 1.0.0   │ cluster │ 3414     │ 0s     │ 0    │ online    │ 0%       │ 23.9mb   │ timmanas │ disabled │
+│ 3  │ server    │ default     │ 1.0.0   │ cluster │ 3419     │ 0s     │ 0    │ online    │ 0%       │ 23.9mb   │ timmanas │ disabled │
+└────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+
+What is the -i flag ? 
+- Starts the number of worker process 
+valid values: 0 t0 max
+
+Q74. Why do we want to use pm2 ?
+- pm2 comes with clustering built in 
+- Simplfiy our code and remove any clustering logic 
+- No need to fork inside our code (i.e cluster.fork())
+Ex: We can get rid of this: 
+if (cluster.isPrimary) {
+  console.log('Primarty has been started...')
+  const NUM_WORKERS = os.cpus().length
+  console.log('NumWorker ProcesS: ' + NUM_WORKERS)
+  for (let i = 0; i < NUM_WORKERS; i++) {
+    // Create a worker process
+    cluster.fork()
+  }
+} else {
+  console.log('Worker process started...')
+  app.listen(PORT, () => {
+    console.log(`Listening to Port ${PORT}`)
+  })
+
+And just replace it with this: 
+app.listen(PORT, () => {
+  console.log(`Listening to Port ${PORT}`)
+})
+
+
+Q73. How to delete a cluster on pm2?
+- pm2 delete server 
+or 
+pm2 delete PID 
+
+Q72. How to check status of pm2 ?
+- pm2 status
+
+Q71. How to stop pm2 ?
+- pm2 stop PID 
+
+Q70. How to start pm2 ?
+Go to command line:
+pm2 start server.js
+Note: THIS WILL START express server. Similar to NodeMon
+OR
+pm2 start PID (PID # only if pm2 already has process registered)
+
+
+Q69. What is a global module ? 
+
+Q. How do install a global module ? 
+- Use the -g argument to save as global module
+npm install GLOBALMODULE -g
+
+Q. Why a global module
+- Allows us to execute a module from the commandline / environment
+
+Q. when to install it globally ? 
+
+
+
+Q68. What tools would be good at clustering ?
+- Use PM2. 
+- It is is process manager with built in load balancer.
+- Allows to keep app alive forever, or reload them without any downtime
+
+Q67. What is the fork() funciton in clustering ?
+- Allows us to spin a new worker process to run our code
+Ex:   cluster.fork()
+
+
+Q66. Give me examples of Node Performance Enhancements ?
+1. Cluster - Allows to make copies of Node process that run your server code side by side in parallel
+
+Ex:
+                                  |- fork() -> worker procecess
+node server.js -> Master Process  |
+                                  |- fork() -> worker procecess
+
+
+
+Q65. How to impreove Node performance ?
+- Divide work and spread load
+- Create multiple copies of Node running side by side  in parallel
+
+Q64. Give me a examples of real like blocking functions ? 
+Ex: JSON.Stringify() & JSON.parse(), Sorting Arrays .sort()
 
 Q63. What is supertest ?
 - Node package which adds assertions in addition to jest
