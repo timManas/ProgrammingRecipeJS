@@ -13,6 +13,11 @@ Used in:
 app.get('/friends', getFriends)
 4. Using clustering is NOT sa silver bullet for performance handling
 - > We are limite by the # of process our machine can execute in parallel
+5. You can pass in middleware individually when you define the route. It will run sequentially 
+Ex:
+app.get('/secret', checkLoggedIn, (req, res) => {
+  res.send(`Secret value is 42`)
+})
 
 
 Best Practices
@@ -48,8 +53,60 @@ TODO:
 
 Questions
 
-Q103. What is social sign on ?
+Q110. How to setup social sign 
+1. Setup Google Cloud account
+2. Create new Project
+3. Set Project Name
+4. Once Project has been created, Click on Create credentials
+5. Select OAuth Client Id
+  - Select Application Type
+  - Set Name
+  - Set Authorized Javascript origin to full path of your domain: https://localhost:3000
+  - Set Authorized redirect URI's to the callback of your endpoint: Ex: https:localhost:3000/auth/google/callback
+6. Copy the following to your application
+  1. ClientId
+  2. ClientSecret
 
+Q109. What is OAuth ? 
+- Basically it is an authentication standard
+- Enables things like social sign on
+
+Q108. What are the different properties of a JWT Token ?
+1. header
+2. payload
+3. signature 
+
+Q107. What is Token Based Authentication ?
+1. Client sends UserName/Password to Server
+2. Server checks if username and password are correct, return Token if correct
+3. Server returns HTTP 200 with access token JWT
+
+4. Client sends API call with JWT token in header (Bearer)
+5. Server verifies if token is valid, returns specific resouceuser
+6. Server returns response back to the user
+...
+..
+.
+
+
+Q106. What are JSON Web Tokens ? 
+- Also known as JWT
+- Type of access token
+  -> Similar to api keys that unique identify a specific user of an application
+  -> Acts as credentials for the user
+- Industry standard method for representing the claims between two parties
+
+
+Q105. What is it purpose ?
+1. Project Identification - Identigy the app or project thats making a call to the API
+2. Project Authorization - Check whether the calling app has been granted to call the API or SDK 
+
+Q104. What are API Keys ?
+- Strings which grant user access to resources
+- Server as credentials to websites
+
+Q103. What is social sign on ?
+- Ability to sign into websites using third party applications like gmail, hotmail, github, etc
 
 Q102. What is Authorization ?
 - Checks if user has permission has acceess resources ONCE they have been authenticated

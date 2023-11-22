@@ -10,12 +10,30 @@ const app = express()
 
 app.use(helmet())
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+function checkLoggedIn(req, res, next) {
+  const isLoggedIn = true //TODO
+  if (!isLoggedIn) {
+    return res.status(401).json({ error: 'You must be logged in...' })
+  }
+
+  next() // Grant access to other API's
+}
+
+app.get('/auth/google', (req, res) => {})
+
+// This is the callback once google authorizes our credentials
+app.get('/auth/google/callback', (req, res) => {})
+
+// Logout
+app.get('/auth/logout', (req, res) => {})
+
+// Checks Login Credentials First before allowing access to secret API
+app.get('/secret', checkLoggedIn, (req, res) => {
+  res.send(`Secret value is 42`)
 })
 
-app.get('/secret', (req, res) => {
-  res.send(`Secret value is 42`)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 // Add certificate and key to server
