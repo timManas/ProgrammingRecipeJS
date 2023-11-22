@@ -53,6 +53,17 @@ TODO:
 
 Questions
 
+Q112. What is dotenv ?
+- Load environment variables from .env into process.env
+
+Q111. What is PassportJS ?
+- Authentican middleware
+- Does authentication using a variety of strategies
+> Pick a strategy an install it. In our case, we are using OAuth2 from google
+npm install passport-google-oauth20
+npm install passport
+
+
 Q110. How to setup social sign 
 1. Setup Google Cloud account
 2. Create new Project
