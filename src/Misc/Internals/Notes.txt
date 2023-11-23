@@ -18,6 +18,7 @@ Ex:
 app.get('/secret', checkLoggedIn, (req, res) => {
   res.send(`Secret value is 42`)
 })
+6. You should have a minimum of 2 keys in the sessions
 
 
 Best Practices
@@ -52,6 +53,12 @@ TODO:
 
 
 Questions
+
+Q114. What are the two main session node packages ?
+1. express-sessions : Server side sessions. This requires a DB to connect too
+2. cookie-sessions: Client side sessions. Simpler  
+
+Q113. What is a session ?
 
 Q112. What is dotenv ?
 - Load environment variables from .env into process.env
