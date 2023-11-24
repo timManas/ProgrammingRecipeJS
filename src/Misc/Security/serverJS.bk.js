@@ -1,13 +1,13 @@
 const fs = require('fs')
-const https = require('https')
 const path = require('path')
+const https = require('https')
 const express = require('express')
 const helmet = require('helmet')
 const passport = require('passport')
 const { Strategy } = require('passport-google-oauth20')
 const cookieSession = require('cookie-session')
+const { verify } = require('crypto')
 
-// Allow dotenv to fetch environmental variables
 require('dotenv').config()
 
 const PORT = 3000
@@ -26,25 +26,25 @@ const AUTH_OPTIONS = {
 }
 
 function verifyCallback(accessToken, refreshToken, profile, done) {
-  console.log('Google Profile', profile)
+  console.log('Google profile', profile)
   done(null, profile)
 }
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback))
 
-// Save the session to cookie
+// Save the session to the cookie
 passport.serializeUser((user, done) => {
   done(null, user.id)
 })
 
-// Read the cookie to get user data
+// Read the session from the cookie
 passport.deserializeUser((id, done) => {
   done(null, id)
 })
 
 const app = express()
 
-app.use(helmet()) // Sets up   helmet which secures our endpoint by encryption
+app.use(helmet())
 
 app.use(
   cookieSession({
@@ -53,29 +53,43 @@ app.use(
     keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
   })
 )
+app.use((req, res, next) => {
+  // Stub out missing regenerate and save functions.
+  // These don't make sense for client side sessions.
+  if (req.session && !req.session.regenerate) {
+    req.session.regenerate = (cb) => {
+      cb()
+    }
+  }
+  if (req.session && !req.session.save) {
+    req.session.save = (cb) => {
+      cb()
+    }
+  }
+  next()
+})
 
-app.use(passport.initialize()) // Sets up passport which helps authenticate users
-app.use(passport.session()) // Authenticates the session in the client browser
+app.use(passport.initialize())
+app.use(passport.session())
 
 function checkLoggedIn(req, res, next) {
   console.log('Current user is:', req.user)
   const isLoggedIn = req.isAuthenticated() && req.user
   if (!isLoggedIn) {
-    return res.status(401).json({ error: 'You must be logged in...' })
+    return res.status(401).json({
+      error: 'You must log in!',
+    })
   }
-
-  next() // Grant access to other API's
+  next()
 }
 
-// This is the first step in the login process
 app.get(
   '/auth/google',
   passport.authenticate('google', {
-    scope: ['email '], // Scope specifies which data we are requesting from google
+    scope: ['email'],
   })
 )
 
-// This is the callback once google authorizes our credentials
 app.get(
   '/auth/google/callback',
   passport.authenticate('google', {
@@ -84,31 +98,32 @@ app.get(
     session: true,
   }),
   (req, res) => {
-    console.log('Google called us back')
+    console.log('Google called us back!')
   }
 )
 
-// Logout
 app.get('/auth/logout', (req, res, next) => {
-  req.logout()
-  // removes req.user and terminates session
-  return res.redirect('/')
+  //Removes req.user and clears any logged in session
+  req.logout((err) => {
+    if (err) {
+      return next(err)
+    }
+    res.redirect('/')
+  })
 })
 
-// Checks Login Credentials First before allowing access to secret API
 app.get('/secret', checkLoggedIn, (req, res) => {
-  res.send(`Secret value is 42`)
+  return res.send('Your personal secret value is 42!')
 })
 
 app.get('/failure', (req, res) => {
-  return res.send('Failed to log in...')
+  return res.send('Failed to log in!')
 })
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-// Add certificate and key to server
 https
   .createServer(
     {
@@ -118,5 +133,5 @@ https
     app
   )
   .listen(PORT, () => {
-    console.log(`Listening to port: ${PORT}...`)
+    console.log(`Listening on port ${PORT}...`)
   })
