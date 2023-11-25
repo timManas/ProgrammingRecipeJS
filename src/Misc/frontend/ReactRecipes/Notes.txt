@@ -1,0 +1,11 @@
+
+Notes
+
+Best Practices
+
+Questions
+
+Q1. Why do FE Framework exists ?
+1. Keep UI in sync with Data. (Very diffcult from vanilla JS to do this)
+2. Enforce a correct way of structuring code
+3. Give developers a consistent way to buildin FE Applications
