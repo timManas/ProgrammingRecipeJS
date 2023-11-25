@@ -26,7 +26,7 @@ const AUTH_OPTIONS = {
 }
 
 function verifyCallback(accessToken, refreshToken, profile, done) {
-  console.log('Google Profile', profile)
+  console.log('Google Profile here: ', profile)
   done(null, profile)
 }
 
@@ -34,12 +34,19 @@ passport.use(new Strategy(AUTH_OPTIONS, verifyCallback))
 
 // Save the session to cookie
 passport.serializeUser((user, done) => {
-  done(null, user.id)
+  console.log('Started serialized')
+  console.log('user.id: ' + JSON.stringify(user))
+
+  done(null, user.id) // Store only the user.id
+  console.log('Finished serialized\n')
 })
 
 // Read the cookie to get user data
 passport.deserializeUser((id, done) => {
+  console.log('Started deserialized')
+  console.log('id: ' + id)
   done(null, id)
+  console.log('Finished deserialized\n')
 })
 
 const app = express()
