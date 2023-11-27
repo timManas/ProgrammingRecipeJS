@@ -4,19 +4,39 @@ function App() {
   const [advice, setAdvice] = useState('')
   const [count, setCount] = useState(0)
 
-  // Upon start of page, we trigger the getAdvice to fetch the response so that it will get displayed on screen
-  useEffect(function () {
-    getAdvice()
-  }, [])
+  /** 
+   Upon start of page, we trigger the getAdvice to fetch the response so that it will get displayed on screen
+   Removing the [] produces an infinite []
+   Why is that ?  If you Effect runs in an infinite cycle, these two things MUST be true:
+   1. Your effect is updating some state
+   2. That state leads to a rerender, which causes the Effects dependencies to change 
+
+  Changing state will always cause a re-render. 
+  By default, useEffect always runs after render has run. 
+
+  This means if you don't include a dependency array when using useEffect to fetch data, 
+  and use useState to display it, you will always trigger another render after useEffect runs.
+  Unless you provide useEffect a dependency array.
+
+  If you provide useEffect an empty dependency array, it'll run exactly once
+  
+   */
+  useEffect(
+    function () {
+      console.log('Advice Effect Executed')
+      getAdvice()
+    },
+    [advice]
+  )
 
   async function getAdvice() {
     const response = await fetch('https://api.adviceslip.com/advice')
     const data = await response.json()
-    console.log(
-      `advice: ${advice}       count: ${count}        data: ${JSON.stringify(
-        data
-      )}}`
-    )
+    // console.log(
+    //   `advice: ${advice}       count: ${count}        data: ${JSON.stringify(
+    //     data
+    //   )}}`
+    // )
 
     // Data.slip.advice is the JSON object. Try console logging it
     setAdvice(data.slip.advice)
