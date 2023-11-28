@@ -1,5 +1,6 @@
 
 Notes
+- How do we figure out which dependency triggered the useEffect ?
 
 Best Practices
 
