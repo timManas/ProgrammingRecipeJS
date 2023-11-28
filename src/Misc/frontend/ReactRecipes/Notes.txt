@@ -1,10 +1,32 @@
 
 Notes
-- How do we figure out which dependency triggered the useEffect ?
+Remember: React reacts to state changes by re-rendering the UI
+
 
 Best Practices
 
 Questions
+
+- How do we figure out which dependency triggered the useEffect ?
+
+
+Q3. How is React state driven ?
+
+1. State of data changes 
+2. Cause a Render on UI
+3. User updates the UI
+4. Causes an update in State
+5. State of data changes
+6. Causes a Re-Render of the UI
+7. Repeat ...
+
+Remember: React reacts to state changes by re-rendering the UI
+
+
+Q2. What is React ? 
+- Declarative, component based, state driven JS library for building UI
+- Never touches the DOM
+- Main goal of react is to keep UI insync with the data
 
 Q1. Why do FE Framework exists ?
 1. Keep UI in sync with Data. (Very diffcult from vanilla JS to do this)
