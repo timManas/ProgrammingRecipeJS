@@ -304,7 +304,7 @@ console.log(
     '  Note: only John and Sarah are used. The empty , are skipping the values'
 )
 
-// Ex#4:  Create object
+// Ex#4:   Object Destructuring
 let user = {}
 ;[user.name, user.lastName] = 'Joe Star'.split(' ')
 console.log('FirstName: ' + user.name + '   LastName: ' + user.lastName)
@@ -319,8 +319,10 @@ for (let [key, value] of Object.entries(user)) {
 let [name1, name2, ...titles] = [
   'Julius',
   'Caesar',
-  'Consul',
-  'of the Roman Republic',
+  'Hello',
+  'World',
+  'Wide',
+  'Web',
 ]
 console.log(
   'Use ... to represent remainder of array    - name1: ' +
@@ -347,4 +349,16 @@ Array.prototype.upperBound = function (target) {
   }
 }
 
-console.log([3, 4, 6, 6, 6, 6, 7].upperBound(6)) // 5
+console.log([3, 4, 6, 6, 6, 6, 7].upperBound(6) + '\n') // 5
+
+// Object Destructuring
+const { id, age, ...details } = {
+  id: 232323,
+  age: 31,
+  occuptation: 'Developer',
+  Address: '38 Wall St',
+}
+console.log('Object Destructing')
+console.log(
+  `name is ${id} | age is ${age} | details are: ${JSON.stringify(details)}`
+)
