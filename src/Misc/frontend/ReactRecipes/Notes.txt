@@ -4,14 +4,38 @@ Remember: React reacts to state changes by re-rendering the UI
 
 
 Best Practices
+1. Use Create-React-App for examples and small projects
+    - 
 
 Questions
 
-- How do we figure out which dependency triggered the useEffect ?
+Q9. How to start react app ?
+- npx run start
+
+Q8. How to build a Create-react-app ?
+- npx create-react-app NAMEOFAPP
+
+Q7. what are Production grade React frameworks ?
+1. Next.JS - Full stack React framework
+2. Remix - Full stack React framework with nested routing
+
+Q6. Pros and cos of Vite ?
+1. Moder build tool that contains a template for setting up React Applications
+2. Need to maually set up ESLint (and others)
+3. Extremely fast hot module replacement and bundling
+
+Q5. Pros and cons of Create-React-App ?
+1. Complete starter kit for react Applications
+2. Everything is already configured : ESLint, Prettier, Jest, etc
+3. Slow and Outdated (i.e webpack)
+
+Q4. What are the two options for setting up a react project? 
+1. Create-react-app
+2. Vite  
+
 
 
 Q3. How is React state driven ?
-
 1. State of data changes 
 2. Cause a Render on UI
 3. User updates the UI
@@ -32,3 +56,5 @@ Q1. Why do FE Framework exists ?
 1. Keep UI in sync with Data. (Very diffcult from vanilla JS to do this)
 2. Enforce a correct way of structuring code
 3. Give developers a consistent way to buildin FE Applications
+
+- How do we figure out which dependency triggered the useEffect ?
