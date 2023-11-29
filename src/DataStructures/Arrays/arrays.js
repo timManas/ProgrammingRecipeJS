@@ -360,5 +360,56 @@ const { id, age, ...details } = {
 }
 console.log('Object Destructing')
 console.log(
-  `name is ${id} | age is ${age} | details are: ${JSON.stringify(details)}`
+  `name is ${id} | age is ${age} | details are: ${JSON.stringify(details)} \n`
+)
+
+console.log('Array Map Method')
+const numArr1 = [1, 2, 3, 4, 5, 6]
+const numArr2 = numArr1.map((element) => element * 2)
+console.log('Ex1: New Mapped Array: ' + numArr2)
+
+const objArr1 = [
+  {
+    id: 1,
+    name: 'John',
+    title: 'CEO',
+    age: 90,
+  },
+  {
+    id: 2,
+    name: 'Doe',
+    title: 'CFO',
+    age: 70,
+  },
+  {
+    id: 2,
+    name: 'Mile',
+    title: 'Worker',
+    age: 36,
+  },
+]
+
+// Notice, we only return the key/value we want here
+const objArr2 = objArr1.map((obj) => {
+  return {
+    id: obj.id,
+    name: obj.name,
+  }
+})
+console.log('Ex2: New Object Mapped Array: ' + JSON.stringify(objArr2) + '\n')
+
+console.log('Array Filter Method')
+const numArr3 = [1, 2, 4, 5, 6, 7, 8, 9, 10]
+const numArr4 = numArr3.filter((element) => element % 2 == 0)
+console.log('Ex1: Filter an Array divisible by 2 only - ' + numArr4)
+
+const objArr3 = objArr1.filter((element) => element.age > 50)
+console.log(
+  'Ex2: Filter object array by age > 50 - ' + JSON.stringify(objArr3) + '\n'
+)
+
+console.log('Array Reduce Method')
+const totalAges = objArr1.reduce((acc, element) => acc + element.age, 0)
+console.log(
+  'Ex1: Calculates the total age of all employees - ' + totalAges + '\n'
 )
