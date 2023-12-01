@@ -1,13 +1,41 @@
 
 Notes
-Remember: React reacts to state changes by re-rendering the UI
+1. Remember: React reacts to state changes by re-rendering the UI
+2. You cannot use if/else statements directly in JSX ... (this sucks =| ). You have to use ternary operatoes like this:
+    ex: { isOpen ? TrueResult : FalseResult }
 
 
 Best Practices
 1. Use Create-React-App for examples and small projects
-    - 
+2. For debugging, see if you can create a component tree
 
 Questions
+
+Q12. What is JSX ? 
+- Declarative syntax to describe what components looks like and how they works
+    - Describes what UI should like like using JSX, based on current data
+    - Abstraction away from DOM: Never touch the DOM
+    - Reflection of the current data
+- Componenets must return a block of JSX
+- Extension of JS that allows us to embed JS, CSS and React compnenets into HTML
+- Each JSX Element is converted Reaxt.createElement function call  (using BABEL)
+
+Component____
+|    Data    |
+|   Logic    |
+| Appearance |
+|____________|
+
+Q11. What are components ? 
+- Components are building blocks
+- React made entirely out of components
+- Each component has its own data, logic and appearance (how it works and looks)
+- Components can be reused, nested inside other compoenets and pass data between them
+- MUST return a block of JSX, in order to render to the UI (can also return null)
+
+Q10. What is the purpose of StrictMode in React ?
+1. Checks for outdated parts during build
+2. Runs components twice to check for bugs
 
 Q9. How to start react app ?
 - npx run start
