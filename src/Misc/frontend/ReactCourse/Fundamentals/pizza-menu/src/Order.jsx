@@ -1,3 +1,6 @@
+/**
+ * We destructure closehour and openHour away from props
+ */
 function Order({ closeHour, openHour }) {
   return (
     <div className='order'>

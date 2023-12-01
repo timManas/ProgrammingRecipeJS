@@ -1,3 +1,15 @@
+/**
+ * We pass in {pizza} instead of pizza is because
+ * we want to destructure pizzaObk from the other properties
+ *
+ * Otherwisse, we get this:
+ * pizzaOb: {}
+ * key: {}
+ * properties: {}
+ *
+ * By Destructuring pizzaObj, we only get that part we need
+ *
+ */
 function Pizza({ pizzaObj }) {
   console.log(pizzaObj)
 
