@@ -1,7 +1,7 @@
 function StepMessage(props) {
   return (
     <div className='message'>
-      <h3>Step {props.step}</h3>
+      <h1>Step {props.step}</h1>
       {props.children}
     </div>
   )

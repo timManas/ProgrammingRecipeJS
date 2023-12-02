@@ -23,6 +23,10 @@ function Steps() {
     }
   }
 
+  function onClickInnerButton(messages) {
+    alert(`${messages[step - 1]}`)
+  }
+
   return (
     <div>
       <button className='close' onClick={buttonClicked}>
@@ -38,9 +42,9 @@ function Steps() {
           </div>
 
           <StepMessage step={step}>
-            {messages[step - 1]}
+            message: {messages[step - 1]}
             <div className='buttons'>
-              <Button onClick={() => alert(`${messages[step - 1]}`)}>
+              <Button onClick={() => onClickInnerButton(messages)}>
                 Learn how by Clicking here
               </Button>
             </div>
