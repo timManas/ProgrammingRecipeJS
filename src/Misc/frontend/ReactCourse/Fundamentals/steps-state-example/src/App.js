@@ -1,6 +1,12 @@
 import { Steps } from './Steps'
 import { StepMessage } from './StepMessage'
 
+/*
+  Goal:
+  1. Everytime we click on the 'previous' or 'next' buttong we change the state
+  2. This will trigger a new state 
+*/
+
 export default function App() {
   return (
     <div>
