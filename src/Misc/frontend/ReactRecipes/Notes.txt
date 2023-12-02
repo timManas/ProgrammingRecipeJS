@@ -3,13 +3,95 @@ Notes
 1. Remember: React reacts to state changes by re-rendering the UI
 2. You cannot use if/else statements directly in JSX ... (this sucks =| ). You have to use ternary operatoes like this:
     ex: { isOpen ? TrueResult : FalseResult }
+3. You can pass entire objects into props using the {}
+4. props are basically like argument passed into JS functions
+5. You can put JSX inside properties or between bodies
+Ex:     
+<li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
+<h3>{pizzaObj.name}</h3>
+5. You cant stringify due to cyclic object value,
+> Use a reducer like this: getCircularReplacer()
+> This a very common issue. Talked about in MDN
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value
+
+
+
 
 
 Best Practices
 1. Use Create-React-App for examples and small projects
 2. For debugging, see if you can create a component tree
+3. For defining class in JSX, you cannot use class ...use className
+    Ex:     <div className='container' />
+4. You can seperate the {children} from the component
+Same component but you can customize the children inside of it
+Ex: 
+    <Button bgColor='#7950f2' textColor='#fff' onClick={handlePrevious}>
+         <span>👈</span> Previous
+    </Button>
+
+    <Button bgColor='#7950f2' textColor='#fff' onClick={handleNext}>
+         Next <span>👉</span>
+        <span>🤓</span>
+    </Button>
+
+    And in the JSx return the following:
+    return <button> {children} </button>
+
+
+
 
 Questions
+
+Q18. How to find out what properties are in props ?
+Use this:
+  for (var key in props) {
+    console.log(key + '     ' + props[key])
+  }
+Or use the Reducer outlined inthe 'Notes' above
+
+Q17. What are common properties passed in the prop ?
+- props.children : Any child elements inside the Component can be passed
+
+
+Q16. What if you pass in empty props ?
+- You can still access the props even if you dont pass anything in 
+Ex: <Footer> </Footer>
+But in function we can do this:
+function Footer(props) {
+    console.log(props)  // This would be empty
+}
+
+Q15. What are the rules of JSX ?
+1. JSX works essentially like HTML but we can enter JS mode using '{...}' curly brackets
+2. We can place JS expressions inside {}
+i.e: reference variables, create arrays or objects, [].map, ternary operators
+3. Statements are NOT allowed (i/else, for, switch)
+4. JSX produces a JS expressions 
+    - Can place other pieces of JSX inside {}
+    - We can write JSX anywhere inside a component 
+5. JSX can return only one root element. If you need more,
+you can use emty <> </>
+ 
+
+Q14. How to access the props passed to a component? 
+Use the "props" keyword
+Ex: props.name,  props.id, props.ingredients
+
+Q13. How to send props to components?
+- Need to do two things:
+1. Send props through the parent componenet
+Ex:  <Pizza pizzaObj={pizza}/>
+2. Receive the props in the child compoenet
+Ex: function Pizza({ pizzaObj }) {.....}
+
+Q12. What are props ?
+- Props are used to pass data from parent components to child
+- Used to configure each unique components
+- Anything can be passed as props (i.e single values, arrays, objects, functions and other components)
+- Props are READ ONLY !!!! 
+    > If you need to modify props ..then you should use STATE
+
 
 Q12. What is JSX ? 
 - Declarative syntax to describe what components looks like and how they works
@@ -20,11 +102,12 @@ Q12. What is JSX ?
 - Extension of JS that allows us to embed JS, CSS and React compnenets into HTML
 - Each JSX Element is converted Reaxt.createElement function call  (using BABEL)
 
-Component____
-|    Data    |
-|   Logic    |
-| Appearance |
-|____________|
+Component_________
+|      Data       |
+| (Props & State) |
+|      Logic      |
+|    Appearance   |
+|_________________|
 
 Q11. What are components ? 
 - Components are building blocks

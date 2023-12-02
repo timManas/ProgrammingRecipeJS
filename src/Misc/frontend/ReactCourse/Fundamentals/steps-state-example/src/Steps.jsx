@@ -7,8 +7,14 @@ function Steps() {
   const [step, setStep] = useState(1)
   const [isOpen, setIsOpen] = useState(true)
 
+  function buttonClicked() {
+    setIsOpen(!isOpen)
+  }
+
   function handlePrevious() {
-    if (step > 1) setStep((s) => s - 1)
+    if (step > 1) {
+      setStep(step - 1)
+    }
   }
 
   function handleNext() {
@@ -19,7 +25,7 @@ function Steps() {
 
   return (
     <div>
-      <button className='close' onClick={() => setIsOpen((is) => !is)}>
+      <button className='close' onClick={buttonClicked}>
         &times;
       </button>
 
@@ -34,25 +40,15 @@ function Steps() {
           <StepMessage step={step}>
             {messages[step - 1]}
             <div className='buttons'>
-              <Button
-                bgColor='#e7e7e7'
-                textColor='#333'
-                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
-              >
-                Learn how
+              <Button onClick={() => alert(`${messages[step - 1]}`)}>
+                Learn how by Clicking here
               </Button>
             </div>
           </StepMessage>
 
           <div className='buttons'>
-            <Button bgColor='#7950f2' textColor='#fff' onClick={handlePrevious}>
-              <span>👈</span> Previous
-            </Button>
-
-            <Button bgColor='#7950f2' textColor='#fff' onClick={handleNext}>
-              Next <span>👉</span>
-              <span>🤓</span>
-            </Button>
+            <Button onClick={handlePrevious}>Previous</Button>
+            <Button onClick={handleNext}>Next</Button>
           </div>
         </div>
       )}

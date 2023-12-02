@@ -13,6 +13,7 @@ export default function App() {
       </StepMessage>
 
       <StepMessage step={2}>
+        <p>This is child #2</p>
         <p>Read children prop</p>
         <p>😎</p>
       </StepMessage>
