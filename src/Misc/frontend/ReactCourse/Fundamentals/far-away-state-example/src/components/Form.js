@@ -4,8 +4,10 @@ export default function Form({ onAddItems }) {
   const [description, setDescription] = useState('')
   const [quantity, setQuantity] = useState(1)
 
-  function handleSubmit(e) {
-    e.preventDefault()    // WTH is this ? 
+  function handleSubmit(event) {
+    // This prevents the page from RELOAD when button has been clicked and form submitted
+    // Not part of react but part of JS
+    event.preventDefault()    
 
     if (!description) 
       return
@@ -21,7 +23,7 @@ export default function Form({ onAddItems }) {
   }
 
   return (
-    <form className='add-form' onSubmit={handleSubmit}>
+    <form className='add-form' onSubmit={(event) => handleSubmit(event)}>
       <h3>What do you need for your trip?</h3>
       <select
         value={quantity}

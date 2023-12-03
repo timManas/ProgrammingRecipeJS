@@ -4,21 +4,6 @@ import Form from './Form'
 import PackingList from './PackingList'
 import Stats from './Stats'
 
-
-/**
- * Questions
- * 1. Why store the added items in the App component ? 
- *  > So we can pass the items into the Packaging List
- * 
- * 2. What is e.preventDefault ? 
- * 
- * 3. Why does Form.js need a state ? Why cant we just add an item ?
- *  > Because once we click on Add. We set the state of description and qty to be blank and 1
- * 
- * 4. What triggers handleSubmit() ? 
- *  > The form component has "onSubmit={handleSubmit}"
- */
-
 export default function App() {
   const [items, setItems] = useState([])
 
@@ -44,10 +29,6 @@ export default function App() {
       setItems([])
   }
 
-
-
-
-
   return (
     <div className='app'>
       <Logo />
@@ -62,3 +43,24 @@ export default function App() {
     </div>
   )
 }
+
+
+/**
+ * Questions
+ * 1. Why store the added items in the App component ? 
+ *  > So we can pass the items into the Packaging List
+ * 
+ * 2. What is e.preventDefault ?
+ * >  This prevents the page from RELOAD when button has been clicked and form submitted 
+ * 
+ * 3. Why does Form.js need a state ? Why cant we just add an item ?
+ *  > Because once we click on Add. We set the state of description and qty to be blank and 1
+ * 
+ * 4. What triggers handleSubmit() ? 
+ *  > The form component has "onSubmit={handleSubmit}"
+ * 
+ * 5. Where does the 'event' argument come from in  handleSubmit(event) {...} ?
+ *  > As soon as the event submit happens, react will call the handleSubmit function and pass the event object
+ * > event object is an object will all the current event
+ *  
+ * */
