@@ -13,6 +13,13 @@ Ex:
 > Use a reducer like this: getCircularReplacer()
 > This a very common issue. Talked about in MDN
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value
+6. Updating a component state will trigger an re-render
+> why ? to keep UI insync with data
+7. You can use the && for conditional rendering 
+ex: {isOpen && ....}  - If isOpen is true, it will render the ..... If false, nothing will get displayed
+
+
+
 
 
 
@@ -37,11 +44,89 @@ Ex:
 
     And in the JSx return the following:
     return <button> {children} </button>
+5. When creating properties like onClick, make sure to wrap in () => alert(...)
+Ex: 
+onClick={() => alert(....)}   CORRECT 
+onClick={alert(...)}        BAD ...Dont do this
+
+- If you dont add the '() =>' React will trigger this method constantly
+The reason being is that when initliazing, react sees this component and triggers it right away
+instead of waiting until the button is clicked
+6. Do NOt update state using the variable.
+- Use the setter instead
+Ex: const[state, setState] = useState()
+state = state.new       // THIS IS BAD ...DO NOT DO THIS
+setState(state.new)     // Good practice
+
+7. Download the React Dev Tools to show
+- The component tree
+- Profiler
+
+8. When updating the state:
+- Do NOT do this:
+     setStep(step + 1)
+- Instead do this:
+    setStep((currentStep ) =>  currentStep + 1)
+
+
+
+
 
 
 
 
 Questions
+
+Q27. What are general 'state' guidelines ?
+1. Each component has and manages it own state
+2. Changes in one component SHOULD NOT affect other components 
+3. Use a state variable for any data that the component needs to "remember" over time
+4. Whenever you want something in component to be dynamic, update its state.
+5. Update state if you want to change:
+    - the way a component looks
+    - the data it displays
+6. When building a component, imagine its view as a reflection of state over time
+7. For data that do not need re-renders, do NOT use state. Use a regular variable instead
+
+Q26. What is the mechanic of an Re-render ?
+1. User clicks on event handler (ex: onclick)
+2. State is updated
+3. React re-renders the view 
+4. View is updated
+5. UI is now insync with Data
+
+Q25. What is unmounting ?
+- When a component disappears from screen
+
+Q24. What is re-rendering ?
+- React calls the component function again
+- Basically react removes the entire view and re-renders a new one
+
+Q23. How is a componenet view updated when it is changed ? 
+- This is due to state
+- In react, a view is updated by re-rendering that specific component
+
+
+Q22. How to identify hooks ? 
+- Start with the word 'use' 
+Ex: useEffect, useState, useReducer
+
+Q21. What does state allows us to do ?
+1. Update the components view (by re-rendering)
+2. Persist local variables between renders
+
+Q20. What is state ? 
+- Data that component can hold over time.
+- Think of it as components memory 
+- Updating component state will TRIGGER react to re-render the component (i.e useEffect)
+- State is what keeps the UI insync with the Data
+
+***Q19. HOW TO PASS ARGUMENTS to a onClick ....
+You will need to use an anonymous function to pass it in 
+Ex:             
+1. <Button onClick={() => onClickInnerButton(messages)}>
+2. then on onClick
+3. function onClickInnerButton(messages) {....}
 
 Q18. How to find out what properties are in props ?
 Use this:
