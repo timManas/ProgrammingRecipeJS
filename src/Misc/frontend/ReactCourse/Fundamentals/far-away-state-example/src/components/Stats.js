@@ -1,3 +1,6 @@
+// This is as derived state
+// Just regular variables without useState
+
 export default function Stats({ items }) {
   if (!items.length)
     return (

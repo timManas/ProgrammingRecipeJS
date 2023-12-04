@@ -5,6 +5,8 @@ export default function Form({ onAddItems }) {
   const [quantity, setQuantity] = useState(1)
 
   function handleSubmit(event) {
+    console.log(event)
+
     // This prevents the page from RELOAD when button has been clicked and form submitted
     // Not part of react but part of JS
     event.preventDefault()    
@@ -27,7 +29,11 @@ export default function Form({ onAddItems }) {
       <h3>What do you need for your trip?</h3>
       <select
         value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}>
+        onChange={(event) => {
+          console.log("onChange: ")
+          console.log(event)
+          setQuantity(Number(event.target.value))
+        }}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option value={num} key={num}>
             {num}
