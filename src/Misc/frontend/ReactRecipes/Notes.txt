@@ -17,6 +17,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_
 > why ? to keep UI insync with data
 7. You can use the && for conditional rendering 
 ex: {isOpen && ....}  - If isOpen is true, it will render the ..... If false, nothing will get displayed
+8. Changes to STATE or PROPS will trigger a re-render
 
 
 
@@ -68,7 +69,20 @@ setState(state.new)     // Good practice
 - Instead do this:
     setStep((currentStep ) =>  currentStep + 1)
 
+9.When creating a component, do the following:
+1. Create all the child components in the same filter
+2. Ensure code works
+3. Refactor the parent component file by seperating the child component into seperate files
 
+10. Best practice dictate, we like to keep track of the state inside one component.
+Most likely the parent component which keeps track
+
+11. Try minimizing the # of states in an app
+> Try using derived state as much as you can. Why ? Because you dont want to update all the other state and keep them all in sync with each other
+
+
+12. Use children props to pass elements from  Parent to Child Components
+- Useful to display generic functionality with some customization
 
 
 
@@ -76,6 +90,117 @@ setState(state.new)     // Good practice
 
 
 Questions
+
+
+Q39. What is a children prop ?
+- Children prop allows us to pass JSX into an element (besides regular props)
+- Essential tool thats makes code reuseable 
+- Useful for generic component that dont know their content before being used
+- Remember this is still ONE WAY data flow (parent to child)
+    > So we can only pass child props to child components. Not reverse !!!
+
+
+Q38. What is Derived state ? 
+- State that is computed from an existing piece of STATE or from PROPS
+
+
+Q37. When & Where to place state ?
+
+Need to store Data  ------>   Will State change at some point ?  --- No --->  Place data in const variable
+                                        |   
+                                       Yes
+                                        | 
+                       Can be computed from existing state/props ?   --- Yes ---> Derived State
+                                        |
+                                       No 
+                                        |
+                        Should it re-rendered component ?    --- No ---> Ref (useRef)
+                                        |   
+                                       Yes
+When to create state                    | 
+--------------------      Place a new piece state in component (This is local state)
+Where to place state                    |
+                                        |
+                            Only used by this component ?    --- Yes --->  Leave in component
+                                        |
+                                        No 
+                                        |
+                            Also used by child component ?   --- Yes ---> Pass state to child via props
+                                        |
+                                        No 
+                                        |                                       
+Set to Global state <--- No ---- Used by one of few siblinb component ?  --- Yes ---> Lift state up to first common parent
+
+
+
+
+
+Q36. What is Global state ? 
+- State that many components might need
+- Shared state that is accessible to EVERY component  in the entire Applications
+Ex: Conext API or Redux 
+
+Q35. What are local state ?
+- State needed only by one or few components
+- State that is defined in a component and only that compnent and child components have access to it
+- Should always start with LOCAL state
+
+Q34. What is state management ? 
+Deciding: 
+- When to Create state
+- Know what types of states are required
+- Where to place each state
+- How data flows through the app
+ 
+
+Q33. How to "think" in React ? 
+- Thinking about components, state, data flows, effects, etc
+- Thinking in state transitions, not element mutations
+- Follow the following process:
+1. Break the desired UI into component and create a component tree (very useful)
+2. Build a static version in react (without state) first
+3. Decide on state management:
+    - Think about state (when to use, type of state (local vs global), where to place each piece of state)
+    - Establish Data Flow (One way data flow, child to parent communication, accessing global state)
+
+
+
+Q32. Whats the difference between state and props ? 
+1. State
+- Internal data owned by component
+- 'Memory' of the component
+- Can be updated by the componenet itself
+- Updating state causes a re-render
+- Used to make componenets interactive
+
+2. Props
+- External data owned by the parent component
+- Similar to function parameters
+- Read-only
+- Receiving new props will trigger a re-render
+
+
+
+Q31. How to implement a controlled element ?
+- Follow three steps
+1. Create state for component
+Ex: const [description, setDescription] = useState('')
+2. Use state as value of specific component we want to control
+Ex: value={description}
+3. Use the setState to modify the state 
+Ex: setDescription(e.target.value)
+
+
+Q30. What is a controlled element ? 
+> React who controls the state of the elements and not the DOM
+
+Q29. What is event.preventDefault() ?
+- Prevents the page from reload when a submit occurs
+- Not part of React but part of JS
+
+Q28. What is the event object ?
+ > event object is an object which contains all info about  the current event
+
 
 Q27. What are general 'state' guidelines ?
 1. Each component has and manages it own state
