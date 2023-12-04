@@ -5,21 +5,22 @@ function FormAddFriend({ onAddFriend }) {
   const [name, setName] = useState('')
   const [image, setImage] = useState('https://i.pravatar.cc/48')
 
-  function handleSubmit(e) {
-    e.preventDefault()
+  function handleSubmit(event) {
+    event.preventDefault() // prevent reloading
 
     if (!name || !image) return
 
-    const id = crypto.randomUUID()
+    const id = crypto.randomUUID() // Creates random unique ID
     const newFriend = {
       id,
       name,
-      image: `${image}?=${id}`,
+      image: `${image}?=${id}`, // Set image to the specific URL image
       balance: 0,
     }
 
     onAddFriend(newFriend)
 
+    // Reset back to default
     setName('')
     setImage('https://i.pravatar.cc/48')
   }

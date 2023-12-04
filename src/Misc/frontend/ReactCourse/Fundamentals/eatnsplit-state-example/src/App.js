@@ -20,7 +20,7 @@ export default function App() {
   }
 
   function handleSelection(friend) {
-    setSelectedFriend((cur) => (cur?.id === friend.id ? null : friend))
+    setSelectedFriend((current) => (current?.id === friend.id ? null : friend))
     setShowAddFriend(false)
   }
 
@@ -48,7 +48,7 @@ export default function App() {
         {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend} />}
 
         <Button onClick={handleShowAddFriend}>
-          {showAddFriend ? 'Close' : 'Add friend'}
+          {showAddFriend ? 'Cancel' : 'Add friend'}
         </Button>
       </div>
 
