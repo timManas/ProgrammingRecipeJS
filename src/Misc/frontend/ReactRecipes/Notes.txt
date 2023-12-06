@@ -84,8 +84,8 @@ Most likely the parent component which keeps track
 12. Use children props to pass elements from  Parent to Child Components
 - Useful to display generic functionality with some customization
 
-
-
+13. Do not modify initial arrays. Similar to props. We do not modify them
+> Create a brand new one instead
 
 
 

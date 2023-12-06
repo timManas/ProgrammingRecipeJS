@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { tempMovieData, tempWatchedData } from './data/tempMovieData'
 import { useLocalStorageState } from './components/useLocalStorageState'
 import { useMovies } from './components/useMovies'
 import { NavBar } from './components/NavBar'
@@ -17,8 +18,10 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState(null)
   const { movies, isLoading, error } = useMovies(query)
-
   const [watched, setWatched] = useLocalStorageState([], 'watched')
+
+  // const [movies, setMovies] = useState(tempMovieData)
+  // const [watched, setWatched] = useState(tempWatchedData)
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id))
@@ -45,7 +48,6 @@ export default function App() {
 
       <Main>
         <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
