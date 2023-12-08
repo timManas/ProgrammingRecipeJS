@@ -21,6 +21,7 @@ StarRating.propTypes = {
   onSetRating: PropTypes.func,
 }
 
+// Set defauls in props
 function StarRating({
   maxRating = 5,
   color = '#fcc419',

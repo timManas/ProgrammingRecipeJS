@@ -17,11 +17,11 @@ import { NumResults } from './components/NumResults'
 export default function App() {
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState(null)
-  const { movies, isLoading, error } = useMovies(query)
-  const [watched, setWatched] = useLocalStorageState([], 'watched')
+  // const { movies, isLoading, error } = useMovies(query)
+  // const [watched, setWatched] = useLocalStorageState([], 'watched')
 
-  // const [movies, setMovies] = useState(tempMovieData)
-  // const [watched, setWatched] = useState(tempWatchedData)
+  const [movies, setMovies] = useState(tempMovieData)
+  const [watched, setWatched] = useState(tempWatchedData)
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id))
@@ -48,11 +48,12 @@ export default function App() {
 
       <Main>
         <Box>
-          {isLoading && <Loader />}
+          {/* {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
           )}
-          {error && <ErrorMessage message={error} />}
+          {error && <ErrorMessage message={error} />} */}
+          <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
         </Box>
 
         <Box>

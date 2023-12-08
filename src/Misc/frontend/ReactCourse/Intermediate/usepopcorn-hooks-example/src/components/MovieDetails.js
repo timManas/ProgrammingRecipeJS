@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useKey } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Loader } from './Loader'
 import { StarRating } from './StarRating'
+import { useKey } from './useKey'
 
 const KEY = 'f84fc31d'
 
