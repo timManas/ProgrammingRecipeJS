@@ -59,7 +59,7 @@ Ex: const[state, setState] = useState()
 state = state.new       // THIS IS BAD ...DO NOT DO THIS
 setState(state.new)     // Good practice
 
-7. Download the React Dev Tools to show
+7. Download the React Dev Tools to showgi
 - The component tree
 - Profiler
 
@@ -78,7 +78,8 @@ setState(state.new)     // Good practice
 Most likely the parent component which keeps track
 
 11. Try minimizing the # of states in an app
-> Try using derived state as much as you can. Why ? Because you dont want to update all the other state and keep them all in sync with each other
+> Try using derived state as much as you can. 
+Why ? Because you dont want to update all the other state and keep them all in sync with each other
 
 
 12. Use children props to pass elements from  Parent to Child Components
@@ -87,10 +88,74 @@ Most likely the parent component which keeps track
 13. Do not modify initial arrays. Similar to props. We do not modify them
 > Create a brand new one instead
 
+14. When creating a UI with lots of components... 
+- Start with a relativily big component file
+- Split the file into smaller componenets as it becomes ncessary
+
+
+
+
+
+
+
+
 
 
 Questions
 
+
+Q45. What are proptypes ?
+- We can specify the type of the value our properties are passed in (i.e int, string, boolean, etc)
+- This technique is not really used within JS. If you need too... use TypeScript instead
+Ex:
+StarRating.propTypes = {
+  maxRating: PropTypes.number,      // number
+  defaultRating: PropTypes.number,  // number
+  color: PropTypes.string           // string 
+}
+
+
+Q44. Can you pass elements in as props ? 
+- Yes you can
+- Used in ReactRouter
+Ex: <Box element={<MovieList movies={movies} /> } />
+
+Q43. What is component composition ? 
+- In order to combine components of other components, use the "child.props"  {children}
+in order to be resuable.
+- This is good for creating layouts
+- Why ? If we hard code the components together, we cannot reuse them any more
+
+Q42. What is prop drilling ? 
+- When child components are deeply nested, how do send our setXXX() calls to it ? 
+- Use prop drilling. We continously pass arguments into a Child Components properties until we get to designed child components
+- This is ok if we are 1 or 2 layers deep. But if the component is 10 layers deep, consider using Redux =)
+
+Q41. What are component categories ?
+1. Stateless Componenets
+- No State
+- Can receive props and simply present data
+- Usually small and resuable 
+- Ex: Logo, Text, Button
+
+2. Stateful Components
+- Have state
+- Can be resuable
+Ex: Cards
+
+3. Structural Components
+- Result of composition
+- Can be huge and non-reuseable
+Ex: Pages, Layout,  Entire screens of the app (ex: App.js)
+
+
+
+Q40. How to split a UI into components ?
+- There are 4 main criteria for splitting a UI into components
+1. Logical seperation of content
+2. Seperate based on reuseablitity
+3. Seperate based on the responsibilities / complexity
+4. Seperate by your own personal coding style (i.e Small vs Large componenets)
 
 Q39. What is a children prop ?
 - Children prop allows us to pass JSX into an element (besides regular props)
