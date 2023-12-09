@@ -19,10 +19,17 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_
 ex: {isOpen && ....}  - If isOpen is true, it will render the ..... If false, nothing will get displayed
 8. Changes to STATE or PROPS will trigger a re-render
 
-
-
-
-
+9.The render process is triggered for the entire application and NOT just for one single componenet
+- This does not mean entire DOM is updated since rendering calls upon the component function and figuring out what needs to change
+- In practice, it looks like React ONLY re-renders the componenet where the state update happens.
+- But thats not correct
+10. Renders are NOT triggered immediately, but schedule for when the JS engine has some "free time".
+***** 11. Rendering a componenet will cause ALL of its child component to be rendered as well (no matter if props was changed or not)
+Why ? Because React doesent know if child componenet will be affected or not
+Note - This does not mean entire DOM will be updated, just the virtual DOM
+11. Side Effects are allows (and encouraged) in Event Handler Functions !!
+- the useEffect hook is used to register side effects
+12. Updating state in React is ASYNCH
 
 
 
@@ -92,17 +99,228 @@ Why ? Because you dont want to update all the other state and keep them all in s
 - Start with a relativily big component file
 - Split the file into smaller componenets as it becomes ncessary
 
+15. Use the 'key' prop when you have multiple components of the same type. For performance gains
+16. When you need to modify the state of a component, give it a new unique key to trigger a re-render
+
+17. 
+18. 
 
 
 
 
 
-
+Summary 
+1. A component is like a blue print for piece of UI that will eventually exist on screen
+2. Component instance a is single physical instance of a component rendered on screen
+3. Component instances rendered will return a React element
+4. Rendering only means calling compoenent functions and calculating the what DOM needs to update. (Nothing to do with the DOM)
+5. Each time a component instance is rendered, function is called again
+6. Only initial render or STATE  update will trigger a render.
+7. Render happsn for the entire application and NOT just one single component (but the recompiler will see the diff and paint on browser)
+8. When compoenent gets rendered, its child components will get rerendered as well.
+    - Recompiler will check which child element needs to be updated for performance reason 
+9. Diffing is how react decides which DOM elements needs to be added or modified
+    - If between renders, a certain Reac element stays at the same position in the element tree, the corresponding DOM element and state will stay the same
+    - If element changed to a different position, or its a different element type, the DOM element will be destroyed
+10. Use a key prop to distinguish between multiple compoenent instances
+    - When key stays the same across renders, the element is kept in the DOM. (Hence, use keys in list)
+    - When we change keys, DOM elements will be destroyed and rebuilt
+11. Never declare a new component inside ANOTHER component.
+    - Doing so, will create a nested component  every time the parent component re-renders
+12. Logic that produces JSX output for a component instance (i.e render logic) is NOT allowed to produce side effects
+13. Side effects are allows in event handlers and useEffect() hook
+14. Dom is updated in the commit phase. NOT by react but by the reactDOM
+15. Multiple state updates inside an event handler are BATCHED. 
+    - Happens all at once causing only ONE re-render
+16. State updates are asynchronous
+17. Batching happens in timeouts, promises and native event handlers
+18. When using event handlers, we get access to synthetic event objects. NOT the browser native object
+    -> Why ? Because synthetic events bubble and to make behaviour consistent on all browsers
+19. React is a library, not a framework
 
 
 
 Questions
 
+Q70. Practical Summary 
+
+
+
+Q69. What are some react 3rd party library ecosystem?
+1. Routing - React Router, React Location
+2. HTTP Request - JS fetch, AXIOS
+3. Remote State Management - React Query, SWR, APOLLO
+4. Gloab State management - Contest API, REDUX, Zustand
+5. Styling - CSS modules, styled componenets, tailwind CSS
+6. Form Management - React Hook Form, Formik
+7. Animation/Transition - Motion, React Spring
+8. UI Components - Chakra UI, React boot strap
+
+
+
+Q68. What are Syntehtic events ? 
+- Wrapper around the DOM's native event object
+- Has same interface as native events objects like stopPropagation() and prevent Default()
+- Fixes browser inconsistencies, so that all works in the exact same way in all browsers
+- Most synethic events bubble (including focus, blur and change)
+- Uses camelcase (ex: onClick vs onclick )
+- Default behaviour can NOT be prevent by returning false (only by using preventDefault())
+
+
+Q67. What is event delegation in VanillaJS ?
+- Handling event for multple elements CENTRALLY in one single parent element
+- Better for performance and memory as it only needs one handler function
+
+Q66. How does Event propagation work in VanillaJS ?
+Ex: Assume a button was clicked on the DOM tree
+1. Event object is created
+2. Capture Phase - Propagates from the root Document element all the way to the element which triggered the event 
+3. Bubbling phase - Once it reaches the target element, propagates back up to the root element (Document tag)
+
+
+
+Q65. What behaviours are automatically batched in React 17 vs 18 ?
+    Type            React 17        React 18
+Event handlers         Yes               Yes
+Timeouts                No               Yes
+Promises                No               Yes
+Native events           No               Yes 
+
+
+
+Q64. How does react update state ? 
+- State updates occur asynchronously
+- State changes are BATCHED together for a single component and rendered one time 
+Ex: 
+const onClick = function() {
+    setAnswer()
+    setBest()
+    setSolved()
+}
+
+All these state changes, do NOT trigger a render ...but rather batched together and rendered ONCE
+
+
+
+Q63. What are React Rules for Render logic ? 
+1. Components must be PURE when it comes to render logic:
+    - Given the same props (input), a component instance must always return the same JSX output
+2. Render logic must produce NO side effects:
+3. Render logic DO NOT perform network request (API)
+4. Render Logic DO NOT start timers
+5. Render logic DO NOT directly use the DOM API
+6. Render logic DO NOT mutate objects or variables outside of the function scope
+7. Render logic DO NOT update state or refs as this will create an infinite logic
+
+
+Q62. What is pure function ?
+- Functions which do not have any side effect
+- Does not change any variable outside its scope
+- Same input will produce same output
+
+
+Q61. What is a side effect ? 
+- Side effects are dependency or modification of any data outside its functions scope 
+- Any "Interaction" with the outside world
+Ex: mutating external variables, HTTP request, writing to DOM
+
+
+Q60. What are the two types of logic in react components ?
+1. Render Logic
+- Code that lives in the top level of the componenet function (i.e what it "JSX")
+- Executed everytime the component renders
+2. Event Handler functions
+- Executed due to an event (ex: onClick, onChange, onHover ...etc)
+- Code that actually does things: update state, perform HTTP request, navigate to another page
+
+
+Q58. What is the key prop ? 
+- Special prop that we use to tell the diffing algorithm that an element is unique
+- Allows React to distinguish between multiple instances of the same componenet type
+- When a key stays the same across renders, element will be kept in the DOM (even if position in tree changes)
+    > Ex: Use keys in lists
+- When a key changes between renders, the element will be destroyed and a new one will be created (even if the position is the same as before)
+    > Using keys to reset state
+
+Q57. What is the Browser paint ?
+- Updated UI on the screen
+- User is able to see the change on the screen
+- Part of the browser technology (i.e chrome, firefox, etc  )
+
+Q56. What is the commit phase ? 
+- When react finally writes to the DOM: insertions, deletions, updates 
+***  Once commit phase is finished, the workInProgress fiber tree  will BECOME the curret tree for the next render cycle
+- Uses the "REACTDOM" libary (i.e not part of react itself)
+
+Q55. What is FIBER ?
+- FIBER is Reacts reconciler. i.e Heart of the engine
+- Internal tree that has a 'fiber' for each component instance and the DOM element
+- Take the React Element Tree (Virtual DOM) and converts it to the FIBER Tree on render
+- Fibers are NOT re-created on every render. Immutabe Data structure
+- Used as "unit of work"
+- Work can be dont asynchronously 
+- Fiber tree are never discarded or destroyed. Instead they are reused to save time for diffing
+
+
+Q54. What is Reconcilation and why do we need it ?
+- It is deciding which DOM elements actually need to be inserted, deleted, updated in order to reflect the latest state change
+
+
+Q54. Why not update the entire DOM whenever state changes somewhere in the app ?
+1. Very inefficient and wasteful
+2. Very Slow
+3. Usually only a small part of the DOM needs to be updated, hence we try to use reconsilation to do this
+ 
+
+Q53. What is the virtual DOM ?
+- Tree of all React elements created from all instances in the component tree
+- Cheap and fast to create multiple 
+- Also known as the REACT ELEMENT TREE
+- Not related to shadow DOM
+- Rendering a componenet will cause ALL of its child component to be rendered as well (no matter if props was changed or not)
+Why ? Because React doesent know if child componenet will be affected or not
+Note - This does not mean entire DOM will be updated, just the virtual DOM
+
+
+Q52. What is the render phase ?
+Component instances  ---> Create React Elements ---> Virtual Dom  ---> Reconcilation + Diffing   ----> Update Fiber Tree  --> Use to write to the DOM
+triggered re-render        
+
+Q51. How are renders triggered ? 
+Two situations that trigger renders
+1. Initial render (i.e when component first shows up screen)
+2. State is updated in one or more components (Re-render)
+
+*Note - The render process is triggered for the entire application and NOT just for one single componenet
+- This does not mean entire DOM is updated since rendering calls upon the component function and figuring out what needs to change
+
+Q50. What is Rendering in react ?
+- In React, rendering is NOT updating the DOM or displaying elements on the screen.
+- Rendering only happens internally inside React. It does not produce visual change
+
+Q49. How components are displayed on the screen ? 
+ State changes --> Render is triggered  -->     Render Phase     --->      Commit Phase         --> Browser Paint 
+                                           i.e React calls componenets     i.e React actually       (This is what user see on screen)
+                                           functions and figures out how    writes to the DOM.
+                                           the DOM should be updated       Inserting, updating,
+                                                                            Deleting, etc
+
+
+Q48. What is the diff between componenets vs instances vs elements ?
+
+Components --> Component Instances --> React Element --> DOM Element (HTML) 
+            i.e Each individual inst                    i.e Final Element seen on screen
+
+Q47. What is react element ? 
+- JSX is converted to React.createElement() functiona calls
+- Result of these function calls
+- Information needed to create DOM elements
+
+Q46. What are component instances ?
+- Instances of each individual componenet rendered.
+- Actual physical manifestation of a component
+- Has its own state and props
+- Has its own lifecycle
 
 Q45. What are proptypes ?
 - We can specify the type of the value our properties are passed in (i.e int, string, boolean, etc)

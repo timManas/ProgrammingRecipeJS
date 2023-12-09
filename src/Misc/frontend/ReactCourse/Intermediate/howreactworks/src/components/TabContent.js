@@ -11,6 +11,7 @@ function TabContent({ item }) {
   }
 
   function handleTripleInc() {
+    // Not these state changes are Batched and rendered ONCE NOT THREE times
     setLikes((likes) => likes + 1)
     setLikes((likes) => likes + 1)
     setLikes((likes) => likes + 1)
@@ -23,7 +24,8 @@ function TabContent({ item }) {
   }
 
   function handleUndoLater() {
-    setTimeout(handleUndo, 2000)
+    // Trigger a re-render after 5 seconds
+    setTimeout(handleUndo, 5000)
   }
 
   return (
@@ -45,7 +47,7 @@ function TabContent({ item }) {
 
       <div className='tab-undo'>
         <button onClick={handleUndo}>Undo</button>
-        <button onClick={handleUndoLater}>Undo in 2s</button>
+        <button onClick={handleUndoLater}>Undo in 5s</button>
       </div>
     </div>
   )
