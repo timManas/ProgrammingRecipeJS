@@ -102,8 +102,9 @@ Why ? Because you dont want to update all the other state and keep them all in s
 15. Use the 'key' prop when you have multiple components of the same type. For performance gains
 16. When you need to modify the state of a component, give it a new unique key to trigger a re-render
 
-17. 
-18. 
+17. Any Fetch or API calls, please please use the "useEffect" hook.
+- Why ? API call is async and calling it outside a useEffect hook will trigger 
+an infinite loop which continously tries to call upon the API since the state chaanges
 
 
 
@@ -142,8 +143,19 @@ Summary
 
 Questions
 
-Q70. Practical Summary 
+Q70. What is component lifecycle ?
+1. Mount / Initial Render
+- Component instance is rendered for the first time.
+- Fresh state and props are created
 
+2. Re-Render (Optional)
+- Happens when State OR Props changes
+- Parent component re-renders
+- Context changes
+
+3. Unmounted 
+- Component is destroyed and removed from screen
+- State and props are destroyed
 
 
 Q69. What are some react 3rd party library ecosystem?

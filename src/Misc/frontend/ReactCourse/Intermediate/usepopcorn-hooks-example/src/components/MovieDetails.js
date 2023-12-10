@@ -3,7 +3,7 @@ import { Loader } from './Loader'
 import { StarRating } from './StarRating'
 import { useKey } from './useKey'
 
-const KEY = 'f84fc31d'
+const KEY = '609392f6'
 
 function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({})
@@ -65,6 +65,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
         const res = await fetch(
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         )
+
+        console.log(res)
+
         const data = await res.json()
         setMovie(data)
         setIsLoading(false)
@@ -81,7 +84,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
       return function () {
         document.title = 'usePopcorn'
-        // console.log(`Clean up effect for movie ${title}`);
+        console.log(`Clean up effect for movie ${title}`)
       }
     },
     [title]
