@@ -66,9 +66,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         )
 
-        console.log(res)
-
         const data = await res.json()
+        console.log('res movie data: ' + JSON.stringify(data))
+
         setMovie(data)
         setIsLoading(false)
       }

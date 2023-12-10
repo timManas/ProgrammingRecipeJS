@@ -20,10 +20,6 @@ export default function App() {
   const { movies, isLoading, error } = useMovies(query)
   const [watched, setWatched] = useLocalStorageState([], 'watched')
 
-  // For temporary Movie Data
-  // const [movies, setMovies] = useState(tempMovieData)
-  // const [watched, setWatched] = useState(tempWatchedData)
-
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id))
   }

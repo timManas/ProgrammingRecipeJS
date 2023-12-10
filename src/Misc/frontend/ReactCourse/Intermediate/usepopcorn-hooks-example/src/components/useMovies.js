@@ -20,12 +20,13 @@ export function useMovies(query) {
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal }
           )
-          console.log(res)
 
           if (!res.ok)
             throw new Error('Something went wrong with fetching movies')
 
           const data = await res.json()
+          console.log('res data: ' + JSON.stringify(data))
+
           if (data.Response === 'False') throw new Error('Movie not found')
 
           setMovies(data.Search)

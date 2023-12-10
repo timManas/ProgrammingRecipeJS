@@ -1,4 +1,37 @@
 
+Summary 
+1. A component is like a blue print for piece of UI that will eventually exist on screen
+2. Component instance a is single physical instance of a component rendered on screen
+3. Component instances rendered will return a React element
+4. Rendering only means calling compoenent functions and calculating the what DOM needs to update. (Nothing to do with the DOM)
+5. Each time a component instance is rendered, function is called again
+6. Only initial render or STATE  update will trigger a render.
+7. Render happsn for the entire application and NOT just one single component (but the recompiler will see the diff and paint on browser)
+8. When compoenent gets rendered, its child components will get rerendered as well.
+    - Recompiler will check which child element needs to be updated for performance reason 
+9. Diffing is how react decides which DOM elements needs to be added or modified
+    - If between renders, a certain Reac element stays at the same position in the element tree, the corresponding DOM element and state will stay the same
+    - If element changed to a different position, or its a different element type, the DOM element will be destroyed
+10. Use a key prop to distinguish between multiple compoenent instances
+    - When key stays the same across renders, the element is kept in the DOM. (Hence, use keys in list)
+    - When we change keys, DOM elements will be destroyed and rebuilt
+11. Never declare a new component inside ANOTHER component.
+    - Doing so, will create a nested component  every time the parent component re-renders
+12. Logic that produces JSX output for a component instance (i.e render logic) is NOT allowed to produce side effects
+13. Side effects are allows in event handlers and useEffect() hook
+14. Dom is updated in the commit phase. NOT by react but by the reactDOM
+15. Multiple state updates inside an event handler are BATCHED. 
+    - Happens all at once causing only ONE re-render
+16. State updates are asynchronous
+17. Batching happens in timeouts, promises and native event handlers
+18. When using event handlers, we get access to synthetic event objects. NOT the browser native object
+    -> Why ? Because synthetic events bubble and to make behaviour consistent on all browsers
+19. React is a library, not a framework
+
+
+
+
+
 Notes
 1. Remember: React reacts to state changes by re-rendering the UI
 2. You cannot use if/else statements directly in JSX ... (this sucks =| ). You have to use ternary operatoes like this:
@@ -30,6 +63,8 @@ Note - This does not mean entire DOM will be updated, just the virtual DOM
 11. Side Effects are allows (and encouraged) in Event Handler Functions !!
 - the useEffect hook is used to register side effects
 12. Updating state in React is ASYNCH
+13. useEffect() does NOT get triggered right away after a Render. useEffect is asynchronous
+14. REMEMBER, the render LOGIC is the actual code of the component (i.e return, MINUS the useEffect and eventHandlers)
 
 
 
@@ -106,42 +141,62 @@ Why ? Because you dont want to update all the other state and keep them all in s
 - Why ? API call is async and calling it outside a useEffect hook will trigger 
 an infinite loop which continously tries to call upon the API since the state chaanges
 
+18. Try to minimize using the useEffect for changing data. Opt to try to use eventHandlers instead
+Ex: onClick, onSubmit, etc.
+This is the preffered way of creating side effects
 
-
-
-
-Summary 
-1. A component is like a blue print for piece of UI that will eventually exist on screen
-2. Component instance a is single physical instance of a component rendered on screen
-3. Component instances rendered will return a React element
-4. Rendering only means calling compoenent functions and calculating the what DOM needs to update. (Nothing to do with the DOM)
-5. Each time a component instance is rendered, function is called again
-6. Only initial render or STATE  update will trigger a render.
-7. Render happsn for the entire application and NOT just one single component (but the recompiler will see the diff and paint on browser)
-8. When compoenent gets rendered, its child components will get rerendered as well.
-    - Recompiler will check which child element needs to be updated for performance reason 
-9. Diffing is how react decides which DOM elements needs to be added or modified
-    - If between renders, a certain Reac element stays at the same position in the element tree, the corresponding DOM element and state will stay the same
-    - If element changed to a different position, or its a different element type, the DOM element will be destroyed
-10. Use a key prop to distinguish between multiple compoenent instances
-    - When key stays the same across renders, the element is kept in the DOM. (Hence, use keys in list)
-    - When we change keys, DOM elements will be destroyed and rebuilt
-11. Never declare a new component inside ANOTHER component.
-    - Doing so, will create a nested component  every time the parent component re-renders
-12. Logic that produces JSX output for a component instance (i.e render logic) is NOT allowed to produce side effects
-13. Side effects are allows in event handlers and useEffect() hook
-14. Dom is updated in the commit phase. NOT by react but by the reactDOM
-15. Multiple state updates inside an event handler are BATCHED. 
-    - Happens all at once causing only ONE re-render
-16. State updates are asynchronous
-17. Batching happens in timeouts, promises and native event handlers
-18. When using event handlers, we get access to synthetic event objects. NOT the browser native object
-    -> Why ? Because synthetic events bubble and to make behaviour consistent on all browsers
-19. React is a library, not a framework
 
 
 
 Questions
+
+Q75. When are effects executed ?
+|       Mount (Initial Render)
+|       Commit
+|       Browser Paint on screen
+|       *EFFECT*    
+------------------------------------
+|       Title Changes
+|       Re-Render
+|       Commit
+|       LayoutEffect
+|       Browser Paint
+|       *EFFECT*
+|___________________________________   
+|       Unmount
+V
+Timt
+
+
+Q74. What are the different types of useEffect ?
+Type                           Synchronization                  lifecycle
+------------------------------------------------------------------------------
+useEffect(fn, [x,y,z])       Effect synchronizes       Runds on mount, re-render when
+                                with x,y,z              x,y,z are updated
+
+useEffect(fn, [])            Effect synchronizes       Runs only on mount
+                            with no states/props
+
+useEffect(fn)                Effect synchronizes        Runs on every render
+                             with everything             (VERY BAD ... DO NOT DO THIS)
+
+Q73. What is useEffect() ?
+- Is like an event listender that is listening for one dependency to change.
+- Whenever a dependency changes, it will execute the effect again
+- Effects react to updates to states and props used inside the effect 
+
+Q72. What is the useEffect() dependency array ? 
+- By default, effect run after EVERY render. 
+    > We can prevent that by passing a dependency array
+- Without the dependency array, reacy does NOT know when to run the effect
+- Each time one of the dependecy changes,  the effect will be executed again
+- Every state variable and prop used inside the effect MUST be included in the dependency array
+
+Q71. Where to create Side Effects ?
+- Basically in two places:
+1. Event Handler - Triggered by events: onClick, onSubmit, etc
+2. useEffect - Triggered by rendering. Allow us to write code that will run at different momements: mount, re-render, unmount, etc
+
 
 Q70. What is component lifecycle ?
 1. Mount / Initial Render
@@ -233,7 +288,8 @@ Q62. What is pure function ?
 
 Q61. What is a side effect ? 
 - Side effects are dependency or modification of any data outside its functions scope 
-- Any "Interaction" with the outside world
+- Any "Interaction" with the outside world outside the component
+- Code that actually does 'something' like data fetching, setting up timers, accessing the DOM, etc
 Ex: mutating external variables, HTTP request, writing to DOM
 
 
