@@ -27,7 +27,8 @@ export function useMovies(query) {
           const data = await res.json()
           console.log('res data: ' + JSON.stringify(data))
 
-          if (data.Response === 'False') throw new Error('Movie not found')
+          if (data.Response === 'False')
+            throw new Error('Movie not found')
 
           setMovies(data.Search)
           setError('')

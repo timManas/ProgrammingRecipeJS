@@ -65,8 +65,9 @@ Note - This does not mean entire DOM will be updated, just the virtual DOM
 12. Updating state in React is ASYNCH
 13. useEffect() does NOT get triggered right away after a Render. useEffect is asynchronous
 14. REMEMBER, the render LOGIC is the actual code of the component (i.e return, MINUS the useEffect and eventHandlers)
-
-
+15. REMEMBER, RENDER FIRST on screen ...then useEffect. In that order
+16. REMEMBER, the useEffect cleanUp function executes FIRST before the actual function
+Ex: see function titleUseEffect()
 
 Best Practices
 1. Use Create-React-App for examples and small projects

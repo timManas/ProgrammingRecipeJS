@@ -7,6 +7,7 @@ function Movie({ movie, onSelectMovie }) {
         <p>
           <span>🗓</span>
           <span>{movie.Year}</span>
+          <span>{movie.imdbID}</span>
         </p>
       </div>
     </li>

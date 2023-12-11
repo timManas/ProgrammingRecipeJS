@@ -12,18 +12,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
   const countRef = useRef(0)
 
-  useEffect(
-    function () {
-      if (userRating) countRef.current++
-    },
-    [userRating]
-  )
-
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId)
-  const watchedUserRating = watched.find(
-    (movie) => movie.imdbID === selectedId
-  )?.userRating
+  const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating
 
+
+  // Destructure the data from movie
   const {
     Title: title,
     Year: year,
@@ -37,8 +30,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie
 
-  const isTop = imdbRating > 8
-  console.log(isTop)
+  // const isTop = imdbRating > 8
+  // console.log(isTop)
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -56,12 +49,25 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie()
   }
 
+  useEffect(
+    function userRatingUseEffect() {
+      console.log("userRating triggered")
+      if (userRating) 
+        countRef.current++
+        console.log("Finished userRating triggered")
+    },
+    [userRating]
+  )
+
   useKey('Escape', onCloseMovie)
 
   useEffect(
-    function () {
+    function selectIdUseEffect() {
+      console.log("selectId triggered")
       async function getMovieDetails() {
-        setIsLoading(true)
+
+        setIsLoading(true)          // This will trigger a Re-Render
+
         const res = await fetch(
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         )
@@ -69,27 +75,37 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
         const data = await res.json()
         console.log('res movie data: ' + JSON.stringify(data))
 
+        // This will trigger a Re-Render
+        console.log("Modify setMovie and isLoading")
         setMovie(data)
         setIsLoading(false)
       }
       getMovieDetails()
+      console.log("Finished selectId triggered")
     },
     [selectedId]
   )
 
   useEffect(
-    function () {
-      if (!title) return
+    function titleUseEffect() {
+      console.log("title triggered - title: " + title)
+
+      if (!title) 
+        return
+      
       document.title = `Movie | ${title}`
 
       return function () {
         document.title = 'usePopcorn'
-        console.log(`Clean up effect for movie ${title}`)
+        console.log(`Clean up effect for movie ${title}`)     // This will get triggered first ...
       }
     },
     [title]
   )
 
+
+
+  console.log("Rendering -> selectedId: " + selectedId + "    title: " + title)
   return (
     <div className='details'>
       {isLoading ? (
@@ -103,6 +119,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
             <img src={poster} alt={`Poster of ${movie} movie`} />
             <div className='details-overview'>
               <h2>{title}</h2>
+              <p>id: {selectedId}</p>
               <p>
                 {released} &bull; {runtime}
               </p>
