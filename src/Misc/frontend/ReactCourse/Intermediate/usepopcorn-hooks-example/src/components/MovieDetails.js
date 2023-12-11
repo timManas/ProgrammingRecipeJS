@@ -29,6 +29,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Director: director,
     Genre: genre,
   } = movie
+  
 
   // const isTop = imdbRating > 8
   // console.log(isTop)
@@ -49,6 +50,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie()
   }
 
+  useKey('Escape', onCloseMovie)
+
   useEffect(
     function userRatingUseEffect() {
       console.log("userRating triggered")
@@ -59,7 +62,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [userRating]
   )
 
-  useKey('Escape', onCloseMovie)
 
   useEffect(
     function selectIdUseEffect() {
@@ -86,6 +88,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   )
 
+  
   useEffect(
     function titleUseEffect() {
       console.log("title triggered - title: " + title)

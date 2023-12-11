@@ -16,6 +16,7 @@ export function useMovies(query) {
           setIsLoading(true)
           setError('')
 
+          console.log("Start API Call UseEffect")
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal }
@@ -32,6 +33,7 @@ export function useMovies(query) {
 
           setMovies(data.Search)
           setError('')
+          
         } catch (err) {
           if (err.name !== 'AbortError') {
             console.log(err.message)
@@ -50,8 +52,10 @@ export function useMovies(query) {
 
       fetchMovies()
 
+      // REMEMBER - This executes first before the useEffect function start line 12
       return function () {
-        controller.abort()
+        console.log("Abort previous API Call")
+        controller.abort()    // Abort the API REQUEST
       }
     },
     [query]
