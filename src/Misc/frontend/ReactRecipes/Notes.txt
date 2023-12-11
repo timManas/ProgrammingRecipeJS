@@ -69,6 +69,13 @@ Note - This does not mean entire DOM will be updated, just the virtual DOM
 16. REMEMBER, the useEffect cleanUp function executes FIRST before the actual function
 Ex: see function titleUseEffect()
 
+
+
+
+
+
+
+
 Best Practices
 1. Use Create-React-App for examples and small projects
 2. For debugging, see if you can create a component tree
@@ -147,9 +154,65 @@ Ex: onClick, onSubmit, etc.
 This is the preffered way of creating side effects
 
 
+19. Each effect should do ONLY ONE THING ! Use One useEffect hook for each side effect
+- Makes it easier to debug and cleanup
+Ex: selecIdUseEffect(), titleUseEffect()
+
+20. Does your useEffect do any of the following ?
+1. HTTP Request, API Subscription, Starting Timer, Add Event Listener ? 
+Then use a useEffect cleanup function !!!!
+
+
+
+
+
+
+
+
 
 
 Questions
+
+
+
+Q80. What are Rules of hooks ? 
+1. Only call hooks at the top level
+- Do NOT call hooks inside conditionals, loops, nested functions or after early return
+2. Only call hooks from React functions (ex: component or custom hook)
+
+
+Q79. What are react hooks ? 
+- Special built in functions that allow us to "hook" into React internals like:
+    > Creating and accessing state from Fiber tree
+    > Registereing side effects in Fiber Tree
+    > Manual DOM selections
+- Always start with "use" (ex: useState, useEffect)
+- Enable easy reusing of non visual logic: can compose multiple hooks into our own custom hooks
+- Give function components ability to own state and run side effects at different lifecycle points
+
+
+Q78. What is the AbortController() ?
+- A controller object that allows you to aboirt web request when desired
+- Not part of react
+
+
+Q77. When do we need a cleanup function ?
+- Necessary whenever the side effect keeps happening after the componenet has been re-rendered or unmmounted
+Ex: Effect                Cleanup Function
+--------------------------------------------
+HTTP Request        --->    Cancel Request
+API Subscription    --->    Cancel Subscription
+Start Timer         --->    Stop Timer
+Add Event Listener  --->    Remove Listener
+
+
+
+Q76. What is the cleanup function ? 
+- Function that we can return from an effect
+- Runs on different occasion
+1. Before an effect is executed again (Re-Render)
+2. After a component has unmounted 
+
 
 Q75. When are effects executed ?
 |       Mount (Initial Render)
@@ -162,9 +225,11 @@ Q75. When are effects executed ?
 |       Commit
 |       LayoutEffect
 |       Browser Paint
+|       *CleanUp Function*
 |       *EFFECT*
 |___________________________________   
 |       Unmount
+|       *CleanUp Function*
 V
 Timt
 
