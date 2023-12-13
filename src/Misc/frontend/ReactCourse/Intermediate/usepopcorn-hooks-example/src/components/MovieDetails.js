@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Loader } from './Loader'
 import { StarRating } from './StarRating'
-import { useKey } from './useKey'
+import { useKey } from './customHooks/useKey'
 
 const KEY = '609392f6'
 
@@ -31,9 +31,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   } = movie
   
 
-  // const isTop = imdbRating > 8
-  // console.log(isTop)
-
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedId,
@@ -43,20 +40,21 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(' ').at(0)),
       userRating,
-      countRatingDecisions: countRef.current,
+      countRatingDecisions: countRef.current,     // This will not get re-rendered
     }
 
     onAddWatched(newWatchedMovie)
     onCloseMovie()
   }
 
-  useKey('Escape', onCloseMovie)
+  useKey('Escape', onCloseMovie)      // custom hook
 
   useEffect(
     function userRatingUseEffect() {
       console.log("userRating triggered")
+
       if (userRating) 
-        countRef.current++
+        countRef.current++          // This will NOT trigger a re-render 
         console.log("Finished userRating triggered")
     },
     [userRating]

@@ -28,6 +28,14 @@ Summary
     -> Why ? Because synthetic events bubble and to make behaviour consistent on all browsers
 19. React is a library, not a framework
 
+20. Create state in two ways:
+> Simple            Ex: const[count, setCount] = useState(0)
+> Based on function     Ex: const[count, setCount = useState(() => localStorage.getItem('count'))
+
+21. Update state in two ways:
+> Simple            Ex: setCount(1000)
+> Based on current state    Ex: setCount((currentCount) => currentCount + 1) 
+
 
 
 
@@ -162,6 +170,8 @@ Ex: selecIdUseEffect(), titleUseEffect()
 1. HTTP Request, API Subscription, Starting Timer, Add Event Listener ? 
 Then use a useEffect cleanup function !!!!
 
+21. When using useRef, try to update it either in useEffect or eventHandlers
+- NOT in render logic
 
 
 
@@ -174,6 +184,46 @@ Then use a useEffect cleanup function !!!!
 Questions
 
 
+Q85. What are Custom Hooks ? 
+- Custom hooks allow us to reuse logic in multiple components (Ex: useKey)
+- Best to use one custom hook per functionality
+- We can encapsulate a regular react hook (ex: useEffect, useState, etc) and pass the parameters to it 
+- Needs to start with the word "use"
+
+
+Q84. What is the difference between refs and states ? 
+- State and Refs both persists across Renders
+- Changing the state will trigger a Re-Render 
+- Changing the Ref will NOT trigger a Re-Render
+- States are immutable
+- Refs are NOT immutable
+- States have asynchronous updates
+- Refs do not have asynchronous updates (i.e We can read the value of refs right after update)
+
+Q83. What are the useCases for Refs ?
+1. Create a variable that stays the same between renders
+Ex: Previous state
+2. Selecting and storing DOM elements
+
+
+Q83. Example of useRef() 
+Ex: const myRef = useRef(20)
+update ref  by: myRef.current = 1000
+
+Q82. What are Refs ? 
+- "Box" (object) with a mutable ".current" property that is persisted across renders
+- Refs are for data that is NOT rendered
+    > Ususually only appears in eventHandlers or effects. 
+    > Not ins JSX (use state for this instead)
+- Do NOT read or write .curretnt in render logic (like state)
+
+
+
+
+
+Q81. Does the initial value in the useState(example) get executed every render ? (Ex: const [count, setCount] = useState(0))
+- No.
+- They are initialized only during the initial render 
 
 Q80. What are Rules of hooks ? 
 1. Only call hooks at the top level
