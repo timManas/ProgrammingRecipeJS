@@ -14,7 +14,7 @@ import { useQuiz } from "../contexts/QuizContext";
 
 /**
  * How to Run ?
- * 1. Execute "npm run json-server"
+ * 1. Execute "npm run server"
  * 2. Execute "npm run start"
  * 3. Go go localhost:9000
  */
