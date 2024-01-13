@@ -11,11 +11,11 @@ function Timer() {
     function () {
       const id = setInterval(function () {
         dispatch({ type: "tick" });
-      }, 1000);
+      }, 1000);                       // Creates a delay of 1000ms then dispatch occurs. And when dispatch changes, this triggers again 
 
-      return () => clearInterval(id);
+      return () => clearInterval(id);     // This is a cleanup function. clearInterval will stop the timer from proceeding
     },
-    [dispatch]
+    [dispatch] 
   );
 
   return (

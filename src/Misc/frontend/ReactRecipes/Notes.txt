@@ -183,6 +183,44 @@ Then use a useEffect cleanup function !!!!
 
 Questions
 
+Q88. Whats the difference between useState vs useReducer ? 
+            useState                                                                                            useReducer
+- Ideal for single, independent pieces of state (ex: Numbers, String)                - Ideal for multiple RELATED pieces of state and complex state (ex: objects with many values and nested objects)
+- Logic to update state is placed directly in event Handlers or effects              - Logic to update state lives in ONE central place, decoupled from components (i.e reducer function)
+- State is updated by calling setState   (ex: setScore(0), setPlaying(true))         - State is updated by calling dispatch (ex: dispatch({type: 'start'}))
+- Easy to understand and use                                                         - More difficult to understand and implement
+
+
+Q87. How to manage state with useReducer ? 
+- UseReducer is useState but on steroids, you will need the following part for useReducer:
+1. Store related pieces of state in a 'state' object
+2. useReducer needs a 'reducer' function containing all logic to update the state. 
+    > Why ? Decouples state logic from component
+3. The 'reducer' function takes current state and action, and returns the next state
+4. The 'action' object describes how the update the state
+5. The 'dispatch' function reiggers a state update by sending actions from event handlers to reducer
+
+Ex: const[state, dispatch] = useReducer(reducer, initialState)
+.
+..
+...
+function reducer (state, action) {
+    switch (action.type) {
+        case 'dec':
+            return state - 1
+        case 'setCount':
+            return action.payload
+    }
+}
+
+
+Q86. Why use useReducer ? 
+- UseState is not enough under these circumstances: 
+1. When componenets have alot of state variables and state updates spread across many event handlers all over the componenet
+2. When multiple state updates need to happen at the same time
+3. When updating one piece of state depends on one or multiple states
+> Then useReducer can be useful
+
 
 Q85. What are Custom Hooks ? 
 - Custom hooks allow us to reuse logic in multiple components (Ex: useKey)

@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 
-const QuizContext = createContext();
+const QuizContext = createContext();    // Wth is this ? 
 
 const SECS_PER_QUESTION = 30;
 
@@ -42,7 +42,7 @@ function reducer(state, action) {
         answer: action.payload,
         points:
           action.payload === question.correctOption
-            ? state.points + question.points
+            ? state.points + question.points 
             : state.points,
       };
     case "nextQuestion":
@@ -110,7 +110,7 @@ function QuizProvider({ children }) {
 }
 
 function useQuiz() {
-  const context = useContext(QuizContext);
+  const context = useContext(QuizContext);    // What does this do ? 
   if (context === undefined)
     throw new Error("QuizContext was used outside of the QuizProvider");
   return context;
