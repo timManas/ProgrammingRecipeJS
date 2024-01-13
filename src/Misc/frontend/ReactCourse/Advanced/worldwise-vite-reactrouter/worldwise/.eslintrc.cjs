@@ -16,5 +16,16 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "no-unused-vars": "warn",
+    "react/prop-types": "off"
   },
 }
+
+/**
+  Note - esLint may potentially mark unused variables as Errors. 
+  To turn this off, add these:
+  "no-unused-vars": "warn",
+  "react/prop-types": "off"
+  OR
+  Just delete .eslintrc.cjs
+*/

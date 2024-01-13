@@ -47,6 +47,54 @@
         "lng": "-2.13128394200588"
       },
       "id": 98443198
+    },
+    {
+      "cityName": "Agudo",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-01-13T20:22:33.125Z",
+      "notes": "",
+      "position": {
+        "lat": "39.04478604850143",
+        "lng": "-4.7900390625"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Hook",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2024-01-13T20:40:34.413Z",
+      "notes": "",
+      "position": {
+        "lat": "51.28940590271679",
+        "lng": "-0.9667968750000001"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Unorganized Division No. 18, Saskatchewan",
+      "country": "Canada",
+      "emoji": "🇨🇦",
+      "date": "2024-01-13T20:40:42.035Z",
+      "notes": "",
+      "position": {
+        "lat": "58.81374171570782",
+        "lng": "-109.33593750000001"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "Ashby",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2024-01-13T20:41:43.352Z",
+      "notes": "",
+      "position": {
+        "lat": "41.77131167976407",
+        "lng": "-101.95312500000001"
+      },
+      "id": 98443202
     }
   ]
 }
