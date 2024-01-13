@@ -183,6 +183,26 @@ Then use a useEffect cleanup function !!!!
 
 Questions
 
+Q91. How to start a vite created app ? 
+- Do not use npm start since start does not exist in the package.json
+instead use...
+npm run dev
+
+Q90. What is vite ?
+- Modern build tool that has view templates for different frameworks
+
+Q89. How to install vite ?
+- npm create vite
+- Enter projectName
+- Select React
+- Select JavaScript
+- Done
+- You will need to follow the instructions:
+Done. Now run:
+  cd worldwise-vite-reactrouter
+  npm install
+  npm run dev
+
 Q88. Whats the difference between useState vs useReducer ? 
             useState                                                                                            useReducer
 - Ideal for single, independent pieces of state (ex: Numbers, String)                - Ideal for multiple RELATED pieces of state and complex state (ex: objects with many values and nested objects)
