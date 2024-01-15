@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCities } from "../contexts/CitiesContext";
-import styles from "./CityItem.module.css";
+import styles from "./styles/CityItem.module.css";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -18,6 +18,7 @@ function CityItem({ city }) {
     deleteCity(id);
   }
 
+  // This is what sets the latitude and longtitude in the URL
   return (
     <li>
       <Link
