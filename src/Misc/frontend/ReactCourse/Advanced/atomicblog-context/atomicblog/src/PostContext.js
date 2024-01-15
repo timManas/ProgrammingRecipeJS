@@ -1,21 +1,21 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import { faker } from "@faker-js/faker";
+import { createContext, useContext, useMemo, useState } from 'react'
+import { faker } from '@faker-js/faker'
 
 function createRandomPost() {
   return {
     title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
     body: faker.hacker.phrase(),
-  };
+  }
 }
 
 // 1) CREATE A CONTEXT
-const PostContext = createContext();
+const PostContext = createContext()
 
 function PostProvider({ children }) {
   const [posts, setPosts] = useState(() =>
     Array.from({ length: 30 }, () => createRandomPost())
-  );
-  const [searchQuery, setSearchQuery] = useState("");
+  )
+  const [searchQuery, setSearchQuery] = useState('')
 
   // Derived state. These are the posts that will actually be displayed
   const searchedPosts =
@@ -25,14 +25,14 @@ function PostProvider({ children }) {
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
         )
-      : posts;
+      : posts
 
   function handleAddPost(post) {
-    setPosts((posts) => [post, ...posts]);
+    setPosts((posts) => [post, ...posts])
   }
 
   function handleClearPosts() {
-    setPosts([]);
+    setPosts([])
   }
 
   const value = useMemo(() => {
@@ -42,20 +42,22 @@ function PostProvider({ children }) {
       onClearPosts: handleClearPosts,
       searchQuery,
       setSearchQuery,
-    };
-  }, [searchedPosts, searchQuery]);
+    }
+  }, [searchedPosts, searchQuery])
 
   return (
     // 2) PROVIDE VALUE TO CHILD COMPONENTS
     <PostContext.Provider value={value}>{children}</PostContext.Provider>
-  );
+  )
 }
 
+// This is an custom hook
 function usePosts() {
-  const context = useContext(PostContext);
+  const context = useContext(PostContext)
+  console.log('context: ' + JSON.stringify(context))
   if (context === undefined)
-    throw new Error("PostContext was used outside of the PostProvider");
-  return context;
+    throw new Error('PostContext was used outside of the PostProvider')
+  return context
 }
 
-export { PostProvider, usePosts };
+export { PostProvider, usePosts }
