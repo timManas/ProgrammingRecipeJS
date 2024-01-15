@@ -183,6 +183,108 @@ Then use a useEffect cleanup function !!!!
 
 Questions
 
+Q103. What are different State management tool options ? 
+                            Local State                                 Global State
+                    - useState                                  - Context API + useState/useReducer
+UI State            - useReducer                                - Redux, Zustand, Recoil,
+                    - useRef                                    - React Router
+--------------------------------------------------------------------------------------------------------
+
+Remote Stsate       - fetch + useEffect + useState/Reducer      - Conext API + useState/useReducer
+                                                                - Redux, Zustand
+                                                                - React Query, SWR, RTK Query
+
+
+
+
+Q102. Where to place state ? 
+---------------------------------------------------------------------------------------------------
+Where to place State                            Tools                               When to use ?
+1. Local Componennts                    useState, useReducer, useRef            - Local State
+2. Parent Component                     useState, useReducer, useRef            - Lifting state up
+3. Context                              Context API + useState + useReducer     - Global State (UI State)
+4. 3rd Party library                    Redux, ReactQuery, SWR,etc              - Global State (remote or UI)
+5. URL                                  React Router                            - Global State, passing between pages
+6. Browser                              Local Storage, session Storage          - Storing data in users browser
+
+
+
+Q101. What are the different types of state ? 
+1. Local State
+- Needed only be one of few components
+- Only accessible in components and child components
+2. Global State
+- Needed by many components
+- Accessible to every componenet in the application
+
+Q100. What happens when the valie in the provider updates ?
+1. Value in the provider updates
+2. Triggers a Re-render on ALL the Consumers
+3. Consumers then re-renders the component
+
+Q99. What is context API ?
+- Basically Solves the Prop drilling problem (i.e constantly passing props to the component)
+- It is a way to pass data throughout the app without mnaully passing props down the tree
+- Allows use to broadcast global state to the entire app
+- There are multiple parts to context API:
+1. Provider - Gives all the child components access to the value
+2. Value - data we want to make available (i.e state and functions)
+3. Consumers - All components that read the provided context value
+
+
+
+
+
+
+Q98. How can store states using URL ?
+- Use the param and query string  in the URL
+
+
+Q97. Why do we want to use the URL to store state ?
+1. Easy way to store state in global place, accesibly to all componenets in the app
+2. Good way to pass data from one page to another
+3. Makes it possible to bookmark and share page with exacty UI state
+
+Q97. Can we store state in the URL ?
+- Yes
+
+
+
+Q96. Why do we need CSS Modules ?
+- It guarantees:
+1. All CSS lives in one place 
+2. Only applies to that component and nothing else
+
+Q95. What is CSS Modules ? 
+- CSS files in which all class names are scoped locally by default
+- Has ending of .modules.css
+Ex: HomePage.module.css
+
+Q94. How to switch between pages without reload ?
+- Use the "Link" Component of the React
+Ex: 
+<Link to="/login">
+    Start tracking now
+</Link>
+
+
+Q93. What is a SPA ?
+- Application that is executed entirely on the clients browser
+- Routes: different URL correspond to different Views
+- JS (React) is used to update the DOM
+- Page is never reloaded
+- Feels like a native app
+- Additional data might be loaded from a web API
+
+
+Q92. What is Routing ? 
+- Routing allows us to match different URLs to different UI Views (React componenets): Views
+- Enables users to navigate between different application screens, using browser URLs
+- Keeps UI in sync with current browser URLs
+- Allows us to build SPA (Single page applications)
+- Most populate third pary framework for routing for React is "reactRouter"
+
+
 Q91. How to start a vite created app ? 
 - Do not use npm start since start does not exist in the package.json
 instead use...
