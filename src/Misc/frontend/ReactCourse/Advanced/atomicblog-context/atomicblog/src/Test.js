@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 function SlowComponent() {
   // If this is too slow on your maching, reduce the `length`
-  const words = Array.from({ length: 100_000 }, () => "WORD");
+  const words = Array.from({ length: 100_000 }, () => 'WORD')
   return (
     <ul>
       {words.map((word, i) => (
@@ -11,11 +11,11 @@ function SlowComponent() {
         </li>
       ))}
     </ul>
-  );
+  )
 }
 
 function Counter({ children }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   return (
     <div>
       <h1>Slow counter?!?</h1>
@@ -23,10 +23,12 @@ function Counter({ children }) {
 
       {children}
     </div>
-  );
+  )
 }
 
 export default function Test() {
+  // Note: Uncommenting this out, will actually make the app slower
+  // Why ? Because the <SlowComponent /> gets re-rendered  but the {children} component does not since its already been created
   // const [count, setCount] = useState(0);
   // return (
   //   <div>
@@ -44,5 +46,5 @@ export default function Test() {
         <SlowComponent />
       </Counter>
     </div>
-  );
+  )
 }
