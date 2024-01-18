@@ -39,6 +39,7 @@ export default function Test() {
   //   </div>
   // );
 
+  // Note:  This implementation is faster
   return (
     <div>
       <h1>Slow counter?!?</h1>

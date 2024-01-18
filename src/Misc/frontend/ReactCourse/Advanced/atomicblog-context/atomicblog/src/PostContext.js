@@ -1,13 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react'
 import { faker } from '@faker-js/faker'
 
-function createRandomPost() {
-  return {
-    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-    body: faker.hacker.phrase(),
-  }
-}
-
 // 1) CREATE A CONTEXT
 const PostContext = createContext()
 
@@ -58,6 +51,13 @@ function usePosts() {
   if (context === undefined)
     throw new Error('PostContext was used outside of the PostProvider')
   return context
+}
+
+function createRandomPost() {
+  return {
+    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+    body: faker.hacker.phrase(),
+  }
 }
 
 export { PostProvider, usePosts }

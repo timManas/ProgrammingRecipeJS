@@ -40,6 +40,14 @@ function FormAddPost() {
   )
 }
 
+function Posts() {
+  return (
+    <section>
+      <List />
+    </section>
+  )
+}
+
 function List() {
   const { posts } = usePosts()
 
@@ -56,14 +64,6 @@ function List() {
 
       {/* <Test /> */}
     </>
-  )
-}
-
-function Posts() {
-  return (
-    <section>
-      <List />
-    </section>
   )
 }
 

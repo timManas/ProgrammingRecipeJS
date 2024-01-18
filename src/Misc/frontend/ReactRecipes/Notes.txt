@@ -183,8 +183,95 @@ Then use a useEffect cleanup function !!!!
 
 Questions
 
+Q116. What is the difference in  Mechanism of Redux  vs useReducer?
+
+useReducer: Event Handler Component ----------------------------------->    Dispatch   ---> Reducer --------------------------------> Next State ---> Re-Render
+
+Redux:      Event Handler  Component  --->  Action Creator Function --->    Dispatch   ---> Store ( reducer1, reducer2 ...etc)  ----> Next State ---> Re-Render
+
+
+
+Q115. What is Redux ? 
+- Redux is a 3rd party library to manage global state
+- Can intergrate with react using 'react-redux' librart
+- All global state is stored in one globally accessible store, which is easy to update using 'actions'
+- Conceptually similar to Context API + useReducer
+- Redux has two version: 1. Class redux     &  Modern Redux toolkit
+
+Q114. When NOT to use an effect ?
+- Effects should be used as last ditch resort, when NO other solution works
+Three cases where effects are overused:
+1. Responding to an event - An event handler should be use instead
+2. Fetching data on a componenet mount - Should use React Query instead for large appears
+3. Synchronizing state changes with one another - Use derived state and event handlers
+
+
+Q113. What are useEffect dependency array rules ?
+1. Every state variable, prop and context value used inside the effect MUST be included in the dependency array (duh)
+2. All 'reactive values' must be included. Meaning any functions or variables that reference any other reactive values
+3. Dependencies choose themselves: NEVER ignore the exhaustive ESLint rules
+4. Do not use objects or arrays as dependencies since it will trigger useEffect  constantly
+
+Q112. What is useMemo and useCallback ?
+- useMemo is used to memoize values
+- useCallback is used to memoize function between call backs
+- Values passed into useMemo and useCallBack will be stored in cache memory and returns in subsequent re-renders provided the dependencies (inputs) stay the same
+    > Similar the to dependencies like useEffect
+- useMemo and useCallBack have a dependency array: whenever one dependency changes, the value will be re-created
+
+Q111. What is the memo function ?
+1. Use to create a component that will NOT re-render when its parents re-renders, provided the props stay the same between renders
+2. Only affects props. A memoized component will still re-render when its own state changes or when context changes
+3. Only makes sense when component is heavy, re-renders often and does so with the same props
+
+Q110. Whats the benefit of memoization ?
+1. Prevents wasted renders
+2. Improve app speed and responsiveness
+
+Q109. How can we use memoization with react ? 
+- Memoize components with memo
+- Memoize objects with useMemo
+- Memoize functions with useCallBack
+
+Q108. What is memoization ?
+- Optimization technique that executes a pure function once, then saves the result in memory
+
+
+Q107. What is wasted render ?
+- A render thast did NOT produce any change in the DOM
+- Only a problem when happens too frequently or the component is very slow
+
+Q106. Does a re-render mean the DOM actually gets updated ?
+> No. It just means the components of the function gets called (expensive operation)
+
+
+Q105. When does a component instance re-render ?
+A component instance only gets re-rendered in 3 different situations:
+1. State Changes
+2. Context Changes
+3. Parent Re-Renders
+    > Note: Prop changes all trigger a re-render but that is because the parent-rerenders
+
+Q104. What are some ways to enhance performance in a React App?
+1. Prevent Wasted renders using:
+- memo
+- useMemo
+- useCallBack
+- Passing elements as children or regular prop
+
+2. Improve App speed / responsiveness
+- useMemo
+- useCallBack
+- useTransitiion
+
+3. Reduce Bundle synchronizes
+- use fewer 3rd part packages
+- code splitting and lazy loading
+
+
+
 Q103. What are different State management tool options ? 
-                            Local State                                 Global State
+                        Local State                                 Global State
                     - useState                                  - Context API + useState/useReducer
 UI State            - useReducer                                - Redux, Zustand, Recoil,
                     - useRef                                    - React Router
