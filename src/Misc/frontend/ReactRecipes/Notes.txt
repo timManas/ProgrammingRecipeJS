@@ -76,6 +76,12 @@ Note - This does not mean entire DOM will be updated, just the virtual DOM
 15. REMEMBER, RENDER FIRST on screen ...then useEffect. In that order
 16. REMEMBER, the useEffect cleanUp function executes FIRST before the actual function
 Ex: see function titleUseEffect()
+17. Redux createStore() method is depercated. It is only for learning purpose
+18. Redux combineReducer() is deprecated. Use configureStore()
+19. CONTEXT + useReduxer ===  Redux
+    > Context API provides a way to teleport state into componenets without prop drilling
+    > useReducer is way to store state
+    > Redux is combination of these two in one package
 
 
 
@@ -173,7 +179,8 @@ Then use a useEffect cleanup function !!!!
 21. When using useRef, try to update it either in useEffect or eventHandlers
 - NOT in render logic
 
-
+22. Use redux tool kit (RTK) instead of 'classic' redux. 
+    > Why ? RTK is opiniated approach which forces users to use Redux best practices
 
 
 
@@ -182,6 +189,45 @@ Then use a useEffect cleanup function !!!!
 
 
 Questions
+
+Q121. What is Redux Took Kit (RTK) ?
+- Modern and Preferred way of writing Redux Code
+- An oppionated approach which forces users to use Redux best practices
+- 100% Compatible with class redux
+- Allows us to write alot less boilerplate code
+- Has 3 advantages:
+1. Can write code that 'mutates' state inside reducers (will be converted to immutable logic BTS by 'immer' library)
+2. Action creators are automatically setup
+3. Automatic setup of thunk middlwar and DevTools
+
+
+Q120. What is middleware used for ?
+- Make asynchronous code
+- API Calls, timers
+- Place for side effects
+
+Q119. What is Redux middleware ? 
+- If you need to make a async API Call, where do you do it ? 
+- Redux middlware sits between the dispatching action and the store
+- Allows us to run code AFTER the dispatch but BEFORE reaching the store
+
+Componenet -------> dispatch() ------->  Middleware (Thunk)  --------> Store
+
+
+
+Q118. How to read state from the redux store ?
+- use the useSelector() hook to access state 
+Ex:   const customer = useSelector((store) => store.customer.fullName);
+Note: 'customer'  is the name of the reducer
+If you did 'store.customer' you will get the entire object for customer state
+
+
+Q117. What is a slice ?
+- A Slice is part/piece of the total state
+- The entire state lives in the store, we take one SLICE of the state
+- You can have multiple slices for the state. (i.e customerSlice vs accountSlice). 
+- Both have state but each slice handles different parts (customer vs account)
+
 
 Q116. What is the difference in  Mechanism of Redux  vs useReducer?
 
