@@ -1,0 +1,1195 @@
+
+Summary 
+1. A component is like a blue print for piece of UI that will eventually exist on screen
+2. Component instance a is single physical instance of a component rendered on screen
+3. Component instances rendered will return a React element
+4. Rendering only means calling compoenent functions and calculating the what DOM needs to update. (Nothing to do with the DOM)
+5. Each time a component instance is rendered, function is called again
+6. Only initial render or STATE  update will trigger a render.
+7. Render happsn for the entire application and NOT just one single component (but the recompiler will see the diff and paint on browser)
+8. When compoenent gets rendered, its child components will get rerendered as well.
+    - Recompiler will check which child element needs to be updated for performance reason 
+9. Diffing is how react decides which DOM elements needs to be added or modified
+    - If between renders, a certain Reac element stays at the same position in the element tree, the corresponding DOM element and state will stay the same
+    - If element changed to a different position, or its a different element type, the DOM element will be destroyed
+10. Use a key prop to distinguish between multiple compoenent instances
+    - When key stays the same across renders, the element is kept in the DOM. (Hence, use keys in list)
+    - When we change keys, DOM elements will be destroyed and rebuilt
+11. Never declare a new component inside ANOTHER component.
+    - Doing so, will create a nested component  every time the parent component re-renders
+12. Logic that produces JSX output for a component instance (i.e render logic) is NOT allowed to produce side effects
+13. Side effects are allows in event handlers and useEffect() hook
+14. Dom is updated in the commit phase. NOT by react but by the reactDOM
+15. Multiple state updates inside an event handler are BATCHED. 
+    - Happens all at once causing only ONE re-render
+16. State updates are asynchronous
+17. Batching happens in timeouts, promises and native event handlers
+18. When using event handlers, we get access to synthetic event objects. NOT the browser native object
+    -> Why ? Because synthetic events bubble and to make behaviour consistent on all browsers
+19. React is a library, not a framework
+
+20. Create state in two ways:
+> Simple            Ex: const[count, setCount] = useState(0)
+> Based on function     Ex: const[count, setCount = useState(() => localStorage.getItem('count'))
+
+21. Update state in two ways:
+> Simple            Ex: setCount(1000)
+> Based on current state    Ex: setCount((currentCount) => currentCount + 1) 
+
+
+
+
+
+Notes
+1. Remember: React reacts to state changes by re-rendering the UI
+2. You cannot use if/else statements directly in JSX ... (this sucks =| ). You have to use ternary operatoes like this:
+    ex: { isOpen ? TrueResult : FalseResult }
+3. You can pass entire objects into props using the {}
+4. props are basically like argument passed into JS functions
+5. You can put JSX inside properties or between bodies
+Ex:     
+<li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
+<h3>{pizzaObj.name}</h3>
+5. You cant stringify due to cyclic object value,
+> Use a reducer like this: getCircularReplacer()
+> This a very common issue. Talked about in MDN
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value
+6. Updating a component state will trigger an re-render
+> why ? to keep UI insync with data
+7. You can use the && for conditional rendering 
+ex: {isOpen && ....}  - If isOpen is true, it will render the ..... If false, nothing will get displayed
+8. Changes to STATE or PROPS will trigger a re-render
+
+9.The render process is triggered for the entire application and NOT just for one single componenet
+- This does not mean entire DOM is updated since rendering calls upon the component function and figuring out what needs to change
+- In practice, it looks like React ONLY re-renders the componenet where the state update happens.
+- But thats not correct
+10. Renders are NOT triggered immediately, but schedule for when the JS engine has some "free time".
+***** 11. Rendering a componenet will cause ALL of its child component to be rendered as well (no matter if props was changed or not)
+Why ? Because React doesent know if child componenet will be affected or not
+Note - This does not mean entire DOM will be updated, just the virtual DOM
+11. Side Effects are allows (and encouraged) in Event Handler Functions !!
+- the useEffect hook is used to register side effects
+12. Updating state in React is ASYNCH
+13. useEffect() does NOT get triggered right away after a Render. useEffect is asynchronous
+14. REMEMBER, the render LOGIC is the actual code of the component (i.e return, MINUS the useEffect and eventHandlers)
+15. REMEMBER, RENDER FIRST on screen ...then useEffect. In that order
+16. REMEMBER, the useEffect cleanUp function executes FIRST before the actual function
+Ex: see function titleUseEffect()
+17. Redux createStore() method is depercated. It is only for learning purpose
+18. Redux combineReducer() is deprecated. Use configureStore()
+19. CONTEXT + useReduxer ===  Redux
+    > Context API provides a way to teleport state into componenets without prop drilling
+    > useReducer is way to store state
+    > Redux is combination of these two in one package
+
+
+
+
+
+
+
+
+Best Practices
+1. Use Create-React-App for examples and small projects
+2. For debugging, see if you can create a component tree
+3. For defining class in JSX, you cannot use class ...use className
+    Ex:     <div className='container' />
+4. You can seperate the {children} from the component
+Same component but you can customize the children inside of it
+Ex: 
+    <Button bgColor='#7950f2' textColor='#fff' onClick={handlePrevious}>
+         <span>👈</span> Previous
+    </Button>
+
+    <Button bgColor='#7950f2' textColor='#fff' onClick={handleNext}>
+         Next <span>👉</span>
+        <span>🤓</span>
+    </Button>
+
+    And in the JSx return the following:
+    return <button> {children} </button>
+5. When creating properties like onClick, make sure to wrap in () => alert(...)
+Ex: 
+onClick={() => alert(....)}   CORRECT 
+onClick={alert(...)}        BAD ...Dont do this
+
+- If you dont add the '() =>' React will trigger this method constantly
+The reason being is that when initliazing, react sees this component and triggers it right away
+instead of waiting until the button is clicked
+6. Do NOt update state using the variable.
+- Use the setter instead
+Ex: const[state, setState] = useState()
+state = state.new       // THIS IS BAD ...DO NOT DO THIS
+setState(state.new)     // Good practice
+
+7. Download the React Dev Tools to showgi
+- The component tree
+- Profiler
+
+8. When updating the state:
+- Do NOT do this:
+     setStep(step + 1)
+- Instead do this:
+    setStep((currentStep ) =>  currentStep + 1)
+
+9.When creating a component, do the following:
+1. Create all the child components in the same filter
+2. Ensure code works
+3. Refactor the parent component file by seperating the child component into seperate files
+
+10. Best practice dictate, we like to keep track of the state inside one component.
+Most likely the parent component which keeps track
+
+11. Try minimizing the # of states in an app
+> Try using derived state as much as you can. 
+Why ? Because you dont want to update all the other state and keep them all in sync with each other
+
+
+12. Use children props to pass elements from  Parent to Child Components
+- Useful to display generic functionality with some customization
+
+13. Do not modify initial arrays. Similar to props. We do not modify them
+> Create a brand new one instead
+
+14. When creating a UI with lots of components... 
+- Start with a relativily big component file
+- Split the file into smaller componenets as it becomes ncessary
+
+15. Use the 'key' prop when you have multiple components of the same type. For performance gains
+16. When you need to modify the state of a component, give it a new unique key to trigger a re-render
+
+17. Any Fetch or API calls, please please use the "useEffect" hook.
+- Why ? API call is async and calling it outside a useEffect hook will trigger 
+an infinite loop which continously tries to call upon the API since the state chaanges
+
+18. Try to minimize using the useEffect for changing data. Opt to try to use eventHandlers instead
+Ex: onClick, onSubmit, etc.
+This is the preffered way of creating side effects
+
+
+19. Each effect should do ONLY ONE THING ! Use One useEffect hook for each side effect
+- Makes it easier to debug and cleanup
+Ex: selecIdUseEffect(), titleUseEffect()
+
+20. Does your useEffect do any of the following ?
+1. HTTP Request, API Subscription, Starting Timer, Add Event Listener ? 
+Then use a useEffect cleanup function !!!!
+
+21. When using useRef, try to update it either in useEffect or eventHandlers
+- NOT in render logic
+
+22. Use redux tool kit (RTK) instead of 'classic' redux. 
+    > Why ? RTK is opiniated approach which forces users to use Redux best practices
+
+
+
+
+
+
+
+Questions
+
+Q128. When to use Context API or redux ?
+        Context API + useReducer                                     Redux
+----------------------------------------------------------------------------------------------------------
+- Use context API for global state management in small apps         - Use Redux for global statemement in large apps
+- When you need to solve simple prop drilling                       - You need state updated frequently (shopping cart, complex filters, search)
+- when you need to manage state in local subtree of app             - When you have complex state with nested objects 
+
+
+Q127. Comparison of Context API vs Redux ?
+        Context API + useReducer                            Redux
+----------------------------------------------------------------------------------------------------------
+- Built into React                                  - Requires additional package (larger bundle size)
+- Easy to setup a single context                    - More work to set up initially
+- Additional state 'slide' requires                 - Once setup, easy to create additional state slices
+new context set up from scratch
+('provider hell' in App.js)
+- No mechanism for async operations                 - Support middlware for asynch operations
+- Performance optimization is BAD                   - Performance is optimized out of the Box
+- Only React Dev tools                              - Excellent Dev Tools
+
+
+
+Q126. What is the prepare() method ?
+- Prepares the data
+- Has the same parameters as the action creator 
+- Returns the payload for the reducer
+Ex: requestLoan()
+
+Q125. How does this line work ? const { withdraw, requestLoan, payLoan } = accountSlice.actions
+- Basically createSlice() contains the foloowing below. (Q124)
+- Hence we can destructure withdraw,requestLoad, and payload from the "actions" properties below
+
+*****Q124. What properties does createSlice() contains ? 
+1. actions
+2. caseReducers
+3. getInitialState
+4. name
+5. reducer
+
+Q123. How does createSlice set the action.type ?
+- the "name" and the reducers type will set the type
+For example:
+- "/account/deposit" is the same as the "accountSlice" name which is 'account', followed by the reducers called 'deposit'
+    > This is an opionated way of how redux toolkit works using createSlice()
+- "/customer/updateName" is the same as the "customerSlice" name which is 'customer', followed by the reducer called 'updateName'
+
+
+Q122. What is the configureStore() and why is it better than createStore() in redux ? 
+1. Automtically combine reducers
+2. Automatically add Thunk
+3. Automatically setup developer tools 
+
+
+
+Q121. What is Redux Took Kit (RTK) ?
+- Modern and Preferred way of writing Redux Code
+- An oppionated approach which forces users to use Redux best practices
+- 100% Compatible with class redux
+- Allows us to write alot less boilerplate code
+- Has 3 advantages:
+1. Can write code that 'mutates' state inside reducers (will be converted to immutable logic BTS by 'immer' library)
+2. Action creators are automatically setup
+3. Automatic setup of thunk middlwar and DevTools
+
+
+Q120. What is middleware used for ?
+- Make asynchronous code
+- API Calls, timers
+- Place for side effects
+
+Q119. What is Redux middleware ? 
+- If you need to make a async API Call, where do you do it ? 
+- Redux middlware sits between the dispatching action and the store
+- Allows us to run code AFTER the dispatch but BEFORE reaching the store
+
+Componenet -------> dispatch() ------->  Middleware (Thunk)  --------> Store
+
+
+
+Q118. How to read state from the redux store ?
+- use the useSelector() hook to access state 
+Ex:   const customer = useSelector((store) => store.customer.fullName);
+Note: 'customer'  is the name of the reducer
+If you did 'store.customer' you will get the entire object for customer state
+
+
+Q117. What is a slice ?
+- A Slice is part/piece of the total state
+- The entire state lives in the store, we take one SLICE of the state
+- You can have multiple slices for the state. (i.e customerSlice vs accountSlice). 
+- Both have state but each slice handles different parts (customer vs account)
+
+
+Q116. What is the difference in  Mechanism of Redux  vs useReducer?
+
+useReducer: Event Handler Component ----------------------------------->    Dispatch   ---> Reducer --------------------------------> Next State ---> Re-Render
+
+Redux:      Event Handler  Component  --->  Action Creator Function --->    Dispatch   ---> Store ( reducer1, reducer2 ...etc)  ----> Next State ---> Re-Render
+
+
+
+Q115. What is Redux ? 
+- Redux is a 3rd party library to manage global state
+- Can intergrate with react using 'react-redux' librart
+- All global state is stored in one globally accessible store, which is easy to update using 'actions'
+- Conceptually similar to Context API + useReducer
+- Redux has two version: 1. Class redux     &  Modern Redux toolkit
+
+Q114. When NOT to use an effect ?
+- Effects should be used as last ditch resort, when NO other solution works
+Three cases where effects are overused:
+1. Responding to an event - An event handler should be use instead
+2. Fetching data on a componenet mount - Should use React Query instead for large appears
+3. Synchronizing state changes with one another - Use derived state and event handlers
+
+
+Q113. What are useEffect dependency array rules ?
+1. Every state variable, prop and context value used inside the effect MUST be included in the dependency array (duh)
+2. All 'reactive values' must be included. Meaning any functions or variables that reference any other reactive values
+3. Dependencies choose themselves: NEVER ignore the exhaustive ESLint rules
+4. Do not use objects or arrays as dependencies since it will trigger useEffect  constantly
+
+Q112. What is useMemo and useCallback ?
+- useMemo is used to memoize values
+- useCallback is used to memoize function between call backs
+- Values passed into useMemo and useCallBack will be stored in cache memory and returns in subsequent re-renders provided the dependencies (inputs) stay the same
+    > Similar the to dependencies like useEffect
+- useMemo and useCallBack have a dependency array: whenever one dependency changes, the value will be re-created
+
+Q111. What is the memo function ?
+1. Use to create a component that will NOT re-render when its parents re-renders, provided the props stay the same between renders
+2. Only affects props. A memoized component will still re-render when its own state changes or when context changes
+3. Only makes sense when component is heavy, re-renders often and does so with the same props
+
+Q110. Whats the benefit of memoization ?
+1. Prevents wasted renders
+2. Improve app speed and responsiveness
+
+Q109. How can we use memoization with react ? 
+- Memoize components with memo
+- Memoize objects with useMemo
+- Memoize functions with useCallBack
+
+Q108. What is memoization ?
+- Optimization technique that executes a pure function once, then saves the result in memory
+
+
+Q107. What is wasted render ?
+- A render thast did NOT produce any change in the DOM
+- Only a problem when happens too frequently or the component is very slow
+
+Q106. Does a re-render mean the DOM actually gets updated ?
+> No. It just means the components of the function gets called (expensive operation)
+
+
+Q105. When does a component instance re-render ?
+A component instance only gets re-rendered in 3 different situations:
+1. State Changes
+2. Context Changes
+3. Parent Re-Renders
+    > Note: Prop changes all trigger a re-render but that is because the parent-rerenders
+
+Q104. What are some ways to enhance performance in a React App?
+1. Prevent Wasted renders using:
+- memo
+- useMemo
+- useCallBack
+- Passing elements as children or regular prop
+
+2. Improve App speed / responsiveness
+- useMemo
+- useCallBack
+- useTransitiion
+
+3. Reduce Bundle synchronizes
+- use fewer 3rd part packages
+- code splitting and lazy loading
+
+
+
+Q103. What are different State management tool options ? 
+                        Local State                                 Global State
+                    - useState                                  - Context API + useState/useReducer
+UI State            - useReducer                                - Redux, Zustand, Recoil,
+                    - useRef                                    - React Router
+--------------------------------------------------------------------------------------------------------
+
+Remote Stsate       - fetch + useEffect + useState/Reducer      - Conext API + useState/useReducer
+                                                                - Redux, Zustand
+                                                                - React Query, SWR, RTK Query
+
+
+
+
+Q102. Where to place state ? 
+---------------------------------------------------------------------------------------------------
+Where to place State                            Tools                               When to use ?
+1. Local Componennts                    useState, useReducer, useRef            - Local State
+2. Parent Component                     useState, useReducer, useRef            - Lifting state up
+3. Context                              Context API + useState + useReducer     - Global State (UI State)
+4. 3rd Party library                    Redux, ReactQuery, SWR,etc              - Global State (remote or UI)
+5. URL                                  React Router                            - Global State, passing between pages
+6. Browser                              Local Storage, session Storage          - Storing data in users browser
+
+
+
+Q101. What are the different types of state ? 
+1. Local State
+- Needed only be one of few components
+- Only accessible in components and child components
+2. Global State
+- Needed by many components
+- Accessible to every componenet in the application
+
+Q100. What happens when the valie in the provider updates ?
+1. Value in the provider updates
+2. Triggers a Re-render on ALL the Consumers
+3. Consumers then re-renders the component
+
+Q99. What is context API ?
+- Basically Solves the Prop drilling problem (i.e constantly passing props to the component)
+- It is a way to pass data throughout the app without mnaully passing props down the tree
+- Allows use to broadcast global state to the entire app
+- There are multiple parts to context API:
+1. Provider - Gives all the child components access to the value
+2. Value - data we want to make available (i.e state and functions)
+3. Consumers - All components that read the provided context value
+
+
+
+
+
+
+Q98. How can store states using URL ?
+- Use the param and query string  in the URL
+
+
+Q97. Why do we want to use the URL to store state ?
+1. Easy way to store state in global place, accesibly to all componenets in the app
+2. Good way to pass data from one page to another
+3. Makes it possible to bookmark and share page with exacty UI state
+
+Q97. Can we store state in the URL ?
+- Yes
+
+
+
+Q96. Why do we need CSS Modules ?
+- It guarantees:
+1. All CSS lives in one place 
+2. Only applies to that component and nothing else
+
+Q95. What is CSS Modules ? 
+- CSS files in which all class names are scoped locally by default
+- Has ending of .modules.css
+Ex: HomePage.module.css
+
+Q94. How to switch between pages without reload ?
+- Use the "Link" Component of the React
+Ex: 
+<Link to="/login">
+    Start tracking now
+</Link>
+
+
+Q93. What is a SPA ?
+- Application that is executed entirely on the clients browser
+- Routes: different URL correspond to different Views
+- JS (React) is used to update the DOM
+- Page is never reloaded
+- Feels like a native app
+- Additional data might be loaded from a web API
+
+
+Q92. What is Routing ? 
+- Routing allows us to match different URLs to different UI Views (React componenets): Views
+- Enables users to navigate between different application screens, using browser URLs
+- Keeps UI in sync with current browser URLs
+- Allows us to build SPA (Single page applications)
+- Most populate third pary framework for routing for React is "reactRouter"
+
+
+Q91. How to start a vite created app ? 
+- Do not use npm start since start does not exist in the package.json
+instead use...
+npm run dev
+
+Q90. What is vite ?
+- Modern build tool that has view templates for different frameworks
+
+Q89. How to install vite ?
+- npm create vite
+- Enter projectName
+- Select React
+- Select JavaScript
+- Done
+- You will need to follow the instructions:
+Done. Now run:
+  cd worldwise-vite-reactrouter
+  npm install
+  npm run dev
+
+Q88. Whats the difference between useState vs useReducer ? 
+            useState                                                                                            useReducer
+- Ideal for single, independent pieces of state (ex: Numbers, String)                - Ideal for multiple RELATED pieces of state and complex state (ex: objects with many values and nested objects)
+- Logic to update state is placed directly in event Handlers or effects              - Logic to update state lives in ONE central place, decoupled from components (i.e reducer function)
+- State is updated by calling setState   (ex: setScore(0), setPlaying(true))         - State is updated by calling dispatch (ex: dispatch({type: 'start'}))
+- Easy to understand and use                                                         - More difficult to understand and implement
+
+
+Q87. How to manage state with useReducer ? 
+- UseReducer is useState but on steroids, you will need the following part for useReducer:
+1. Store related pieces of state in a 'state' object
+2. useReducer needs a 'reducer' function containing all logic to update the state. 
+    > Why ? Decouples state logic from component
+3. The 'reducer' function takes current state and action, and returns the next state
+4. The 'action' object describes how the update the state
+5. The 'dispatch' function reiggers a state update by sending actions from event handlers to reducer
+
+Ex: const[state, dispatch] = useReducer(reducer, initialState)
+.
+..
+...
+function reducer (state, action) {
+    switch (action.type) {
+        case 'dec':
+            return state - 1
+        case 'setCount':
+            return action.payload
+    }
+}
+
+
+Q86. Why use useReducer ? 
+- UseState is not enough under these circumstances: 
+1. When componenets have alot of state variables and state updates spread across many event handlers all over the componenet
+2. When multiple state updates need to happen at the same time
+3. When updating one piece of state depends on one or multiple states
+> Then useReducer can be useful
+
+
+Q85. What are Custom Hooks ? 
+- Custom hooks allow us to reuse logic in multiple components (Ex: useKey)
+- Best to use one custom hook per functionality
+- We can encapsulate a regular react hook (ex: useEffect, useState, etc) and pass the parameters to it 
+- Needs to start with the word "use"
+
+
+Q84. What is the difference between refs and states ? 
+- State and Refs both persists across Renders
+- Changing the state will trigger a Re-Render 
+- Changing the Ref will NOT trigger a Re-Render
+- States are immutable
+- Refs are NOT immutable
+- States have asynchronous updates
+- Refs do not have asynchronous updates (i.e We can read the value of refs right after update)
+
+Q83. What are the useCases for Refs ?
+1. Create a variable that stays the same between renders
+Ex: Previous state
+2. Selecting and storing DOM elements
+
+
+Q83. Example of useRef() 
+Ex: const myRef = useRef(20)
+update ref  by: myRef.current = 1000
+
+Q82. What are Refs ? 
+- "Box" (object) with a mutable ".current" property that is persisted across renders
+- Refs are for data that is NOT rendered
+    > Ususually only appears in eventHandlers or effects. 
+    > Not ins JSX (use state for this instead)
+- Do NOT read or write .curretnt in render logic (like state)
+
+
+
+
+
+Q81. Does the initial value in the useState(example) get executed every render ? (Ex: const [count, setCount] = useState(0))
+- No.
+- They are initialized only during the initial render 
+
+Q80. What are Rules of hooks ? 
+1. Only call hooks at the top level
+- Do NOT call hooks inside conditionals, loops, nested functions or after early return
+2. Only call hooks from React functions (ex: component or custom hook)
+
+
+Q79. What are react hooks ? 
+- Special built in functions that allow us to "hook" into React internals like:
+    > Creating and accessing state from Fiber tree
+    > Registereing side effects in Fiber Tree
+    > Manual DOM selections
+- Always start with "use" (ex: useState, useEffect)
+- Enable easy reusing of non visual logic: can compose multiple hooks into our own custom hooks
+- Give function components ability to own state and run side effects at different lifecycle points
+
+
+Q78. What is the AbortController() ?
+- A controller object that allows you to aboirt web request when desired
+- Not part of react
+
+
+Q77. When do we need a cleanup function ?
+- Necessary whenever the side effect keeps happening after the componenet has been re-rendered or unmmounted
+Ex: Effect                Cleanup Function
+--------------------------------------------
+HTTP Request        --->    Cancel Request
+API Subscription    --->    Cancel Subscription
+Start Timer         --->    Stop Timer
+Add Event Listener  --->    Remove Listener
+
+
+
+Q76. What is the cleanup function ? 
+- Function that we can return from an effect
+- Runs on different occasion
+1. Before an effect is executed again (Re-Render)
+2. After a component has unmounted 
+
+
+Q75. When are effects executed ?
+|       Mount (Initial Render)
+|       Commit
+|       Browser Paint on screen
+|       *EFFECT*    
+------------------------------------
+|       Title Changes
+|       Re-Render
+|       Commit
+|       LayoutEffect
+|       Browser Paint
+|       *CleanUp Function*
+|       *EFFECT*
+|___________________________________   
+|       Unmount
+|       *CleanUp Function*
+V
+Timt
+
+
+Q74. What are the different types of useEffect ?
+Type                           Synchronization                  lifecycle
+------------------------------------------------------------------------------
+useEffect(fn, [x,y,z])       Effect synchronizes       Runds on mount, re-render when
+                                with x,y,z              x,y,z are updated
+
+useEffect(fn, [])            Effect synchronizes       Runs only on mount
+                            with no states/props
+
+useEffect(fn)                Effect synchronizes        Runs on every render
+                             with everything             (VERY BAD ... DO NOT DO THIS)
+
+Q73. What is useEffect() ?
+- Is like an event listender that is listening for one dependency to change.
+- Whenever a dependency changes, it will execute the effect again
+- Effects react to updates to states and props used inside the effect 
+
+Q72. What is the useEffect() dependency array ? 
+- By default, effect run after EVERY render. 
+    > We can prevent that by passing a dependency array
+- Without the dependency array, reacy does NOT know when to run the effect
+- Each time one of the dependecy changes,  the effect will be executed again
+- Every state variable and prop used inside the effect MUST be included in the dependency array
+
+Q71. Where to create Side Effects ?
+- Basically in two places:
+1. Event Handler - Triggered by events: onClick, onSubmit, etc
+2. useEffect - Triggered by rendering. Allow us to write code that will run at different momements: mount, re-render, unmount, etc
+
+
+Q70. What is component lifecycle ?
+1. Mount / Initial Render
+- Component instance is rendered for the first time.
+- Fresh state and props are created
+
+2. Re-Render (Optional)
+- Happens when State OR Props changes
+- Parent component re-renders
+- Context changes
+
+3. Unmounted 
+- Component is destroyed and removed from screen
+- State and props are destroyed
+
+
+Q69. What are some react 3rd party library ecosystem?
+1. Routing - React Router, React Location
+2. HTTP Request - JS fetch, AXIOS
+3. Remote State Management - React Query, SWR, APOLLO
+4. Gloab State management - Contest API, REDUX, Zustand
+5. Styling - CSS modules, styled componenets, tailwind CSS
+6. Form Management - React Hook Form, Formik
+7. Animation/Transition - Motion, React Spring
+8. UI Components - Chakra UI, React boot strap
+
+
+
+Q68. What are Syntehtic events ? 
+- Wrapper around the DOM's native event object
+- Has same interface as native events objects like stopPropagation() and prevent Default()
+- Fixes browser inconsistencies, so that all works in the exact same way in all browsers
+- Most synethic events bubble (including focus, blur and change)
+- Uses camelcase (ex: onClick vs onclick )
+- Default behaviour can NOT be prevent by returning false (only by using preventDefault())
+
+
+Q67. What is event delegation in VanillaJS ?
+- Handling event for multple elements CENTRALLY in one single parent element
+- Better for performance and memory as it only needs one handler function
+
+Q66. How does Event propagation work in VanillaJS ?
+Ex: Assume a button was clicked on the DOM tree
+1. Event object is created
+2. Capture Phase - Propagates from the root Document element all the way to the element which triggered the event 
+3. Bubbling phase - Once it reaches the target element, propagates back up to the root element (Document tag)
+
+
+
+Q65. What behaviours are automatically batched in React 17 vs 18 ?
+    Type            React 17        React 18
+Event handlers         Yes               Yes
+Timeouts                No               Yes
+Promises                No               Yes
+Native events           No               Yes 
+
+
+
+Q64. How does react update state ? 
+- State updates occur asynchronously
+- State changes are BATCHED together for a single component and rendered one time 
+Ex: 
+const onClick = function() {
+    setAnswer()
+    setBest()
+    setSolved()
+}
+
+All these state changes, do NOT trigger a render ...but rather batched together and rendered ONCE
+
+
+
+Q63. What are React Rules for Render logic ? 
+1. Components must be PURE when it comes to render logic:
+    - Given the same props (input), a component instance must always return the same JSX output
+2. Render logic must produce NO side effects:
+3. Render logic DO NOT perform network request (API)
+4. Render Logic DO NOT start timers
+5. Render logic DO NOT directly use the DOM API
+6. Render logic DO NOT mutate objects or variables outside of the function scope
+7. Render logic DO NOT update state or refs as this will create an infinite logic
+
+
+Q62. What is pure function ?
+- Functions which do not have any side effect
+- Does not change any variable outside its scope
+- Same input will produce same output
+
+
+Q61. What is a side effect ? 
+- Side effects are dependency or modification of any data outside its functions scope 
+- Any "Interaction" with the outside world outside the component
+- Code that actually does 'something' like data fetching, setting up timers, accessing the DOM, etc
+Ex: mutating external variables, HTTP request, writing to DOM
+
+
+Q60. What are the two types of logic in react components ?
+1. Render Logic
+- Code that lives in the top level of the componenet function (i.e what it "JSX")
+- Executed everytime the component renders
+2. Event Handler functions
+- Executed due to an event (ex: onClick, onChange, onHover ...etc)
+- Code that actually does things: update state, perform HTTP request, navigate to another page
+
+
+Q58. What is the key prop ? 
+- Special prop that we use to tell the diffing algorithm that an element is unique
+- Allows React to distinguish between multiple instances of the same componenet type
+- When a key stays the same across renders, element will be kept in the DOM (even if position in tree changes)
+    > Ex: Use keys in lists
+- When a key changes between renders, the element will be destroyed and a new one will be created (even if the position is the same as before)
+    > Using keys to reset state
+
+Q57. What is the Browser paint ?
+- Updated UI on the screen
+- User is able to see the change on the screen
+- Part of the browser technology (i.e chrome, firefox, etc  )
+
+Q56. What is the commit phase ? 
+- When react finally writes to the DOM: insertions, deletions, updates 
+***  Once commit phase is finished, the workInProgress fiber tree  will BECOME the curret tree for the next render cycle
+- Uses the "REACTDOM" libary (i.e not part of react itself)
+
+Q55. What is FIBER ?
+- FIBER is Reacts reconciler. i.e Heart of the engine
+- Internal tree that has a 'fiber' for each component instance and the DOM element
+- Take the React Element Tree (Virtual DOM) and converts it to the FIBER Tree on render
+- Fibers are NOT re-created on every render. Immutabe Data structure
+- Used as "unit of work"
+- Work can be dont asynchronously 
+- Fiber tree are never discarded or destroyed. Instead they are reused to save time for diffing
+
+
+Q54. What is Reconcilation and why do we need it ?
+- It is deciding which DOM elements actually need to be inserted, deleted, updated in order to reflect the latest state change
+
+
+Q54. Why not update the entire DOM whenever state changes somewhere in the app ?
+1. Very inefficient and wasteful
+2. Very Slow
+3. Usually only a small part of the DOM needs to be updated, hence we try to use reconsilation to do this
+ 
+
+Q53. What is the virtual DOM ?
+- Tree of all React elements created from all instances in the component tree
+- Cheap and fast to create multiple 
+- Also known as the REACT ELEMENT TREE
+- Not related to shadow DOM
+- Rendering a componenet will cause ALL of its child component to be rendered as well (no matter if props was changed or not)
+Why ? Because React doesent know if child componenet will be affected or not
+Note - This does not mean entire DOM will be updated, just the virtual DOM
+
+
+Q52. What is the render phase ?
+Component instances  ---> Create React Elements ---> Virtual Dom  ---> Reconcilation + Diffing   ----> Update Fiber Tree  --> Use to write to the DOM
+triggered re-render        
+
+Q51. How are renders triggered ? 
+Two situations that trigger renders
+1. Initial render (i.e when component first shows up screen)
+2. State is updated in one or more components (Re-render)
+
+*Note - The render process is triggered for the entire application and NOT just for one single componenet
+- This does not mean entire DOM is updated since rendering calls upon the component function and figuring out what needs to change
+
+Q50. What is Rendering in react ?
+- In React, rendering is NOT updating the DOM or displaying elements on the screen.
+- Rendering only happens internally inside React. It does not produce visual change
+
+Q49. How components are displayed on the screen ? 
+ State changes --> Render is triggered  -->     Render Phase     --->      Commit Phase         --> Browser Paint 
+                                           i.e React calls componenets     i.e React actually       (This is what user see on screen)
+                                           functions and figures out how    writes to the DOM.
+                                           the DOM should be updated       Inserting, updating,
+                                                                            Deleting, etc
+
+
+Q48. What is the diff between componenets vs instances vs elements ?
+
+Components --> Component Instances --> React Element --> DOM Element (HTML) 
+            i.e Each individual inst                    i.e Final Element seen on screen
+
+Q47. What is react element ? 
+- JSX is converted to React.createElement() functiona calls
+- Result of these function calls
+- Information needed to create DOM elements
+
+Q46. What are component instances ?
+- Instances of each individual componenet rendered.
+- Actual physical manifestation of a component
+- Has its own state and props
+- Has its own lifecycle
+
+Q45. What are proptypes ?
+- We can specify the type of the value our properties are passed in (i.e int, string, boolean, etc)
+- This technique is not really used within JS. If you need too... use TypeScript instead
+Ex:
+StarRating.propTypes = {
+  maxRating: PropTypes.number,      // number
+  defaultRating: PropTypes.number,  // number
+  color: PropTypes.string           // string 
+}
+
+
+Q44. Can you pass elements in as props ? 
+- Yes you can
+- Used in ReactRouter
+Ex: <Box element={<MovieList movies={movies} /> } />
+
+Q43. What is component composition ? 
+- In order to combine components of other components, use the "child.props"  {children}
+in order to be resuable.
+- This is good for creating layouts
+- Why ? If we hard code the components together, we cannot reuse them any more
+
+Q42. What is prop drilling ? 
+- When child components are deeply nested, how do send our setXXX() calls to it ? 
+- Use prop drilling. We continously pass arguments into a Child Components properties until we get to designed child components
+- This is ok if we are 1 or 2 layers deep. But if the component is 10 layers deep, consider using Redux =)
+
+Q41. What are component categories ?
+1. Stateless Componenets
+- No State
+- Can receive props and simply present data
+- Usually small and resuable 
+- Ex: Logo, Text, Button
+
+2. Stateful Components
+- Have state
+- Can be resuable
+Ex: Cards
+
+3. Structural Components
+- Result of composition
+- Can be huge and non-reuseable
+Ex: Pages, Layout,  Entire screens of the app (ex: App.js)
+
+
+
+Q40. How to split a UI into components ?
+- There are 4 main criteria for splitting a UI into components
+1. Logical seperation of content
+2. Seperate based on reuseablitity
+3. Seperate based on the responsibilities / complexity
+4. Seperate by your own personal coding style (i.e Small vs Large componenets)
+
+Q39. What is a children prop ?
+- Children prop allows us to pass JSX into an element (besides regular props)
+- Essential tool thats makes code reuseable 
+- Useful for generic component that dont know their content before being used
+- Remember this is still ONE WAY data flow (parent to child)
+    > So we can only pass child props to child components. Not reverse !!!
+
+
+Q38. What is Derived state ? 
+- State that is computed from an existing piece of STATE or from PROPS
+
+
+Q37. When & Where to place state ?
+
+Need to store Data  ------>   Will State change at some point ?  --- No --->  Place data in const variable
+                                        |   
+                                       Yes
+                                        | 
+                       Can be computed from existing state/props ?   --- Yes ---> Derived State
+                                        |
+                                       No 
+                                        |
+                        Should it re-rendered component ?    --- No ---> Ref (useRef)
+                                        |   
+                                       Yes
+When to create state                    | 
+--------------------      Place a new piece state in component (This is local state)
+Where to place state                    |
+                                        |
+                            Only used by this component ?    --- Yes --->  Leave in component
+                                        |
+                                        No 
+                                        |
+                            Also used by child component ?   --- Yes ---> Pass state to child via props
+                                        |
+                                        No 
+                                        |                                       
+Set to Global state <--- No ---- Used by one of few siblinb component ?  --- Yes ---> Lift state up to first common parent
+
+
+
+
+
+Q36. What is Global state ? 
+- State that many components might need
+- Shared state that is accessible to EVERY component  in the entire Applications
+Ex: Conext API or Redux 
+
+Q35. What are local state ?
+- State needed only by one or few components
+- State that is defined in a component and only that compnent and child components have access to it
+- Should always start with LOCAL state
+
+Q34. What is state management ? 
+Deciding: 
+- When to Create state
+- Know what types of states are required
+- Where to place each state
+- How data flows through the app
+ 
+
+Q33. How to "think" in React ? 
+- Thinking about components, state, data flows, effects, etc
+- Thinking in state transitions, not element mutations
+- Follow the following process:
+1. Break the desired UI into component and create a component tree (very useful)
+2. Build a static version in react (without state) first
+3. Decide on state management:
+    - Think about state (when to use, type of state (local vs global), where to place each piece of state)
+    - Establish Data Flow (One way data flow, child to parent communication, accessing global state)
+
+
+
+Q32. Whats the difference between state and props ? 
+1. State
+- Internal data owned by component
+- 'Memory' of the component
+- Can be updated by the componenet itself
+- Updating state causes a re-render
+- Used to make componenets interactive
+
+2. Props
+- External data owned by the parent component
+- Similar to function parameters
+- Read-only
+- Receiving new props will trigger a re-render
+
+
+
+Q31. How to implement a controlled element ?
+- Follow three steps
+1. Create state for component
+Ex: const [description, setDescription] = useState('')
+2. Use state as value of specific component we want to control
+Ex: value={description}
+3. Use the setState to modify the state 
+Ex: setDescription(e.target.value)
+
+
+Q30. What is a controlled element ? 
+> React who controls the state of the elements and not the DOM
+
+Q29. What is event.preventDefault() ?
+- Prevents the page from reload when a submit occurs
+- Not part of React but part of JS
+
+Q28. What is the event object ?
+ > event object is an object which contains all info about  the current event
+
+
+Q27. What are general 'state' guidelines ?
+1. Each component has and manages it own state
+2. Changes in one component SHOULD NOT affect other components 
+3. Use a state variable for any data that the component needs to "remember" over time
+4. Whenever you want something in component to be dynamic, update its state.
+5. Update state if you want to change:
+    - the way a component looks
+    - the data it displays
+6. When building a component, imagine its view as a reflection of state over time
+7. For data that do not need re-renders, do NOT use state. Use a regular variable instead
+
+Q26. What is the mechanic of an Re-render ?
+1. User clicks on event handler (ex: onclick)
+2. State is updated
+3. React re-renders the view 
+4. View is updated
+5. UI is now insync with Data
+
+Q25. What is unmounting ?
+- When a component disappears from screen
+
+Q24. What is re-rendering ?
+- React calls the component function again
+- Basically react removes the entire view and re-renders a new one
+
+Q23. How is a componenet view updated when it is changed ? 
+- This is due to state
+- In react, a view is updated by re-rendering that specific component
+
+
+Q22. How to identify hooks ? 
+- Start with the word 'use' 
+Ex: useEffect, useState, useReducer
+
+Q21. What does state allows us to do ?
+1. Update the components view (by re-rendering)
+2. Persist local variables between renders
+
+Q20. What is state ? 
+- Data that component can hold over time.
+- Think of it as components memory 
+- Updating component state will TRIGGER react to re-render the component (i.e useEffect)
+- State is what keeps the UI insync with the Data
+
+***Q19. HOW TO PASS ARGUMENTS to a onClick ....
+You will need to use an anonymous function to pass it in 
+Ex:             
+1. <Button onClick={() => onClickInnerButton(messages)}>
+2. then on onClick
+3. function onClickInnerButton(messages) {....}
+
+Q18. How to find out what properties are in props ?
+Use this:
+  for (var key in props) {
+    console.log(key + '     ' + props[key])
+  }
+Or use the Reducer outlined inthe 'Notes' above
+
+Q17. What are common properties passed in the prop ?
+- props.children : Any child elements inside the Component can be passed
+
+
+Q16. What if you pass in empty props ?
+- You can still access the props even if you dont pass anything in 
+Ex: <Footer> </Footer>
+But in function we can do this:
+function Footer(props) {
+    console.log(props)  // This would be empty
+}
+
+Q15. What are the rules of JSX ?
+1. JSX works essentially like HTML but we can enter JS mode using '{...}' curly brackets
+2. We can place JS expressions inside {}
+i.e: reference variables, create arrays or objects, [].map, ternary operators
+3. Statements are NOT allowed (i/else, for, switch)
+4. JSX produces a JS expressions 
+    - Can place other pieces of JSX inside {}
+    - We can write JSX anywhere inside a component 
+5. JSX can return only one root element. If you need more,
+you can use emty <> </>
+ 
+
+Q14. How to access the props passed to a component? 
+Use the "props" keyword
+Ex: props.name,  props.id, props.ingredients
+
+Q13. How to send props to components?
+- Need to do two things:
+1. Send props through the parent componenet
+Ex:  <Pizza pizzaObj={pizza}/>
+2. Receive the props in the child compoenet
+Ex: function Pizza({ pizzaObj }) {.....}
+
+Q12. What are props ?
+- Props are used to pass data from parent components to child
+- Used to configure each unique components
+- Anything can be passed as props (i.e single values, arrays, objects, functions and other components)
+- Props are READ ONLY !!!! 
+    > If you need to modify props ..then you should use STATE
+
+
+Q12. What is JSX ? 
+- Declarative syntax to describe what components looks like and how they works
+    - Describes what UI should like like using JSX, based on current data
+    - Abstraction away from DOM: Never touch the DOM
+    - Reflection of the current data
+- Componenets must return a block of JSX
+- Extension of JS that allows us to embed JS, CSS and React compnenets into HTML
+- Each JSX Element is converted Reaxt.createElement function call  (using BABEL)
+
+Component_________
+|      Data       |
+| (Props & State) |
+|      Logic      |
+|    Appearance   |
+|_________________|
+
+Q11. What are components ? 
+- Components are building blocks
+- React made entirely out of components
+- Each component has its own data, logic and appearance (how it works and looks)
+- Components can be reused, nested inside other compoenets and pass data between them
+- MUST return a block of JSX, in order to render to the UI (can also return null)
+
+Q10. What is the purpose of StrictMode in React ?
+1. Checks for outdated parts during build
+2. Runs components twice to check for bugs
+
+Q9. How to start react app ?
+- npx run start
+
+Q8. How to build a Create-react-app ?
+- npx create-react-app NAMEOFAPP
+
+Q7. what are Production grade React frameworks ?
+1. Next.JS - Full stack React framework
+2. Remix - Full stack React framework with nested routing
+
+Q6. Pros and cos of Vite ?
+1. Moder build tool that contains a template for setting up React Applications
+2. Need to maually set up ESLint (and others)
+3. Extremely fast hot module replacement and bundling
+
+Q5. Pros and cons of Create-React-App ?
+1. Complete starter kit for react Applications
+2. Everything is already configured : ESLint, Prettier, Jest, etc
+3. Slow and Outdated (i.e webpack)
+
+Q4. What are the two options for setting up a react project? 
+1. Create-react-app
+2. Vite  
+
+
+
+Q3. How is React state driven ?
+1. State of data changes 
+2. Cause a Render on UI
+3. User updates the UI
+4. Causes an update in State
+5. State of data changes
+6. Causes a Re-Render of the UI
+7. Repeat ...
+
+Remember: React reacts to state changes by re-rendering the UI
+
+
+Q2. What is React ? 
+- Declarative, component based, state driven JS library for building UI
+- Never touches the DOM
+- Main goal of react is to keep UI insync with the data
+
+Q1. Why do FE Framework exists ?
+1. Keep UI in sync with Data. (Very diffcult from vanilla JS to do this)
+2. Enforce a correct way of structuring code
+3. Give developers a consistent way to buildin FE Applications
+
+- How do we figure out which dependency triggered the useEffect ?
