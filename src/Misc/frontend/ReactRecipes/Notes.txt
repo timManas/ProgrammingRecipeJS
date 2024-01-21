@@ -190,6 +190,60 @@ Then use a useEffect cleanup function !!!!
 
 Questions
 
+Q128. When to use Context API or redux ?
+        Context API + useReducer                                     Redux
+----------------------------------------------------------------------------------------------------------
+- Use context API for global state management in small apps         - Use Redux for global statemement in large apps
+- When you need to solve simple prop drilling                       - You need state updated frequently (shopping cart, complex filters, search)
+- when you need to manage state in local subtree of app             - When you have complex state with nested objects 
+
+
+Q127. Comparison of Context API vs Redux ?
+        Context API + useReducer                            Redux
+----------------------------------------------------------------------------------------------------------
+- Built into React                                  - Requires additional package (larger bundle size)
+- Easy to setup a single context                    - More work to set up initially
+- Additional state 'slide' requires                 - Once setup, easy to create additional state slices
+new context set up from scratch
+('provider hell' in App.js)
+- No mechanism for async operations                 - Support middlware for asynch operations
+- Performance optimization is BAD                   - Performance is optimized out of the Box
+- Only React Dev tools                              - Excellent Dev Tools
+
+
+
+Q126. What is the prepare() method ?
+- Prepares the data
+- Has the same parameters as the action creator 
+- Returns the payload for the reducer
+Ex: requestLoan()
+
+Q125. How does this line work ? const { withdraw, requestLoan, payLoan } = accountSlice.actions
+- Basically createSlice() contains the foloowing below. (Q124)
+- Hence we can destructure withdraw,requestLoad, and payload from the "actions" properties below
+
+*****Q124. What properties does createSlice() contains ? 
+1. actions
+2. caseReducers
+3. getInitialState
+4. name
+5. reducer
+
+Q123. How does createSlice set the action.type ?
+- the "name" and the reducers type will set the type
+For example:
+- "/account/deposit" is the same as the "accountSlice" name which is 'account', followed by the reducers called 'deposit'
+    > This is an opionated way of how redux toolkit works using createSlice()
+- "/customer/updateName" is the same as the "customerSlice" name which is 'customer', followed by the reducer called 'updateName'
+
+
+Q122. What is the configureStore() and why is it better than createStore() in redux ? 
+1. Automtically combine reducers
+2. Automatically add Thunk
+3. Automatically setup developer tools 
+
+
+
 Q121. What is Redux Took Kit (RTK) ?
 - Modern and Preferred way of writing Redux Code
 - An oppionated approach which forces users to use Redux best practices
