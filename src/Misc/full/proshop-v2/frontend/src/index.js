@@ -33,6 +33,9 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
+/**
+    We need to have index={true}, otherwise it will show multiple screens
+ */
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>

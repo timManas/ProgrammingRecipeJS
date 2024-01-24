@@ -22,6 +22,7 @@ const importData = async () => {
 
     const adminUser = createdUsers[0]._id;
 
+    // Why do we need this ? Basically, this states that this product was added by the Admin
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser };
     });
