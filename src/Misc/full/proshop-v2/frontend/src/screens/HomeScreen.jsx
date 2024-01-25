@@ -12,10 +12,14 @@ import Meta from '../components/Meta';
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
 
-  const { data, isLoading, error } = useGetProductsQuery({
+  const getProductQueryResult = useGetProductsQuery({
     keyword,
     pageNumber,
   });
+
+  console.log('result: ' + JSON.stringify(getProductQueryResult));
+
+  const { data, isLoading, error } = getProductQueryResult;
 
   return (
     <>

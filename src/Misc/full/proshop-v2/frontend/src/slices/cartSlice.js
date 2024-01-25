@@ -5,6 +5,7 @@ const initialState = localStorage.getItem('cart')
   ? JSON.parse(localStorage.getItem('cart'))
   : { cartItems: [], shippingAddress: {}, paymentMethod: 'PayPal' };
 
+// We use createSlice since we are storing state in the reducer
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -24,7 +25,7 @@ const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, item];
       }
 
-      return updateCart(state, item);
+      return updateCart(state);
     },
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);

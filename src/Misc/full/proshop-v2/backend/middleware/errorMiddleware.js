@@ -4,6 +4,7 @@ const notFound = (req, res, next) => {
   next(error);
 };
 
+// YO ! By creating errorHandler, we override the error handling in express
 const errorHandler = (err, req, res, next) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message;

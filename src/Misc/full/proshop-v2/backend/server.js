@@ -46,6 +46,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(notFound);
+
+// this will allow to use errorHandler middleware throughout the app. Any error with "new Error()" will trigger the middleware
+// errorHandler - will override the base error handling as per express documentation
 app.use(errorHandler);
 
 app.listen(port, () =>

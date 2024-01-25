@@ -21,6 +21,7 @@ async function baseQueryWithAuth(args, api, extra) {
   return result;
 }
 
+// We use createApi since we are doing API calls and Not storing state
 export const apiSlice = createApi({
   baseQuery: baseQueryWithAuth, // Use the customized baseQuery
   tagTypes: ['Product', 'Order', 'User'],

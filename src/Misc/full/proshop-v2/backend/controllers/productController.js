@@ -39,7 +39,7 @@ const getProductById = asyncHandler(async (req, res) => {
     // NOTE: this will run if a valid ObjectId but no product was found
     // i.e. product may be null
     res.status(404);
-    throw new Error('Product not found');
+    throw new Error('Product not found'); // This will trigger errorHandler middl
   }
 });
 

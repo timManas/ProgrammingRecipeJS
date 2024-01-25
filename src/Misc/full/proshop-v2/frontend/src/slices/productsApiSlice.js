@@ -1,8 +1,10 @@
 import { PRODUCTS_URL } from '../constants';
 import { apiSlice } from './apiSlice';
 
+// Note: Instead of axios sending thr request. Redux is Now responsible for the fetch
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // useGetProductsQuery
     getProducts: builder.query({
       query: ({ keyword, pageNumber }) => ({
         url: PRODUCTS_URL,
@@ -11,12 +13,16 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ['Products'],
     }),
+
+    //useGetProductDetailsQuery
     getProductDetails: builder.query({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
       }),
       keepUnusedDataFor: 5,
     }),
+
+    // useCreateProductMutation
     createProduct: builder.mutation({
       query: () => ({
         url: `${PRODUCTS_URL}`,
@@ -24,6 +30,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Product'],
     }),
+
+    // useUpdateProductMutation
     updateProduct: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data.productId}`,
@@ -32,6 +40,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Products'],
     }),
+
+    // useUploadProductImageMutation
     uploadProductImage: builder.mutation({
       query: (data) => ({
         url: `/api/upload`,
@@ -39,6 +49,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
+    // useDeleteProductMutation
     deleteProduct: builder.mutation({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
@@ -46,6 +58,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Product'],
     }),
+
+    // useCreateReviewMutation
     createReview: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data.productId}/reviews`,
@@ -54,6 +68,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Product'],
     }),
+
+    // useGetTopProductsQuery
     getTopProducts: builder.query({
       query: () => `${PRODUCTS_URL}/top`,
       keepUnusedDataFor: 5,

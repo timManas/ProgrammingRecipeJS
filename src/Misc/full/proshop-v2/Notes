@@ -2244,6 +2244,10 @@ BFinal Questions
 - Why do we need "export default ? "
 - When do we export ?
 - What is asyncHandler ?
+
+  > We need asyncHandler, we need async await since the mongoose methods are asynchronous
+  > In order to have an elegant error handling solution, we need to wrap it an async handler so we dont have to use alot of try/catches
+
 - What is (req,res) ?
 - what is res.status() ?
 - What is res.json () ?
@@ -2362,3 +2366,15 @@ For EACH functionality
 1. Setup the backend Functionality
 2. Set up Middleware if required
 3. Setup the frontEnd Functionality
+
+Questions from the proShop V2
+
+1. What is fetchBaseQuery ?
+2. What is createApi ?
+3. What is injectEndPoint ?
+4. What is useGetProductsQuery ?
+
+// Notes
+
+1. We use createSlice since we are storing state in the reducer
+2. We use createApi since we are doing API calls and Not storing state
