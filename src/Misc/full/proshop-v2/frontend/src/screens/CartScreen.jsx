@@ -23,6 +23,7 @@ const CartScreen = () => {
   // NOTE: no need for an async function here as we are not awaiting the
   // resolution of a Promise
   const addToCartHandler = (product, qty) => {
+    // Heads up: {...product,qty} is the PAYLOAD !!
     dispatch(addToCart({ ...product, qty }));
   };
 

@@ -13,6 +13,8 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       // NOTE: we don't need user, rating, numReviews or reviews
       // in the cart
+      console.log('state: ' + JSON.stringify(state));
+      console.log('action: ' + JSON.stringify(action));
       const { user, rating, numReviews, reviews, ...item } = action.payload;
 
       const existItem = state.cartItems.find((x) => x._id === item._id);
@@ -24,6 +26,8 @@ const cartSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, item];
       }
+
+      console.log('updated state: ' + JSON.stringify(state));
 
       return updateCart(state);
     },

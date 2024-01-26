@@ -10,6 +10,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  // This checks the password using bcrypt
+  // Note: matchPassword is the method defined in the userSchema
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
@@ -100,6 +102,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
 
+    // Save to the DB
     const updatedUser = await user.save();
 
     res.json({

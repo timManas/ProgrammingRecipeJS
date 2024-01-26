@@ -27,13 +27,19 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// *** This is what validates the password ***
 // Match user entered password to hashed password in database
+// 'methods' adds a method to usersSchema.
+// In this case, we add a method called "matchPassword"
+// Note: 'this.password' is the password currently store in the db
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // Encrypt password using bcrypt
+// .pre allows us to do something BEFORE it gets saved to the database
 userSchema.pre('save', async function (next) {
+  // If we are not modifying, then move on
   if (!this.isModified('password')) {
     next();
   }

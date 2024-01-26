@@ -17,7 +17,7 @@ const HomeScreen = () => {
     pageNumber,
   });
 
-  console.log('result: ' + JSON.stringify(getProductQueryResult));
+  // console.log('result: ' + JSON.stringify(getProductQueryResult));
 
   const { data, isLoading, error } = getProductQueryResult;
 

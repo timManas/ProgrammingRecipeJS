@@ -7,12 +7,17 @@ const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   // Read JWT from the 'jwt' cookie
+  // Note: 'jwt' is the name of the token. Set in res.cookie()
   token = req.cookies.jwt;
 
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+      // Put all the userInfomation minus password into the request
+      // Why ? So that all our request has information about the user
+      // Rememberm this is a middleware, when calling 'next', we place
+      // the users info directly into the requesr
       req.user = await User.findById(decoded.userId).select('-password');
 
       next();

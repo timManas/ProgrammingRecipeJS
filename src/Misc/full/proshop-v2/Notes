@@ -2378,3 +2378,11 @@ Questions from the proShop V2
 
 1. We use createSlice since we are storing state in the reducer
 2. We use createApi since we are doing API calls and Not storing state
+
+3. Authentication work flow
+4. User enters correct username / password
+5. Generate JWT WebToken
+6. Store Token in back end
+7. Response back is a HTTP only cookie with token
+8. We use a cookie parser to extract cookie
+9. Use cookie in subsequent requests to the server
