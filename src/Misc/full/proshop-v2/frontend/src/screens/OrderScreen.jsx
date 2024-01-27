@@ -60,7 +60,7 @@ const OrderScreen = () => {
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
-  // Paypal Documentation: onApprove gets called when finalizing the traction.
+  // Paypal Documentation: onApprove gets called when finalizing the transaction.
   // Used to inform the buyer that the transaction is complete
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
