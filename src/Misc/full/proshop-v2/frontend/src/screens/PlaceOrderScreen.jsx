@@ -37,6 +37,8 @@ const PlaceOrderScreen = () => {
         totalPrice: cart.totalPrice,
       }).unwrap();
       dispatch(clearCartItems());
+
+      //Note: res._id is the OrderId !!!!! which then gets fed to paypal
       navigate(`/order/${res._id}`);
     } catch (err) {
       toast.error(err);

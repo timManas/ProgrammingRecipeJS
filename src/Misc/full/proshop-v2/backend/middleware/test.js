@@ -4,7 +4,7 @@
 
 // Question - Where did req, res,next come from ?
 function asyncHandler(fn) {
-  console.log('fn: ' + fn);
+  // console.log('fn: ' + fn);
   return function (req, res, next) {
     return Promise.resolve(fn(req, res, next)).catch(next);
   };

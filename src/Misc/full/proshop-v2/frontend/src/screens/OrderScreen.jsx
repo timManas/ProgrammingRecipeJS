@@ -14,8 +14,10 @@ import {
 } from '../slices/ordersApiSlice';
 
 const OrderScreen = () => {
+  // id is renamed to orderId
   const { id: orderId } = useParams();
 
+  // data is renamed to order
   const {
     data: order,
     refetch,
@@ -58,6 +60,8 @@ const OrderScreen = () => {
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
+  // Paypal Documentation: onApprove gets called when finalizing the traction.
+  // Used to inform the buyer that the transaction is complete
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {

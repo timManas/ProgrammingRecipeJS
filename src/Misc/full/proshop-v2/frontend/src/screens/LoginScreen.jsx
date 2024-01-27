@@ -16,10 +16,17 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  // Watch out for this !
+  // 'login' is referring to the login in authSlice.js
+  // hence login is undefined here below
+  // This is the same for other mutations as well
+  const loginResult = useLoginMutation();
+  console.log('loginResult: ' + JSON.stringify(loginResult));
+  const [login, { isLoading }] = loginResult;
 
   const { userInfo } = useSelector((state) => state.auth);
 
+  // redirect user if needed
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const redirect = sp.get('redirect') || '/';
@@ -35,7 +42,7 @@ const LoginScreen = () => {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate(redirect);
+      navigate(redirect); // Navigate to the next page
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
